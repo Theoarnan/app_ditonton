@@ -2,6 +2,11 @@ import 'package:app_ditonton/data/models/movie_table.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
 import 'package:app_ditonton/domain/entities/movie.dart';
 import 'package:app_ditonton/domain/entities/movie_detail.dart';
+import 'package:app_ditonton/features/tvseries/data/models/season_model.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/episode.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/season_detail.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/tv_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -35,6 +40,75 @@ const testMovieDetail = MovieDetail(
   title: 'title',
   voteAverage: 1,
   voteCount: 1,
+);
+
+const seasonsModel = <SeasonModel>[
+  SeasonModel(
+    airDate: "2023-01-23",
+    episodeCount: 73,
+    id: 294181,
+    name: "Season 1",
+    overview: "",
+    posterPath: '/pVBxYfshGajQ600OKv8K4y8TI0K.jpg',
+    seasonNumber: 1,
+  )
+];
+
+const seasons = <Season>[
+  Season(
+    airDate: "2023-01-23",
+    episodeCount: 73,
+    id: 294181,
+    name: "Season 1",
+    overview: "",
+    posterPath: '/pVBxYfshGajQ600OKv8K4y8TI0K.jpg',
+    seasonNumber: 1,
+  )
+];
+
+const testTvDetail = TvDetail(
+  adult: false,
+  backdropPath: '/mAJ84W6I8I272Da87qplS2Dp9ST.jpg',
+  firstAirDate: '2023-01-23',
+  genres: [Genre(id: 9648, name: 'Mystery')],
+  id: 202250,
+  name: 'Dirty Linen',
+  numberOfEpisodes: 93,
+  numberOfSeasons: 2,
+  originalName: "Dirty Linen",
+  overview:
+      "To exact vengeance, a young woman infiltrates the household of an influential family as a housemaid to expose their dirty secrets. However, love will get in the way of her revenge plot.",
+  popularity: 2901.537,
+  posterPath: "/aoAZgnmMzY9vVy9VWnO3U5PZENh.jpg",
+  voteAverage: 4.941,
+  voteCount: 17,
+  seasons: seasons,
+);
+
+const episodes = <Episode>[
+  Episode(
+    airDate: "2023-01-23",
+    episodeNumber: 1,
+    id: 3727904,
+    name: "Four Underground",
+    overview:
+        "The powerful and influential Fiero clan celebrates the 15th anniversary of their cockpit arena built on the remains of a tragic and bloody past. A girl stops at nothing until she unravels the mystery behind her mother's disappearance.",
+    runtime: 46,
+    seasonNumber: 1,
+    stillPath: "/8u3iGSXXTNA46GPcvgzmMBSjnkj.jpg",
+    voteAverage: 10.0,
+    voteCount: 1,
+  )
+];
+
+const testSeasonDetail = SeasonDetail(
+  id: 294181,
+  airDate: "2023-01-23",
+  name: "Season 1",
+  overview: "",
+  posterPath: "/pVBxYfshGajQ600OKv8K4y8TI0K.jpg",
+  seasonNumber: 1,
+  episodes: episodes,
 );
 
 final testWatchlistMovie = Movie.watchlist(

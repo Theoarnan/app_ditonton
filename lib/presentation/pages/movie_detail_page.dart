@@ -12,7 +12,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const routeName = '/detail';
+  static const routeName = '/detail-movie';
   final int id;
 
   const MovieDetailPage({super.key, required this.id});
