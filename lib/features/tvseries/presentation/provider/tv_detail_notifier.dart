@@ -47,9 +47,9 @@ class TvDetailNotifier extends ChangeNotifier {
             _recommendationState = RequestState.error;
             _message = failure.message;
           },
-          (movies) {
+          (tvRecomendations) {
             _recommendationState = RequestState.loaded;
-            _tvRecommendations = movies;
+            _tvRecommendations = tvRecomendations;
           },
         );
         _tvState = RequestState.loaded;

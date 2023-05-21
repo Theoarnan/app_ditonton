@@ -40,15 +40,17 @@ class _TvDetailPageState extends State<TvDetailPage> {
               child: CircularProgressIndicator(),
             );
           } else if (provider.tvState == RequestState.loaded) {
-            final movie = provider.tvDetail;
             return SafeArea(
+              key: const Key('content_detail'),
               child: DetailContent(
-                movie,
-                provider.tvRecommendations,
+                provider.tvDetail,
               ),
             );
           } else {
-            return Text(provider.message);
+            return Center(
+              key: const Key('error_message'),
+              child: Text(provider.message),
+            );
           }
         },
       ),
@@ -58,11 +60,9 @@ class _TvDetailPageState extends State<TvDetailPage> {
 
 class DetailContent extends StatelessWidget {
   final TvDetail tvDetail;
-  final List<Tv> recommendations;
 
   const DetailContent(
-    this.tvDetail,
-    this.recommendations, {
+    this.tvDetail, {
     super.key,
   });
 
@@ -298,11 +298,15 @@ class DetailContent extends StatelessWidget {
                                 } else if (data.recommendationState ==
                                     RequestState.loaded) {
                                   return SizedBox(
+                                    key: const Key(
+                                      'content_detail_recommendation',
+                                    ),
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final tv = recommendations[index];
+                                        final tv =
+                                            data.tvRecommendations[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
@@ -334,7 +338,7 @@ class DetailContent extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      itemCount: recommendations.length,
+                                      itemCount: data.tvRecommendations.length,
                                     ),
                                   );
                                 } else {

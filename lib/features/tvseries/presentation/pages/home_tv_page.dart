@@ -59,12 +59,21 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 final state = data.onTheAirState;
                 if (state == RequestState.loading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    key: Key('loading_on_the_air'),
+                    child: CircularProgressIndicator(
+                      key: Key('circular_on_the_air'),
+                    ),
                   );
                 } else if (state == RequestState.loaded) {
-                  return TvList(data.onTheAirTv);
+                  return TvList(
+                    key: const Key('listview_on_the_air'),
+                    data.onTheAirTv,
+                  );
                 } else {
-                  return const Text('Failed');
+                  return Center(
+                    key: const Key('error_message_on_the_air'),
+                    child: Text(data.message),
+                  );
                 }
               }),
               _buildSubHeading(
@@ -76,12 +85,21 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 final state = data.popularTvState;
                 if (state == RequestState.loading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    key: Key('loading_popular'),
+                    child: CircularProgressIndicator(
+                      key: Key('circular_popular'),
+                    ),
                   );
                 } else if (state == RequestState.loaded) {
-                  return TvList(data.popularTv);
+                  return TvList(
+                    key: const Key('listview_popular'),
+                    data.popularTv,
+                  );
                 } else {
-                  return const Text('Failed');
+                  return Center(
+                    key: const Key('error_message_popular'),
+                    child: Text(data.message),
+                  );
                 }
               }),
               _buildSubHeading(
@@ -93,12 +111,21 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 final state = data.topRatedTvState;
                 if (state == RequestState.loading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    key: Key('loading_top_rated'),
+                    child: CircularProgressIndicator(
+                      key: Key('circular_top_rated'),
+                    ),
                   );
                 } else if (state == RequestState.loaded) {
-                  return TvList(data.topRatedTv);
+                  return TvList(
+                    key: const Key('listview_top_rated'),
+                    data.topRatedTv,
+                  );
                 } else {
-                  return const Text('Failed');
+                  return Center(
+                    key: const Key('error_message_top_rated'),
+                    child: Text(data.message),
+                  );
                 }
               }),
             ],
