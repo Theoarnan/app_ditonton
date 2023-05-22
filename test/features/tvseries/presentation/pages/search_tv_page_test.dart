@@ -1,29 +1,31 @@
-import 'package:app_ditonton/common/failure.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
-import 'package:app_ditonton/features/tvseries/domain/usecases/search_tv.dart';
+import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_search_notifier.dart';
-import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
-import '../provider/tv_search_notifier_test.mocks.dart';
+import 'search_tv_page_test.mocks.dart';
 
-@GenerateMocks([SearchTv])
+@GenerateMocks([TvSearchNotifier])
 void main() {
-  late TvSearchNotifier provider;
-  late MockSearchTv mockSearchTv;
-  late int listenerCallCount;
+  late MockTvSearchNotifier mockNotifier;
 
   setUp(() {
-    listenerCallCount = 0;
-    mockSearchTv = MockSearchTv();
-    provider = TvSearchNotifier(searchTv: mockSearchTv)
-      ..addListener(() {
-        listenerCallCount += 1;
-      });
+    mockNotifier = MockTvSearchNotifier();
   });
+
+  Widget makeTestableWidget(Widget body) {
+    return ChangeNotifierProvider<TvSearchNotifier>.value(
+      value: mockNotifier,
+      child: MaterialApp(
+        home: body,
+      ),
+    );
+  }
 
   const tTv = Tv(
     id: 202250,
@@ -40,42 +42,43 @@ void main() {
     voteCount: 17,
   );
   const listTv = <Tv>[tTv];
-  const tQuery = 'Dirty';
 
-  group('Search tv', () {
-    test('should change state to loading when usecase is called', () async {
-      // arrange
-      when(mockSearchTv.execute(tQuery))
-          .thenAnswer((_) async => const Right(listTv));
-      // act
-      provider.fetchTvSearch(tQuery);
-      // assert
-      expect(provider.state, RequestState.loading);
+  group('Page search tv', () {
+    testWidgets('should display center progress bar when loading',
+        (WidgetTester tester) async {
+      when(mockNotifier.state).thenReturn(RequestState.loading);
+
+      final centerFinder = find.byKey(const Key('loading_search_tv'));
+      final progressBarFinder = find.byKey(const Key('circular_search_tv'));
+
+      await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
+
+      expect(centerFinder, findsOneWidget);
+      expect(progressBarFinder, findsOneWidget);
     });
 
-    test('should change search result data when data is gotten successfully',
-        () async {
-      // arrange
-      when(mockSearchTv.execute(tQuery))
-          .thenAnswer((_) async => const Right(listTv));
-      // act
-      await provider.fetchTvSearch(tQuery);
-      // assert
-      expect(provider.state, RequestState.loaded);
-      expect(provider.searchResult, listTv);
-      expect(listenerCallCount, 2);
+    testWidgets('should display list search content when data is loaded',
+        (WidgetTester tester) async {
+      when(mockNotifier.state).thenReturn(RequestState.loaded);
+      when(mockNotifier.searchResult).thenReturn(listTv);
+
+      final listViewFinder = find.byKey(const Key('list_search_tv'));
+
+      await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
+
+      expect(listViewFinder, findsOneWidget);
     });
 
-    test('should return error when data is unsuccessful', () async {
-      // arrange
-      when(mockSearchTv.execute(tQuery))
-          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
-      // act
-      await provider.fetchTvSearch(tQuery);
-      // assert
-      expect(provider.state, RequestState.error);
-      expect(provider.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+    testWidgets('should display text with message when Error',
+        (WidgetTester tester) async {
+      when(mockNotifier.state).thenReturn(RequestState.error);
+      when(mockNotifier.message).thenReturn('Error message');
+
+      final textFinder = find.byKey(const Key('error_message_search_tv'));
+
+      await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
+
+      expect(textFinder, findsOneWidget);
     });
   });
 }

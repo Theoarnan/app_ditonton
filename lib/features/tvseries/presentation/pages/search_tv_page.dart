@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_search_notifier.dart';
@@ -42,11 +44,15 @@ class SearchTvPage extends StatelessWidget {
               builder: (context, data, child) {
                 if (data.state == RequestState.loading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    key: Key('loading_search_tv'),
+                    child: CircularProgressIndicator(
+                      key: Key('circular_search_tv'),
+                    ),
                   );
                 } else if (data.state == RequestState.loaded) {
                   final result = data.searchResult;
                   return Expanded(
+                    key: const Key('list_search_tv'),
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
@@ -57,8 +63,12 @@ class SearchTvPage extends StatelessWidget {
                     ),
                   );
                 } else {
+                  log('Sini');
                   return Expanded(
-                    child: Container(),
+                    child: Center(
+                      key: const Key('error_message_search_tv'),
+                      child: Text(data.message),
+                    ),
                   );
                 }
               },

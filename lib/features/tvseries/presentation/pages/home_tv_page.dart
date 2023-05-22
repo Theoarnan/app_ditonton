@@ -107,27 +107,29 @@ class _HomeTvPageState extends State<HomeTvPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, TopRatedTvPage.routeName),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedTvState;
-                if (state == RequestState.loading) {
-                  return const Center(
-                    key: Key('loading_top_rated'),
-                    child: CircularProgressIndicator(
-                      key: Key('circular_top_rated'),
-                    ),
-                  );
-                } else if (state == RequestState.loaded) {
-                  return TvList(
-                    key: const Key('listview_top_rated'),
-                    data.topRatedTv,
-                  );
-                } else {
-                  return Center(
-                    key: const Key('error_message_top_rated'),
-                    child: Text(data.message),
-                  );
-                }
-              }),
+              Consumer<TvListNotifier>(
+                builder: (context, data, child) {
+                  final state = data.topRatedTvState;
+                  if (state == RequestState.loading) {
+                    return const Center(
+                      key: Key('loading_top_rated'),
+                      child: CircularProgressIndicator(
+                        key: Key('circular_top_rated'),
+                      ),
+                    );
+                  } else if (state == RequestState.loaded) {
+                    return TvList(
+                      key: const Key('listview_top_rated'),
+                      data.topRatedTv,
+                    );
+                  } else {
+                    return Center(
+                      key: const Key('error_message_top_rated'),
+                      child: Text(data.message),
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
