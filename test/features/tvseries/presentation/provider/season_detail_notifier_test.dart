@@ -1,3 +1,4 @@
+import 'package:app_ditonton/common/failure.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/domain/usecases/get_season_detail.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/season_detail_notifier.dart';
@@ -62,6 +63,17 @@ void main() {
       expect(provider.seasonState, RequestState.loaded);
       expect(provider.seasonDetail, testSeasonDetail);
       expect(listenerCallCount, 2);
+    });
+
+    test('should update error message when request in successful', () async {
+      // arrange
+      when(mockGetSeasonDetail.execute(tId, tNumberSeason))
+          .thenAnswer((_) async => const Left(ServerFailure('Failed')));
+      // act
+      await provider.fetchSeasonDetail(id: tId, seasonNumber: tNumberSeason);
+      // assert
+      expect(provider.seasonState, RequestState.error);
+      expect(provider.message, 'Failed');
     });
   });
 }

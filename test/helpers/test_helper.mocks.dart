@@ -8,7 +8,7 @@ import 'dart:convert' as _i24;
 import 'dart:typed_data' as _i25;
 
 import 'package:app_ditonton/common/failure.dart' as _i9;
-import 'package:app_ditonton/data/datasources/db/database_helper.dart' as _i16;
+import 'package:app_ditonton/config/db/database_helper.dart' as _i16;
 import 'package:app_ditonton/data/datasources/movie_local_data_source.dart'
     as _i14;
 import 'package:app_ditonton/data/datasources/movie_remote_data_source.dart'

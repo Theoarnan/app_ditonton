@@ -58,6 +58,13 @@ void main() {
         .thenAnswer((_) async => Right(tTvList));
   }
 
+  void arrangeUsecaseError() {
+    when(mockGetTvDetail.execute(tId))
+        .thenAnswer((_) async => const Left(ServerFailure('Failed')));
+    when(mockGetTvRecommendations.execute(tId))
+        .thenAnswer((_) async => Left(const ServerFailure('Failed')));
+  }
+
   group('Get Tv Detail', () {
     test('should get data from the usecase', () async {
       // arrange
@@ -88,6 +95,16 @@ void main() {
       expect(provider.tvState, RequestState.loaded);
       expect(provider.tvDetail, testTvDetail);
       expect(listenerCallCount, 3);
+    });
+
+    test('should update error message when request in successful', () async {
+      // arrange
+      arrangeUsecaseError();
+      // act
+      await provider.fetchTvDetail(tId);
+      // assert
+      expect(provider.tvState, RequestState.error);
+      expect(provider.message, 'Failed');
     });
 
     test('should change recommendation movies when data is gotten successfully',
