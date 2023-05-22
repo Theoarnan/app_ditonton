@@ -69,15 +69,18 @@ void main() {
     testWidgets('should display text with message when Error',
         (WidgetTester tester) async {
       when(mockNotifier.tvState).thenReturn(RequestState.error);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.error);
       when(mockNotifier.message).thenReturn('Error message');
 
       final textFinder = find.byKey(const Key('error_message'));
+      final textFinder2 = find.byType(Text);
 
       await tester.pumpWidget(makeTestableWidget(const TvDetailPage(
         id: tId,
       )));
 
       expect(textFinder, findsOneWidget);
+      expect(textFinder2, findsOneWidget);
     });
   });
 }

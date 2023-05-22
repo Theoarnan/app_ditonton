@@ -46,13 +46,17 @@ class _SeasonDetailPageState extends State<SeasonDetailPage> {
           } else if (provider.seasonState == RequestState.loaded) {
             final season = provider.seasonDetail;
             return SafeArea(
+              key: const Key('content_detail_season'),
               child: DetailContent(
                 season: widget.argument.season,
                 seasonDetail: season,
               ),
             );
           } else {
-            return Text(provider.message);
+            return Center(
+              key: const Key('error_message'),
+              child: Text(provider.message),
+            );
           }
         },
       ),

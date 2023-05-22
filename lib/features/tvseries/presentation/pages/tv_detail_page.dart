@@ -107,42 +107,7 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
-                              onPressed: () async {
-                                // if (!isAddedWatchlist) {
-                                //   await Provider.of<MovieDetailNotifier>(
-                                //           context,
-                                //           listen: false)
-                                //       .addWatchlist(movie);
-                                // } else {
-                                //   await Provider.of<MovieDetailNotifier>(
-                                //           context,
-                                //           listen: false)
-                                //       .removeFromWatchlist(movie);
-                                // }
-
-                                // final message =
-                                //     Provider.of<MovieDetailNotifier>(context,
-                                //             listen: false)
-                                //         .watchlistMessage;
-
-                                // if (message ==
-                                //         MovieDetailNotifier
-                                //             .watchlistAddSuccessMessage ||
-                                //     message ==
-                                //         MovieDetailNotifier
-                                //             .watchlistRemoveSuccessMessage) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text(message)));
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           content: Text(message),
-                                //         );
-                                //       });
-                                // }
-                              },
+                              onPressed: () async {},
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: const [
@@ -241,39 +206,6 @@ class DetailContent extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                        // return ListTile(
-                                        //   contentPadding:
-                                        //       const EdgeInsetsDirectional.all(
-                                        //           8),
-                                        //   onTap: () {},
-                                        //   leading: SizedBox(
-                                        //     height: 200,
-                                        //     width: 100,
-                                        //     child: ClipRRect(
-                                        //       child: CachedNetworkImage(
-                                        //         imageUrl:
-                                        //             'https://image.tmdb.org/t/p/w500${season.posterPath}',
-                                        //         fit: BoxFit.cover,
-                                        //         placeholder: (context, url) =>
-                                        //             const Center(
-                                        //           child:
-                                        //               CircularProgressIndicator(),
-                                        //         ),
-                                        //         errorWidget:
-                                        //             (context, url, error) =>
-                                        //                 const Icon(Icons.error),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        //   title: Text(
-                                        //     season.name,
-                                        //     style: kSubtitle,
-                                        //   ),
-                                        //   subtitle: Text(
-                                        //     season.episodeCount.toString(),
-                                        //     style: kSubtitle,
-                                        //   ),
-                                        // );
                                       },
                                       itemCount: tvDetail.seasons.length,
                                     ),
@@ -294,7 +226,9 @@ class DetailContent extends StatelessWidget {
                                   );
                                 } else if (data.recommendationState ==
                                     RequestState.error) {
-                                  return Text(data.message);
+                                  return Text(
+                                    data.message,
+                                  );
                                 } else if (data.recommendationState ==
                                     RequestState.loaded) {
                                   return SizedBox(
