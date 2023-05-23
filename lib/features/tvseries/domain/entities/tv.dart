@@ -1,19 +1,20 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class Tv extends Equatable {
-  final int id;
-  final String name;
-  final String? backdropPath;
-  final String? firstAirDate;
-  final List<int> genreIds;
-  final String originalName;
-  final String overview;
-  final double popularity;
-  final String? posterPath;
-  final double voteAverage;
-  final int voteCount;
+  int id;
+  String name;
+  String? backdropPath;
+  String? firstAirDate;
+  List<int>? genreIds;
+  String? originalName;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  double? voteAverage;
+  int? voteCount;
 
-  const Tv({
+  Tv({
     required this.id,
     required this.name,
     required this.backdropPath,
@@ -25,6 +26,13 @@ class Tv extends Equatable {
     required this.posterPath,
     required this.voteAverage,
     required this.voteCount,
+  });
+
+  Tv.watchlistTv({
+    required this.id,
+    required this.overview,
+    required this.posterPath,
+    required this.name,
   });
 
   @override

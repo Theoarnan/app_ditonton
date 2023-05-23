@@ -1,7 +1,7 @@
-import 'package:app_ditonton/domain/repositories/movie_repository.dart';
+import 'package:app_ditonton/features/watchlist/domain/repositories/watchlist_repository.dart';
 
 class GetWatchListStatus {
-  final MovieRepository repository;
+  final WatchlistRepository repository;
 
   GetWatchListStatus(this.repository);
 

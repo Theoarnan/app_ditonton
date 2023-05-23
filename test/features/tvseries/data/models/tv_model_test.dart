@@ -19,12 +19,12 @@ void main() {
     voteCount: 1,
   );
 
-  const tTv = Tv(
+  final tTv = Tv(
     id: 1,
     name: 'name',
     backdropPath: 'backdropPath',
     firstAirDate: 'firstAirDate',
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     originalName: 'originalName',
     overview: 'overview',
     popularity: 1,

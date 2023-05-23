@@ -1,6 +1,6 @@
 import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
+import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
 import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatefulWidget {

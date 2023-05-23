@@ -34,12 +34,12 @@ void main() {
       });
   });
 
-  const tTv = Tv(
+  final tTv = Tv(
     id: 202250,
     name: 'Dirty Linen',
     backdropPath: '/mAJ84W6I8I272Da87qplS2Dp9ST.jpg',
     firstAirDate: '2023-01-23',
-    genreIds: [9648, 18],
+    genreIds: const [9648, 18],
     originalName: 'Dirty Linen',
     overview:
         'To exact vengeance, a young woman infiltrates the household of an influential family as a housemaid to expose their dirty secrets. However, love will get in the way of her revenge plot.',

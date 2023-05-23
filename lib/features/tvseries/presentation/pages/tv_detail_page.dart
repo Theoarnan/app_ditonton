@@ -1,8 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_argument.dart';
-import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv_detail.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/season_detail_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_detail_notifier.dart';
@@ -27,6 +28,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
     Future.microtask(() {
       Provider.of<TvDetailNotifier>(context, listen: false)
           .fetchTvDetail(widget.id);
+      Provider.of<TvDetailNotifier>(context, listen: false)
+          .loadWatchlistStatus(widget.id);
     });
   }
 
@@ -41,9 +44,10 @@ class _TvDetailPageState extends State<TvDetailPage> {
             );
           } else if (provider.tvState == RequestState.loaded) {
             return SafeArea(
-              key: const Key('content_detail'),
+              key: const Key('content_detail_tv'),
               child: DetailContent(
                 provider.tvDetail,
+                isAddedWatchlist: provider.isAddedToWatchlist,
               ),
             );
           } else {
@@ -60,10 +64,12 @@ class _TvDetailPageState extends State<TvDetailPage> {
 
 class DetailContent extends StatelessWidget {
   final TvDetail tvDetail;
+  final bool isAddedWatchlist;
 
   const DetailContent(
     this.tvDetail, {
     super.key,
+    required this.isAddedWatchlist,
   });
 
   @override
@@ -107,12 +113,45 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
-                              onPressed: () async {},
+                              onPressed: () async {
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<TvDetailNotifier>(context,
+                                          listen: false)
+                                      .addWatchlist(tvDetail);
+                                } else {
+                                  await Provider.of<TvDetailNotifier>(context,
+                                          listen: false)
+                                      .removeFromWatchlist(tvDetail);
+                                }
+                                final message = Provider.of<TvDetailNotifier>(
+                                        context,
+                                        listen: false)
+                                    .watchlistMessage;
+                                if (message ==
+                                        TvDetailNotifier
+                                            .watchlistAddSuccessMessage ||
+                                    message ==
+                                        TvDetailNotifier
+                                            .watchlistRemoveSuccessMessage) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(message)));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Text(message),
+                                        );
+                                      });
+                                }
+                              },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Icon(Icons.add),
-                                  Text('Watchlist'),
+                                children: [
+                                  isAddedWatchlist
+                                      ? const Icon(Icons.check)
+                                      : const Icon(Icons.add),
+                                  const Text('Watchlist'),
                                 ],
                               ),
                             ),

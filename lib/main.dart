@@ -14,19 +14,19 @@ import 'package:app_ditonton/features/tvseries/presentation/provider/top_rated_t
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_detail_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_list_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_search_notifier.dart';
+import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
+import 'package:app_ditonton/features/watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:app_ditonton/presentation/pages/about_page.dart';
 import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
 import 'package:app_ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:app_ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:app_ditonton/presentation/pages/search_movie_page.dart';
 import 'package:app_ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:app_ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:app_ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:app_ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:app_ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:app_ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:app_ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:app_ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ditonton/injection.dart' as di;
@@ -75,10 +75,10 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<PopularTvNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
+          create: (_) => di.locator<SeasonDetailNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<SeasonDetailNotifier>(),
+          create: (_) => di.locator<WatchlistNotifier>(),
         ),
       ],
       child: MaterialApp(
@@ -140,6 +140,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => const WatchlistMoviesPage(),
               );
+            // case WatchlistMoviesPage.routeName:
+            //   return MaterialPageRoute(
+            //     builder: (_) => const WatchlistMoviesPage(),
+            //   );
             case SeasonDetailPage.routeName:
               final argument = settings.arguments as SeasonDetailArgument;
               return MaterialPageRoute(
