@@ -1,5 +1,6 @@
 import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
 import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
+import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_tv_page.dart';
 import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
 import 'package:flutter/material.dart';
 
@@ -85,13 +86,25 @@ class _CustomDrawerState extends State<CustomDrawer>
             animationController.reverse();
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.save_alt),
+        ExpansionTile(
           title: const Text('Watchlist'),
-          onTap: () {
-            Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
-            animationController.reverse();
-          },
+          leading: const Icon(Icons.save_alt),
+          children: [
+            ListTile(
+              title: const Text('Movies'),
+              onTap: () {
+                Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
+                animationController.reverse();
+              },
+            ),
+            ListTile(
+              title: const Text('Tv Series'),
+              onTap: () {
+                Navigator.pushNamed(context, WatchlistTvPage.routeName);
+                animationController.reverse();
+              },
+            ),
+          ],
         ),
       ],
     );

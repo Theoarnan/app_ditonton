@@ -1,3 +1,5 @@
+import 'package:app_ditonton/data/models/genre_model.dart';
+import 'package:app_ditonton/data/models/movie_detail_model.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
 import 'package:app_ditonton/domain/entities/movie.dart';
 import 'package:app_ditonton/domain/entities/movie_detail.dart';
@@ -156,4 +158,34 @@ final testWatchlistMap = {
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+  'typeWatchlist': 'movie',
 };
+
+const genreModel = GenreModel(
+  id: 1,
+  name: 'name',
+);
+
+const testMovieDetailModel = MovieDetailResponse(
+  adult: false,
+  backdropPath: "backdropPath",
+  budget: 1,
+  genres: [],
+  homepage: "homepage",
+  id: 1,
+  imdbId: "imdbId",
+  originalLanguage: "originalLanguage",
+  originalTitle: "originalTitle",
+  overview: "overview",
+  popularity: 2,
+  posterPath: "posterPath",
+  releaseDate: "releaseDate",
+  revenue: 1,
+  runtime: 2,
+  status: "status",
+  tagline: "tagline",
+  title: "title",
+  video: false,
+  voteAverage: 2,
+  voteCount: 3,
+);

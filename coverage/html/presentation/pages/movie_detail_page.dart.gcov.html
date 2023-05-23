@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">Tue May 23 00:19:42 2023</td>
+            <td class="headerValue">Tue May 23 23:06:38 2023</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -327,52 +327,50 @@
 <a name="265"><span class="lineNum">     265 </span>            :                 ),</a>
 <a name="266"><span class="lineNum">     266 </span>            :               );</a>
 <a name="267"><span class="lineNum">     267 </span>            :             },</a>
-<a name="268"><span class="lineNum">     268 </span>            :             // initialChildSize: 0.5,</a>
-<a name="269"><span class="lineNum">     269 </span>            :             minChildSize: 0.25,</a>
-<a name="270"><span class="lineNum">     270 </span>            :             // maxChildSize: 1.0,</a>
-<a name="271"><span class="lineNum">     271 </span>            :           ),</a>
-<a name="272"><span class="lineNum">     272 </span>            :         ),</a>
-<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          1 :         Padding(</span></a>
-<a name="274"><span class="lineNum">     274 </span>            :           padding: const EdgeInsets.all(8.0),</a>
-<a name="275"><span class="lineNum">     275 </span><span class="lineCov">          1 :           child: CircleAvatar(</span></a>
-<a name="276"><span class="lineNum">     276 </span>            :             backgroundColor: kRichBlack,</a>
-<a name="277"><span class="lineNum">     277 </span>            :             foregroundColor: Colors.white,</a>
-<a name="278"><span class="lineNum">     278 </span><span class="lineCov">          1 :             child: IconButton(</span></a>
-<a name="279"><span class="lineNum">     279 </span>            :               icon: const Icon(Icons.arrow_back),</a>
-<a name="280"><span class="lineNum">     280 </span><span class="lineNoCov">          0 :               onPressed: () {</span></a>
-<a name="281"><span class="lineNum">     281 </span><span class="lineNoCov">          0 :                 Navigator.pop(context);</span></a>
-<a name="282"><span class="lineNum">     282 </span>            :               },</a>
-<a name="283"><span class="lineNum">     283 </span>            :             ),</a>
-<a name="284"><span class="lineNum">     284 </span>            :           ),</a>
-<a name="285"><span class="lineNum">     285 </span>            :         )</a>
-<a name="286"><span class="lineNum">     286 </span>            :       ],</a>
-<a name="287"><span class="lineNum">     287 </span>            :     );</a>
-<a name="288"><span class="lineNum">     288 </span>            :   }</a>
-<a name="289"><span class="lineNum">     289 </span>            : </a>
-<a name="290"><span class="lineNum">     290 </span><span class="lineCov">          1 :   String _showGenres(List&lt;Genre&gt; genres) {</span></a>
-<a name="291"><span class="lineNum">     291 </span>            :     String result = '';</a>
-<a name="292"><span class="lineNum">     292 </span><span class="lineCov">          2 :     for (var genre in genres) {</span></a>
-<a name="293"><span class="lineNum">     293 </span><span class="lineCov">          3 :       result += '${genre.name}, ';</span></a>
-<a name="294"><span class="lineNum">     294 </span>            :     }</a>
-<a name="295"><span class="lineNum">     295 </span>            : </a>
-<a name="296"><span class="lineNum">     296 </span><span class="lineCov">          1 :     if (result.isEmpty) {</span></a>
-<a name="297"><span class="lineNum">     297 </span>            :       return result;</a>
-<a name="298"><span class="lineNum">     298 </span>            :     }</a>
-<a name="299"><span class="lineNum">     299 </span>            : </a>
-<a name="300"><span class="lineNum">     300 </span><span class="lineCov">          3 :     return result.substring(0, result.length - 2);</span></a>
-<a name="301"><span class="lineNum">     301 </span>            :   }</a>
-<a name="302"><span class="lineNum">     302 </span>            : </a>
-<a name="303"><span class="lineNum">     303 </span><span class="lineCov">          1 :   String _showDuration(int runtime) {</span></a>
-<a name="304"><span class="lineNum">     304 </span><span class="lineCov">          1 :     final int hours = runtime ~/ 60;</span></a>
-<a name="305"><span class="lineNum">     305 </span><span class="lineCov">          1 :     final int minutes = runtime % 60;</span></a>
-<a name="306"><span class="lineNum">     306 </span>            : </a>
-<a name="307"><span class="lineNum">     307 </span><span class="lineCov">          1 :     if (hours &gt; 0) {</span></a>
-<a name="308"><span class="lineNum">     308 </span><span class="lineCov">          1 :       return '${hours}h ${minutes}m';</span></a>
-<a name="309"><span class="lineNum">     309 </span>            :     } else {</a>
-<a name="310"><span class="lineNum">     310 </span><span class="lineNoCov">          0 :       return '${minutes}m';</span></a>
-<a name="311"><span class="lineNum">     311 </span>            :     }</a>
-<a name="312"><span class="lineNum">     312 </span>            :   }</a>
-<a name="313"><span class="lineNum">     313 </span>            : }</a>
+<a name="268"><span class="lineNum">     268 </span>            :             minChildSize: 0.25,</a>
+<a name="269"><span class="lineNum">     269 </span>            :           ),</a>
+<a name="270"><span class="lineNum">     270 </span>            :         ),</a>
+<a name="271"><span class="lineNum">     271 </span><span class="lineCov">          1 :         Padding(</span></a>
+<a name="272"><span class="lineNum">     272 </span>            :           padding: const EdgeInsets.all(8.0),</a>
+<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          1 :           child: CircleAvatar(</span></a>
+<a name="274"><span class="lineNum">     274 </span>            :             backgroundColor: kRichBlack,</a>
+<a name="275"><span class="lineNum">     275 </span>            :             foregroundColor: Colors.white,</a>
+<a name="276"><span class="lineNum">     276 </span><span class="lineCov">          1 :             child: IconButton(</span></a>
+<a name="277"><span class="lineNum">     277 </span>            :               icon: const Icon(Icons.arrow_back),</a>
+<a name="278"><span class="lineNum">     278 </span><span class="lineNoCov">          0 :               onPressed: () {</span></a>
+<a name="279"><span class="lineNum">     279 </span><span class="lineNoCov">          0 :                 Navigator.pop(context);</span></a>
+<a name="280"><span class="lineNum">     280 </span>            :               },</a>
+<a name="281"><span class="lineNum">     281 </span>            :             ),</a>
+<a name="282"><span class="lineNum">     282 </span>            :           ),</a>
+<a name="283"><span class="lineNum">     283 </span>            :         )</a>
+<a name="284"><span class="lineNum">     284 </span>            :       ],</a>
+<a name="285"><span class="lineNum">     285 </span>            :     );</a>
+<a name="286"><span class="lineNum">     286 </span>            :   }</a>
+<a name="287"><span class="lineNum">     287 </span>            : </a>
+<a name="288"><span class="lineNum">     288 </span><span class="lineCov">          1 :   String _showGenres(List&lt;Genre&gt; genres) {</span></a>
+<a name="289"><span class="lineNum">     289 </span>            :     String result = '';</a>
+<a name="290"><span class="lineNum">     290 </span><span class="lineCov">          2 :     for (var genre in genres) {</span></a>
+<a name="291"><span class="lineNum">     291 </span><span class="lineCov">          3 :       result += '${genre.name}, ';</span></a>
+<a name="292"><span class="lineNum">     292 </span>            :     }</a>
+<a name="293"><span class="lineNum">     293 </span>            : </a>
+<a name="294"><span class="lineNum">     294 </span><span class="lineCov">          1 :     if (result.isEmpty) {</span></a>
+<a name="295"><span class="lineNum">     295 </span>            :       return result;</a>
+<a name="296"><span class="lineNum">     296 </span>            :     }</a>
+<a name="297"><span class="lineNum">     297 </span>            : </a>
+<a name="298"><span class="lineNum">     298 </span><span class="lineCov">          3 :     return result.substring(0, result.length - 2);</span></a>
+<a name="299"><span class="lineNum">     299 </span>            :   }</a>
+<a name="300"><span class="lineNum">     300 </span>            : </a>
+<a name="301"><span class="lineNum">     301 </span><span class="lineCov">          1 :   String _showDuration(int runtime) {</span></a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">          1 :     final int hours = runtime ~/ 60;</span></a>
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">          1 :     final int minutes = runtime % 60;</span></a>
+<a name="304"><span class="lineNum">     304 </span>            : </a>
+<a name="305"><span class="lineNum">     305 </span><span class="lineCov">          1 :     if (hours &gt; 0) {</span></a>
+<a name="306"><span class="lineNum">     306 </span><span class="lineCov">          1 :       return '${hours}h ${minutes}m';</span></a>
+<a name="307"><span class="lineNum">     307 </span>            :     } else {</a>
+<a name="308"><span class="lineNum">     308 </span><span class="lineNoCov">          0 :       return '${minutes}m';</span></a>
+<a name="309"><span class="lineNum">     309 </span>            :     }</a>
+<a name="310"><span class="lineNum">     310 </span>            :   }</a>
+<a name="311"><span class="lineNum">     311 </span>            : }</a>
 </pre>
       </td>
     </tr>

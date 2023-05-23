@@ -89,4 +89,30 @@ void main() {
       expect(result, null);
     });
   });
+
+  group('Get watchlist', () {
+    test('should return list of watchlist table type movie from database',
+        () async {
+      // arrange
+      when(mockDatabaseHelper.getWatchlist(typeWatchlist: 'movie')).thenAnswer(
+        (_) async => [testWatchlistMap],
+      );
+      // act
+      final result = await dataSource.getWatchlistMovies();
+      // assert
+      expect(result, [watchlistTableModel]);
+    });
+
+    test('should return list of watchlist table type tv from database',
+        () async {
+      // arrange
+      when(mockDatabaseHelper.getWatchlist(typeWatchlist: 'tv')).thenAnswer(
+        (_) async => [testWatchlistMap],
+      );
+      // act
+      final result = await dataSource.getWatchlistTv();
+      // assert
+      expect(result, [watchlistTableModel]);
+    });
+  });
 }

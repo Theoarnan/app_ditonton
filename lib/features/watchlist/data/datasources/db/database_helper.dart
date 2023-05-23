@@ -35,7 +35,7 @@ class DatabaseHelper {
         title TEXT,
         overview TEXT,
         posterPath TEXT,
-        typeWatchlist TEXT,
+        typeWatchlist TEXT
       );
     ''');
   }
