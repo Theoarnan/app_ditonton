@@ -58,7 +58,7 @@ class TvCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$baseImageURL${dataTv.posterPath}',
+                  imageUrl: '$baseImageURL${dataTv.posterPath ?? '/'}',
                   width: 80,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),

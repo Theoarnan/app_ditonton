@@ -38,6 +38,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               );
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('listPopularMovies'),
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
                   return MovieCard(movie);

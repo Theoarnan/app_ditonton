@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
@@ -100,6 +102,7 @@ class DetailContent extends StatelessWidget {
                 backgroundColor: kRichBlack,
                 foregroundColor: Colors.white,
                 child: IconButton(
+                  key: const Key('buttonBackSeasonDetailTv'),
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.pop(context);
@@ -144,10 +147,12 @@ class DetailContent extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.52,
                 child: ListView.separated(
+                  key: const Key('listSeasonEpisodeTv'),
                   separatorBuilder: (context, index) => const Divider(),
                   itemCount: seasonDetail.episodes.length,
                   itemBuilder: (context, index) {
                     final episode = seasonDetail.episodes[index];
+                    log('Coba: ' + episode.stillPath.toString());
                     return ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Column(
@@ -159,18 +164,23 @@ class DetailContent extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                /// TODO: Add Validation Empty Image
                                 SizedBox(
                                   width: 100,
                                   height: 70,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://image.tmdb.org/t/p/w500${episode.stillPath}',
-                                    placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
+                                  child: episode.stillPath.isNotEmpty
+                                      ? CachedNetworkImage(
+                                          imageUrl:
+                                              'https://image.tmdb.org/t/p/w500${episode.stillPath.isEmpty ? '/' : episode.stillPath}',
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                          errorWidget: (context, url, error) {
+                                            return const Icon(Icons.error);
+                                          })
+                                      : const Icon(Icons.error),
                                 ),
                                 const SizedBox(width: 8),
                                 Column(

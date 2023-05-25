@@ -25,7 +25,7 @@ class _PopularTvPageState extends State<PopularTvPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Popular Movies'),
+        title: const Text('Popular TV'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -37,6 +37,7 @@ class _PopularTvPageState extends State<PopularTvPage> {
               );
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('listPopularTv'),
                 itemBuilder: (context, index) {
                   final tv = data.tv[index];
                   return TvCard(tv);

@@ -22,6 +22,7 @@ class SearchMoviePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              key: const Key('enterSearchQueryMovie'),
               onSubmitted: (query) {
                 Provider.of<MovieSearchNotifier>(context, listen: false)
                     .fetchMovieSearch(query);
@@ -48,10 +49,14 @@ class SearchMoviePage extends StatelessWidget {
                   final result = data.searchResult;
                   return Expanded(
                     child: ListView.builder(
+                      key: const Key('movieSearchScrollView'),
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         final movie = data.searchResult[index];
-                        return MovieCard(movie);
+                        return MovieCard(
+                          key: Key('listMovieSearch$index'),
+                          movie,
+                        );
                       },
                       itemCount: result.length,
                     ),

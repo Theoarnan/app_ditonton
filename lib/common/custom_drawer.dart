@@ -71,6 +71,7 @@ class _CustomDrawerState extends State<CustomDrawer>
           accountEmail: Text('ditonton@dicoding.com'),
         ),
         ListTile(
+          key: const Key('movieListTile'),
           leading: const Icon(Icons.movie),
           title: const Text('Movies'),
           onTap: () {
@@ -79,6 +80,7 @@ class _CustomDrawerState extends State<CustomDrawer>
           },
         ),
         ListTile(
+          key: const Key('tvListTile'),
           leading: const Icon(Icons.tv),
           title: const Text('Tv Series'),
           onTap: () {
@@ -87,10 +89,12 @@ class _CustomDrawerState extends State<CustomDrawer>
           },
         ),
         ExpansionTile(
+          key: const Key('watchlistListTile'),
           title: const Text('Watchlist'),
           leading: const Icon(Icons.save_alt),
           children: [
             ListTile(
+              key: const Key('watchlistMovieListTile'),
               title: const Text('Movies'),
               onTap: () {
                 Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
@@ -98,6 +102,7 @@ class _CustomDrawerState extends State<CustomDrawer>
               },
             ),
             ListTile(
+              key: const Key('watchlistTvListTile'),
               title: const Text('Tv Series'),
               onTap: () {
                 Navigator.pushNamed(context, WatchlistTvPage.routeName);

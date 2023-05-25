@@ -38,6 +38,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
               );
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('listTopRatedMovies'),
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
                   return MovieCard(movie);

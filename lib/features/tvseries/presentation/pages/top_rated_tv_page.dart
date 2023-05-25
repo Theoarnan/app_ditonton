@@ -25,7 +25,7 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Top Rated Movies'),
+        title: const Text('Top Rated TV'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -37,6 +37,7 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
               );
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('listTopRatedTv'),
                 itemBuilder: (context, index) {
                   final tv = data.tv[index];
                   return TvCard(tv);

@@ -34,10 +34,12 @@ class _HomeTvPageState extends State<HomeTvPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key('drawerButtonTv'),
         title: const Text('Ditonton - TV'),
         leading: const Icon(Icons.menu),
         actions: [
           IconButton(
+            key: const Key('searchButtonTv'),
             onPressed: () {
               Navigator.pushNamed(context, SearchTvPage.routeName);
             },
@@ -48,6 +50,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
+          key: const Key('tvScrollView'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -66,6 +69,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
                   );
                 } else if (state == RequestState.loaded) {
                   return TvList(
+                    keyList: 'ontheair',
                     key: const Key('listview_on_the_air'),
                     data.onTheAirTv,
                   );
@@ -92,6 +96,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
                   );
                 } else if (state == RequestState.loaded) {
                   return TvList(
+                    keyList: 'popular',
                     key: const Key('listview_popular'),
                     data.popularTv,
                   );
@@ -119,6 +124,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
                     );
                   } else if (state == RequestState.loaded) {
                     return TvList(
+                      keyList: 'toprated',
                       key: const Key('listview_top_rated'),
                       data.topRatedTv,
                     );
@@ -146,6 +152,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
           style: kHeading6,
         ),
         InkWell(
+          key: Key('seeMore${title.replaceAll(' ', '')}Tv'),
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -163,9 +170,14 @@ class _HomeTvPageState extends State<HomeTvPage> {
 }
 
 class TvList extends StatelessWidget {
+  final String keyList;
   final List<Tv> tvseries;
 
-  const TvList(this.tvseries, {super.key});
+  const TvList(
+    this.tvseries, {
+    super.key,
+    required this.keyList,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +190,7 @@ class TvList extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
+              key: Key('$keyList${index}tv'),
               onTap: () {
                 Navigator.pushNamed(
                   context,

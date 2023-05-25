@@ -90,6 +90,7 @@ class DetailContent extends StatelessWidget {
           child: DraggableScrollableSheet(
             builder: (context, scrollController) {
               return Container(
+                key: const Key('movieDetailScrollView'),
                 decoration: const BoxDecoration(
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -113,6 +114,7 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
+                              key: const Key('moveButtonWatchlist'),
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
                                   await Provider.of<MovieDetailNotifier>(
@@ -274,6 +276,7 @@ class DetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
+              key: const Key('buttonBackDetailMovie'),
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);

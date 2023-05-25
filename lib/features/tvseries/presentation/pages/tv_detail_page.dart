@@ -90,6 +90,7 @@ class DetailContent extends StatelessWidget {
           child: DraggableScrollableSheet(
             builder: (context, scrollController) {
               return Container(
+                key: const Key('tvDetailScrollView'),
                 decoration: const BoxDecoration(
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -113,6 +114,7 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
+                              key: const Key('tvButtonWatchlist'),
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
                                   await Provider.of<TvDetailNotifier>(context,
@@ -194,10 +196,13 @@ class DetailContent extends StatelessWidget {
                                   SizedBox(
                                     height: 180,
                                     child: ListView.builder(
+                                      key:
+                                          const Key('seasonTvDetailScrollView'),
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
                                         final season = tvDetail.seasons[index];
                                         return InkWell(
+                                          key: Key('seasonList$index'),
                                           onTap: () => Navigator.pushNamed(
                                             context,
                                             SeasonDetailPage.routeName,
@@ -224,7 +229,7 @@ class DetailContent extends StatelessWidget {
                                                   ),
                                                   child: CachedNetworkImage(
                                                     imageUrl:
-                                                        'https://image.tmdb.org/t/p/w500${season.posterPath}',
+                                                        'https://image.tmdb.org/t/p/w500${season.posterPath.isEmpty ? '/' : season.posterPath}',
                                                     placeholder:
                                                         (context, url) =>
                                                             const Center(
@@ -276,6 +281,9 @@ class DetailContent extends StatelessWidget {
                                     ),
                                     height: 150,
                                     child: ListView.builder(
+                                      key: const Key(
+                                        'recomendationTvDetailScrollView',
+                                      ),
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
                                         final tv =
@@ -283,6 +291,7 @@ class DetailContent extends StatelessWidget {
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
+                                            key: Key('recomendation${index}tv'),
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
@@ -297,7 +306,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${tv.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500${tv.posterPath ?? '/'}',
                                                 placeholder: (context, url) =>
                                                     const Center(
                                                   child:
@@ -344,6 +353,7 @@ class DetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
+              key: const Key('buttonBackDetailTv'),
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);

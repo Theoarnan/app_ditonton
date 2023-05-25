@@ -50,9 +50,13 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
               );
             } else if (data.watchlistState == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('watchlistTvScrollView'),
                 itemBuilder: (context, index) {
                   final tv = data.watchlistTv[index];
-                  return TvCard(tv);
+                  return TvCard(
+                    key: Key('watchlistTv$index'),
+                    tv,
+                  );
                 },
                 itemCount: data.watchlistTv.length,
               );

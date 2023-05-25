@@ -2,13 +2,13 @@ import 'package:app_ditonton/features/tvseries/domain/entities/episode.dart';
 import 'package:equatable/equatable.dart';
 
 class EpisodeModel extends Equatable {
-  final String airDate;
+  final String? airDate;
   final int episodeNumber;
   final int id;
   final String name;
   final String overview;
   final String productionCode;
-  final int runtime;
+  final int? runtime;
   final int seasonNumber;
   final int showId;
   final String stillPath;
@@ -47,7 +47,7 @@ class EpisodeModel extends Equatable {
 
   Episode toEntity() {
     return Episode(
-      airDate: airDate,
+      airDate: airDate ?? '',
       episodeNumber: episodeNumber,
       id: id,
       name: name,

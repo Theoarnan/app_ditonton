@@ -34,9 +34,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ditonton - Movie'),
+        key: const Key('drawerButtonMovie'),
         leading: const Icon(Icons.menu),
         actions: [
           IconButton(
+            key: const Key('searchButtonMovie'),
             onPressed: () {
               Navigator.pushNamed(context, SearchMoviePage.routeName);
             },
@@ -47,6 +49,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
+          key: const Key('movieScrollView'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,7 +64,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.loaded) {
-                  return MovieList(data.nowPlayingMovies);
+                  return MovieList(
+                    keyList: 'nowplaying',
+                    data.nowPlayingMovies,
+                  );
                 } else {
                   return const Text('Failed');
                 }
@@ -78,7 +84,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.loaded) {
-                  return MovieList(data.popularMovies);
+                  return MovieList(
+                    keyList: 'popular',
+                    data.popularMovies,
+                  );
                 } else {
                   return const Text('Failed');
                 }
@@ -95,7 +104,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.loaded) {
-                  return MovieList(data.topRatedMovies);
+                  return MovieList(
+                    keyList: 'toprated',
+                    data.topRatedMovies,
+                  );
                 } else {
                   return const Text('Failed');
                 }
@@ -107,7 +119,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
     );
   }
 
-  Row _buildSubHeading({required String title, required Function() onTap}) {
+  Row _buildSubHeading({
+    required String title,
+    required Function() onTap,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -116,6 +131,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           style: kHeading6,
         ),
         InkWell(
+          key: Key('seeMore${title.replaceAll(' ', '')}Movies'),
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -133,9 +149,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 }
 
 class MovieList extends StatelessWidget {
+  final String keyList;
   final List<Movie> movies;
 
-  const MovieList(this.movies, {super.key});
+  const MovieList(
+    this.movies, {
+    super.key,
+    required this.keyList,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +169,7 @@ class MovieList extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
+              key: Key('$keyList$index'),
               onTap: () {
                 Navigator.pushNamed(
                   context,

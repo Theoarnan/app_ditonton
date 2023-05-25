@@ -52,9 +52,13 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               );
             } else if (data.watchlistState == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('watchlistMovieScrollView'),
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];
-                  return MovieCard(movie);
+                  return MovieCard(
+                    key: Key('watchlistMovie$index'),
+                    movie,
+                  );
                 },
                 itemCount: data.watchlistMovies.length,
               );

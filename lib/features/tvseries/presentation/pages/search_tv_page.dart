@@ -24,6 +24,7 @@ class SearchTvPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              key: const Key('enterSearchQueryTv'),
               onSubmitted: (query) {
                 Provider.of<TvSearchNotifier>(context, listen: false)
                     .fetchTvSearch(query);
@@ -54,10 +55,14 @@ class SearchTvPage extends StatelessWidget {
                   return Expanded(
                     key: const Key('list_search_tv'),
                     child: ListView.builder(
+                      key: const Key('tvSearchScrollView'),
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
                         final tv = data.searchResult[index];
-                        return TvCard(tv);
+                        return TvCard(
+                          key: Key('listTvSearch$index'),
+                          tv,
+                        );
                       },
                       itemCount: result.length,
                     ),
