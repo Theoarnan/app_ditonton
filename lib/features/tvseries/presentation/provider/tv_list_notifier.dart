@@ -6,6 +6,16 @@ import 'package:app_ditonton/features/tvseries/domain/usecases/get_top_rated_tv.
 import 'package:flutter/material.dart';
 
 class TvListNotifier extends ChangeNotifier {
+  final GetOnTheAirTv getOnTheAirTv;
+  final GetPopularTv getPopularTv;
+  final GetTopRatedTv getTopRatedTv;
+
+  TvListNotifier({
+    required this.getOnTheAirTv,
+    required this.getPopularTv,
+    required this.getTopRatedTv,
+  });
+
   RequestState _onTheAirState = RequestState.empty;
   RequestState get onTheAirState => _onTheAirState;
   var _onTheAirTv = <Tv>[];
@@ -23,16 +33,6 @@ class TvListNotifier extends ChangeNotifier {
 
   String _message = '';
   String get message => _message;
-
-  final GetOnTheAirTv getOnTheAirTv;
-  final GetPopularTv getPopularTv;
-  final GetTopRatedTv getTopRatedTv;
-
-  TvListNotifier({
-    required this.getOnTheAirTv,
-    required this.getPopularTv,
-    required this.getTopRatedTv,
-  });
 
   Future<void> fetchOnTheAirTv() async {
     _onTheAirState = RequestState.loading;
@@ -56,7 +56,6 @@ class TvListNotifier extends ChangeNotifier {
   Future<void> fetchPopularTv() async {
     _popularTvState = RequestState.loading;
     notifyListeners();
-
     final result = await getPopularTv.execute();
     result.fold(
       (failure) {
@@ -75,7 +74,6 @@ class TvListNotifier extends ChangeNotifier {
   Future<void> fetchTopRatedTv() async {
     _topRatedTvState = RequestState.loading;
     notifyListeners();
-
     final result = await getTopRatedTv.execute();
     result.fold(
       (failure) {

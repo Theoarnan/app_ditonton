@@ -18,6 +18,8 @@ class DatabaseHelper {
     return _database;
   }
 
+  set database(Future<Database?> name) => database = name;
+
   static const String _tblWatchlist = 'watchlist';
 
   Future<Database> _initDb() async {

@@ -6,9 +6,7 @@ import 'package:provider/provider.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
   static const routeName = '/top-rated-movie';
-
   const TopRatedMoviesPage({super.key});
-
   @override
   State<TopRatedMoviesPage> createState() => _TopRatedMoviesPageState();
 }
@@ -17,9 +15,12 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+    Future.microtask(
+      () => Provider.of<TopRatedMoviesNotifier>(
+        context,
+        listen: false,
+      ).fetchTopRatedMovies(),
+    );
   }
 
   @override

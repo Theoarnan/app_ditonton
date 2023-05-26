@@ -11,7 +11,6 @@ import 'package:dartz/dartz.dart';
 
 class WatchlistRepositoryImpl implements WatchlistRepository {
   final WatchlistLocalDataSource localDataSource;
-
   WatchlistRepositoryImpl({required this.localDataSource});
 
   @override

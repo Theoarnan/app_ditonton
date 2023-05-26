@@ -20,9 +20,7 @@ class PopularMoviesNotifier extends ChangeNotifier {
   Future<void> fetchPopularMovies() async {
     _state = RequestState.loading;
     notifyListeners();
-
     final result = await getPopularMovies.execute();
-
     result.fold(
       (failure) {
         _message = failure.message;

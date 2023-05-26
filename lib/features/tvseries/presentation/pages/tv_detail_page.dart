@@ -1,9 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_argument.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv_detail.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/season_detail_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_detail_notifier.dart';
@@ -16,7 +16,6 @@ class TvDetailPage extends StatefulWidget {
   static const routeName = '/detail-tv';
   final int id;
   const TvDetailPage({super.key, required this.id});
-
   @override
   State<TvDetailPage> createState() => _TvDetailPageState();
 }
@@ -27,9 +26,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
     super.initState();
     Future.microtask(() {
       Provider.of<TvDetailNotifier>(context, listen: false)
-          .fetchTvDetail(widget.id);
-      Provider.of<TvDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+        ..fetchTvDetail(widget.id)
+        ..loadWatchlistStatus(widget.id);
     });
   }
 
@@ -88,6 +86,7 @@ class DetailContent extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(
+            minChildSize: 0.25,
             builder: (context, scrollController) {
               return Container(
                 key: const Key('tvDetailScrollView'),
@@ -95,11 +94,7 @@ class DetailContent extends StatelessWidget {
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  top: 16,
-                  right: 16,
-                ),
+                padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
                 child: Stack(
                   children: [
                     Container(
@@ -109,44 +104,12 @@ class DetailContent extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              tvDetail.name,
-                              style: kHeading5,
-                            ),
+                            Text(tvDetail.name, style: kHeading5),
                             ElevatedButton(
                               key: const Key('tvButtonWatchlist'),
-                              onPressed: () async {
-                                if (!isAddedWatchlist) {
-                                  await Provider.of<TvDetailNotifier>(context,
-                                          listen: false)
-                                      .addWatchlist(tvDetail);
-                                } else {
-                                  await Provider.of<TvDetailNotifier>(context,
-                                          listen: false)
-                                      .removeFromWatchlist(tvDetail);
-                                }
-                                final message = Provider.of<TvDetailNotifier>(
-                                        context,
-                                        listen: false)
-                                    .watchlistMessage;
-                                if (message ==
-                                        TvDetailNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        TvDetailNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
-                                }
-                              },
+                              onPressed: () => handleOnTapButtonWatchlist(
+                                context,
+                              ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -158,9 +121,7 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Text(
-                              _showGenres(tvDetail.genres),
-                            ),
+                            Text(_showGenres(tvDetail.genres)),
                             const SizedBox(height: 2),
                             Row(
                               children: [
@@ -177,28 +138,22 @@ class DetailContent extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 16),
-                            Text(
-                              'Overview',
-                              style: kHeading6,
-                            ),
-                            Text(
-                              tvDetail.overview,
-                            ),
+                            Text('Overview', style: kHeading6),
+                            Text(tvDetail.overview),
                             const SizedBox(height: 16),
                             if (tvDetail.seasons.isNotEmpty)
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Seasons',
-                                    style: kHeading6,
-                                  ),
+                                  Text('Seasons', style: kHeading6),
                                   SizedBox(
                                     height: 180,
                                     child: ListView.builder(
-                                      key:
-                                          const Key('seasonTvDetailScrollView'),
+                                      key: const Key(
+                                        'seasonTvDetailScrollView',
+                                      ),
                                       scrollDirection: Axis.horizontal,
+                                      itemCount: tvDetail.seasons.length,
                                       itemBuilder: (context, index) {
                                         final season = tvDetail.seasons[index];
                                         return InkWell(
@@ -211,47 +166,9 @@ class DetailContent extends StatelessWidget {
                                               season: season,
                                             ),
                                           ),
-                                          child: Container(
-                                            width: 100,
-                                            height: 130,
-                                            margin: const EdgeInsets.only(
-                                              right: 10,
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
-                                                  ),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        'https://image.tmdb.org/t/p/w500${season.posterPath.isEmpty ? '/' : season.posterPath}',
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            const Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    ),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons.error),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 6),
-                                                Text(
-                                                  season.name,
-                                                  style: kSubtitle,
-                                                )
-                                              ],
-                                            ),
-                                          ),
+                                          child: cardSeason(season),
                                         );
                                       },
-                                      itemCount: tvDetail.seasons.length,
                                     ),
                                   ),
                                   const SizedBox(height: 16),
@@ -263,18 +180,20 @@ class DetailContent extends StatelessWidget {
                             ),
                             Consumer<TvDetailNotifier>(
                               builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.loading) {
+                                final state = data.recommendationState;
+                                if (state == RequestState.loading) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState ==
-                                    RequestState.error) {
-                                  return Text(
-                                    data.message,
+                                } else if (state == RequestState.error) {
+                                  return Center(
+                                    key: const Key(
+                                        'error_message_recomendation'),
+                                    child: Text(
+                                      data.message,
+                                    ),
                                   );
-                                } else if (data.recommendationState ==
-                                    RequestState.loaded) {
+                                } else if (state == RequestState.loaded) {
                                   return SizedBox(
                                     key: const Key(
                                       'content_detail_recommendation',
@@ -285,13 +204,13 @@ class DetailContent extends StatelessWidget {
                                         'recomendationTvDetailScrollView',
                                       ),
                                       scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final tv =
-                                            data.tvRecommendations[index];
+                                      itemCount: data.tvRecommendations.length,
+                                      itemBuilder: (context, i) {
+                                        final tv = data.tvRecommendations[i];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
-                                            key: Key('recomendation${index}tv'),
+                                            key: Key('recomendation${i}tv'),
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
@@ -299,32 +218,16 @@ class DetailContent extends StatelessWidget {
                                                 arguments: tv.id,
                                               );
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${tv.posterPath ?? '/'}',
-                                                placeholder: (context, url) =>
-                                                    const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
-                                              ),
-                                            ),
+                                            child: cardRecomendation(tv),
                                           ),
                                         );
                                       },
-                                      itemCount: data.tvRecommendations.length,
                                     ),
                                   );
                                 } else {
-                                  return Container();
+                                  return const SizedBox(
+                                    key: Key('empty_widget_tv'),
+                                  );
                                 }
                               },
                             ),
@@ -344,7 +247,6 @@ class DetailContent extends StatelessWidget {
                 ),
               );
             },
-            minChildSize: 0.25,
           ),
         ),
         Padding(
@@ -363,6 +265,85 @@ class DetailContent extends StatelessWidget {
         )
       ],
     );
+  }
+
+  ClipRRect cardRecomendation(Tv tv) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(8),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}',
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+    );
+  }
+
+  Container cardSeason(Season season) {
+    return Container(
+      width: 100,
+      height: 130,
+      margin: const EdgeInsets.only(
+        right: 10,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: 'https://image.tmdb.org/t/p/w500${season.posterPath}',
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            season.name,
+            style: kSubtitle,
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<void> handleOnTapButtonWatchlist(BuildContext context) async {
+    if (!isAddedWatchlist) {
+      await Provider.of<TvDetailNotifier>(
+        context,
+        listen: false,
+      ).addWatchlist(tvDetail);
+    } else {
+      await Provider.of<TvDetailNotifier>(
+        context,
+        listen: false,
+      ).removeFromWatchlist(tvDetail);
+    }
+    // ignore_for_file: use_build_context_synchronously
+    final message =
+        Provider.of<TvDetailNotifier>(context, listen: false).watchlistMessage;
+    if (message == TvDetailNotifier.watchlistAddSuccessMessage ||
+        message == TvDetailNotifier.watchlistRemoveSuccessMessage) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(message),
+          );
+        },
+      );
+    }
   }
 
   String _showGenres(List<Genre> genres) {

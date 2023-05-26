@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
@@ -28,8 +26,10 @@ class _SeasonDetailPageState extends State<SeasonDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<SeasonDetailNotifier>(context, listen: false)
-          .fetchSeasonDetail(
+      Provider.of<SeasonDetailNotifier>(
+        context,
+        listen: false,
+      ).fetchSeasonDetail(
         id: widget.argument.id,
         seasonNumber: widget.argument.season.seasonNumber,
       );
@@ -148,11 +148,12 @@ class DetailContent extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.52,
                 child: ListView.separated(
                   key: const Key('listSeasonEpisodeTv'),
-                  separatorBuilder: (context, index) => const Divider(),
+                  separatorBuilder: (context, index) => Divider(
+                    key: Key('divider_content_detail_season$index'),
+                  ),
                   itemCount: seasonDetail.episodes.length,
                   itemBuilder: (context, index) {
                     final episode = seasonDetail.episodes[index];
-                    log('Coba: ' + episode.stillPath.toString());
                     return ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Column(

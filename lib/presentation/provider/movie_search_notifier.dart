@@ -20,7 +20,6 @@ class MovieSearchNotifier extends ChangeNotifier {
   Future<void> fetchMovieSearch(String query) async {
     _state = RequestState.loading;
     notifyListeners();
-
     final result = await searchMovies.execute(query);
     result.fold(
       (failure) {

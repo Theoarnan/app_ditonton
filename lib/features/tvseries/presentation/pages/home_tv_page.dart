@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 class HomeTvPage extends StatefulWidget {
   static const routeName = '/home-tv';
   const HomeTvPage({super.key});
-
   @override
   State<HomeTvPage> createState() => _HomeTvPageState();
 }
@@ -23,7 +22,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => Provider.of<TvListNotifier>(context, listen: false)
+      () => Provider.of<TvListNotifier>(
+        context,
+        listen: false,
+      )
         ..fetchOnTheAirTv()
         ..fetchPopularTv()
         ..fetchTopRatedTv(),
@@ -33,9 +35,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('Sinii'),
       appBar: AppBar(
         key: const Key('drawerButtonTv'),
-        title: const Text('Ditonton - TV'),
+        title: const Text('Ditonton TV'),
         leading: const Icon(Icons.menu),
         actions: [
           IconButton(
@@ -82,8 +85,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
               }),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, PopularTvPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  PopularTvPage.routeName,
+                ),
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
                 final state = data.popularTvState;
@@ -109,8 +114,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
               }),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, TopRatedTvPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  TopRatedTvPage.routeName,
+                ),
               ),
               Consumer<TvListNotifier>(
                 builder: (context, data, child) {
@@ -185,6 +192,7 @@ class TvList extends StatelessWidget {
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        itemCount: tvseries.length,
         itemBuilder: (context, index) {
           final tv = tvseries[index];
           return Container(
@@ -211,7 +219,6 @@ class TvList extends StatelessWidget {
             ),
           );
         },
-        itemCount: tvseries.length,
       ),
     );
   }

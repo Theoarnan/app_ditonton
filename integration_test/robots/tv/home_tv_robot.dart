@@ -8,10 +8,10 @@ class HomeTvRobot {
   Future<void> scrollTvPage({bool scrollUp = false}) async {
     final scrollViewFinder = find.byKey(const Key('tvScrollView'));
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, const Offset(0, 1000), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, 2000), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, const Offset(0, -1000), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, -2000), 10000);
       await tester.pumpAndSettle();
     }
   }

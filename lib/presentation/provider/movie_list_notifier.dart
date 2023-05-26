@@ -6,6 +6,16 @@ import 'package:app_ditonton/domain/usecases/get_top_rated_movies.dart';
 import 'package:flutter/material.dart';
 
 class MovieListNotifier extends ChangeNotifier {
+  final GetNowPlayingMovies getNowPlayingMovies;
+  final GetPopularMovies getPopularMovies;
+  final GetTopRatedMovies getTopRatedMovies;
+
+  MovieListNotifier({
+    required this.getNowPlayingMovies,
+    required this.getPopularMovies,
+    required this.getTopRatedMovies,
+  });
+
   var _nowPlayingMovies = <Movie>[];
   List<Movie> get nowPlayingMovies => _nowPlayingMovies;
 
@@ -26,16 +36,6 @@ class MovieListNotifier extends ChangeNotifier {
 
   String _message = '';
   String get message => _message;
-
-  MovieListNotifier({
-    required this.getNowPlayingMovies,
-    required this.getPopularMovies,
-    required this.getTopRatedMovies,
-  });
-
-  final GetNowPlayingMovies getNowPlayingMovies;
-  final GetPopularMovies getPopularMovies;
-  final GetTopRatedMovies getTopRatedMovies;
 
   Future<void> fetchNowPlayingMovies() async {
     _nowPlayingState = RequestState.loading;
@@ -59,7 +59,6 @@ class MovieListNotifier extends ChangeNotifier {
   Future<void> fetchPopularMovies() async {
     _popularMoviesState = RequestState.loading;
     notifyListeners();
-
     final result = await getPopularMovies.execute();
     result.fold(
       (failure) {
@@ -78,7 +77,6 @@ class MovieListNotifier extends ChangeNotifier {
   Future<void> fetchTopRatedMovies() async {
     _topRatedMoviesState = RequestState.loading;
     notifyListeners();
-
     final result = await getTopRatedMovies.execute();
     result.fold(
       (failure) {

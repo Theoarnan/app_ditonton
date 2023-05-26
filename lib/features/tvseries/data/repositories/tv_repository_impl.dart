@@ -11,7 +11,6 @@ import 'package:dartz/dartz.dart';
 
 class TvRepositoryImpl implements TvRepository {
   final TvRemoteDataSource remoteDataSource;
-
   TvRepositoryImpl({
     required this.remoteDataSource,
   });

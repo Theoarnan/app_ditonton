@@ -80,5 +80,18 @@ void main() {
 
       expect(textFinder, findsOneWidget);
     });
+
+    testWidgets('should text field is submit', (WidgetTester tester) async {
+      when(mockNotifier.state).thenReturn(RequestState.loaded);
+      when(mockNotifier.searchResult).thenReturn(listTv);
+
+      final textFieldFinder = find.byKey(const Key('enterSearchQueryTv'));
+
+      await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
+      await tester.ensureVisible(textFieldFinder);
+      await tester.enterText(textFieldFinder, 'Dirty');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump();
+    });
   });
 }

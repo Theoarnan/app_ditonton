@@ -7,9 +7,7 @@ import 'package:provider/provider.dart';
 
 class WatchlistTvPage extends StatefulWidget {
   static const routeName = '/watchlist-tv';
-
   const WatchlistTvPage({super.key});
-
   @override
   State<WatchlistTvPage> createState() => _WatchlistTvPageState();
 }
@@ -18,9 +16,12 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistNotifier>(context, listen: false)
-            .fetchWatchlistTv());
+    Future.microtask(
+      () => Provider.of<WatchlistNotifier>(
+        context,
+        listen: false,
+      ).fetchWatchlistTv(),
+    );
   }
 
   @override

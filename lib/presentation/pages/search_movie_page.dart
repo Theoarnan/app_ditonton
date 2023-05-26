@@ -7,14 +7,13 @@ import 'package:provider/provider.dart';
 
 class SearchMoviePage extends StatelessWidget {
   static const routeName = '/search-movie';
-
   const SearchMoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
+        title: const Text('Search Movies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,8 +23,10 @@ class SearchMoviePage extends StatelessWidget {
             TextField(
               key: const Key('enterSearchQueryMovie'),
               onSubmitted: (query) {
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+                Provider.of<MovieSearchNotifier>(
+                  context,
+                  listen: false,
+                ).fetchMovieSearch(query);
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -43,14 +44,19 @@ class SearchMoviePage extends StatelessWidget {
               builder: (context, data, child) {
                 if (data.state == RequestState.loading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    key: Key('loading_search_movie'),
+                    child: CircularProgressIndicator(
+                      key: Key('circular_search_movie'),
+                    ),
                   );
                 } else if (data.state == RequestState.loaded) {
                   final result = data.searchResult;
                   return Expanded(
+                    key: const Key('list_search_movie'),
                     child: ListView.builder(
                       key: const Key('movieSearchScrollView'),
                       padding: const EdgeInsets.all(8),
+                      itemCount: result.length,
                       itemBuilder: (context, index) {
                         final movie = data.searchResult[index];
                         return MovieCard(
@@ -58,12 +64,14 @@ class SearchMoviePage extends StatelessWidget {
                           movie,
                         );
                       },
-                      itemCount: result.length,
                     ),
                   );
                 } else {
                   return Expanded(
-                    child: Container(),
+                    child: Center(
+                      key: const Key('error_message_search_movie'),
+                      child: Text(data.message),
+                    ),
                   );
                 }
               },

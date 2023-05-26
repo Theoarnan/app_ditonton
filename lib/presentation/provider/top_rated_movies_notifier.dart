@@ -20,9 +20,7 @@ class TopRatedMoviesNotifier extends ChangeNotifier {
   Future<void> fetchTopRatedMovies() async {
     _state = RequestState.loading;
     notifyListeners();
-
     final result = await getTopRatedMovies.execute();
-
     result.fold(
       (failure) {
         _message = failure.message;

@@ -62,7 +62,7 @@ void main() {
     overview: "overview",
     posterPath: "posterPath",
     seasonNumber: 1,
-    episodes: <Episode>[episode],
+    episodes: <Episode>[episode, episode],
   );
 
   group('Page Season Detail', () {
@@ -89,12 +89,16 @@ void main() {
       final contentDetailFinder = find.byKey(
         const Key('content_detail_season'),
       );
+      final contentDetailDividerEpisodeFinder = find.byKey(
+        const Key('divider_content_detail_season0'),
+      );
 
       await tester.pumpWidget(makeTestableWidget(const SeasonDetailPage(
         argument: arguments,
       )));
 
       expect(contentDetailFinder, findsOneWidget);
+      expect(contentDetailDividerEpisodeFinder, findsOneWidget);
     });
 
     testWidgets('should display text with message when Error',

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 class TopRatedTvPage extends StatefulWidget {
   static const routeName = '/top-rated-tv';
   const TopRatedTvPage({super.key});
-
   @override
   State<TopRatedTvPage> createState() => _TopRatedTvPageState();
 }
@@ -16,9 +15,12 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedTvNotifier>(context, listen: false)
-            .fetchTopRatedTv());
+    Future.microtask(
+      () => Provider.of<TopRatedTvNotifier>(
+        context,
+        listen: false,
+      ).fetchTopRatedTv(),
+    );
   }
 
   @override
@@ -38,11 +40,11 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 key: const Key('listTopRatedTv'),
+                itemCount: data.tv.length,
                 itemBuilder: (context, index) {
                   final tv = data.tv[index];
                   return TvCard(tv);
                 },
-                itemCount: data.tv.length,
               );
             } else {
               return Center(

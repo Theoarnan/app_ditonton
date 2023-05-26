@@ -9,14 +9,17 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../dummy_data/dummy_objects.dart';
+import '../../../../helpers/navigiation.dart';
 import 'tv_detail_page_test.mocks.dart';
 
 @GenerateMocks([TvDetailNotifier])
 void main() {
   late MockTvDetailNotifier mockNotifier;
+  late MockRouteObserver mockObserver;
 
   setUp(() {
     mockNotifier = MockTvDetailNotifier();
+    mockObserver = MockRouteObserver();
   });
 
   Widget makeTestableWidget(Widget body) {
@@ -24,6 +27,7 @@ void main() {
       value: mockNotifier,
       child: MaterialApp(
         home: body,
+        navigatorObservers: [mockObserver],
       ),
     );
   }
@@ -51,7 +55,7 @@ void main() {
       when(mockNotifier.tvState).thenReturn(RequestState.loaded);
       when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
       when(mockNotifier.tvDetail).thenReturn(testTvDetail);
-      when(mockNotifier.tvRecommendations).thenReturn(<Tv>[]);
+      when(mockNotifier.tvRecommendations).thenReturn(testTvList);
       when(mockNotifier.isAddedToWatchlist).thenReturn(false);
 
       final contentDetailFinder = find.byKey(const Key('content_detail_tv'));
@@ -67,20 +71,35 @@ void main() {
       expect(listViewRecomendationsFinder, findsOneWidget);
     });
 
-    testWidgets('should display text with message when Error',
+    testWidgets('should display text with message when error detail',
         (WidgetTester tester) async {
       when(mockNotifier.tvState).thenReturn(RequestState.error);
       when(mockNotifier.recommendationState).thenReturn(RequestState.error);
       when(mockNotifier.message).thenReturn('Error message');
 
       final textFinder = find.byKey(const Key('error_message'));
-      final textFinder2 = find.byType(Text);
 
       await tester.pumpWidget(makeTestableWidget(const TvDetailPage(
         id: tId,
       )));
 
       expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets('should display text with message when error recomendation',
+        (WidgetTester tester) async {
+      when(mockNotifier.tvState).thenReturn(RequestState.loaded);
+      when(mockNotifier.tvDetail).thenReturn(testTvDetail);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.error);
+      when(mockNotifier.message).thenReturn('Error message');
+
+      final textFinder2 = find.byKey(const Key('error_message_recomendation'));
+
+      await tester.pumpWidget(makeTestableWidget(const TvDetailPage(
+        id: tId,
+      )));
+
       expect(textFinder2, findsOneWidget);
     });
 
@@ -140,6 +159,29 @@ void main() {
     });
 
     testWidgets(
+        'Watchlist button should display Snackbar when remove from watchlist',
+        (WidgetTester tester) async {
+      when(mockNotifier.tvState).thenReturn(RequestState.loaded);
+      when(mockNotifier.tvDetail).thenReturn(testTvDetail);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
+      when(mockNotifier.tvRecommendations).thenReturn(<Tv>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(true);
+      when(mockNotifier.watchlistMessage).thenReturn('Removed from Watchlist');
+
+      final watchlistButton = find.byType(ElevatedButton);
+
+      await tester.pumpWidget(makeTestableWidget(const TvDetailPage(id: 1)));
+
+      expect(find.byIcon(Icons.check), findsOneWidget);
+
+      await tester.tap(watchlistButton);
+      await tester.pump();
+
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(find.text('Removed from Watchlist'), findsOneWidget);
+    });
+
+    testWidgets(
         'Watchlist button should display AlertDialog when add to watchlist failed',
         (WidgetTester tester) async {
       when(mockNotifier.tvState).thenReturn(RequestState.loaded);
@@ -160,6 +202,33 @@ void main() {
 
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(find.text('Failed'), findsOneWidget);
+    });
+
+    testWidgets('should back from detail page to home page',
+        (WidgetTester tester) async {
+      when(mockNotifier.tvState).thenReturn(RequestState.loaded);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
+      when(mockNotifier.tvDetail).thenReturn(testTvDetail);
+      when(mockNotifier.tvRecommendations).thenReturn(testTvList);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+
+      await tester.pumpWidget(makeTestableWidget(const TvDetailPage(id: 1)));
+      expect(find.byKey(const Key('buttonBackDetailTv')), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('buttonBackDetailTv')));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('should container if no state recomendation',
+        (WidgetTester tester) async {
+      when(mockNotifier.tvState).thenReturn(RequestState.loaded);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.empty);
+      when(mockNotifier.tvDetail).thenReturn(testTvDetail);
+      when(mockNotifier.tvRecommendations).thenReturn(testTvList);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+
+      await tester.pumpWidget(makeTestableWidget(const TvDetailPage(id: 1)));
+      expect(find.byKey(const Key('empty_widget_tv')), findsOneWidget);
     });
   });
 }

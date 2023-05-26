@@ -12,6 +12,20 @@ class TvDetailNotifier extends ChangeNotifier {
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
 
+  final GetTvDetail getTvDetail;
+  final GetTvRecommendations getTvRecommendations;
+  final GetWatchListStatus getWatchListStatus;
+  final SaveWatchlistTv saveWatchlistTv;
+  final RemoveWatchlistTv removeWatchlistTv;
+
+  TvDetailNotifier({
+    required this.getTvDetail,
+    required this.getTvRecommendations,
+    required this.getWatchListStatus,
+    required this.saveWatchlistTv,
+    required this.removeWatchlistTv,
+  });
+
   late TvDetail _tvDetail;
   TvDetail get tvDetail => _tvDetail;
   RequestState _tvState = RequestState.empty;
@@ -27,20 +41,6 @@ class TvDetailNotifier extends ChangeNotifier {
 
   bool _isAddedtoWatchlist = false;
   bool get isAddedToWatchlist => _isAddedtoWatchlist;
-
-  final GetTvDetail getTvDetail;
-  final GetTvRecommendations getTvRecommendations;
-  final GetWatchListStatus getWatchListStatus;
-  final SaveWatchlistTv saveWatchlistTv;
-  final RemoveWatchlistTv removeWatchlistTv;
-
-  TvDetailNotifier({
-    required this.getTvDetail,
-    required this.getTvRecommendations,
-    required this.getWatchListStatus,
-    required this.saveWatchlistTv,
-    required this.removeWatchlistTv,
-  });
 
   Future<void> fetchTvDetail(int id) async {
     _tvState = RequestState.loading;
@@ -78,7 +78,6 @@ class TvDetailNotifier extends ChangeNotifier {
 
   Future<void> addWatchlist(TvDetail tv) async {
     final result = await saveWatchlistTv.execute(tv);
-
     await result.fold(
       (failure) async {
         _watchlistMessage = failure.message;
@@ -87,13 +86,11 @@ class TvDetailNotifier extends ChangeNotifier {
         _watchlistMessage = successMessage;
       },
     );
-
     await loadWatchlistStatus(tv.id);
   }
 
   Future<void> removeFromWatchlist(TvDetail tv) async {
     final result = await removeWatchlistTv.execute(tv);
-
     await result.fold(
       (failure) async {
         _watchlistMessage = failure.message;
@@ -102,7 +99,6 @@ class TvDetailNotifier extends ChangeNotifier {
         _watchlistMessage = successMessage;
       },
     );
-
     await loadWatchlistStatus(tv.id);
   }
 

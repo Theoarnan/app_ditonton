@@ -4,6 +4,12 @@ import 'package:app_ditonton/features/tvseries/domain/usecases/get_popular_tv.da
 import 'package:flutter/material.dart';
 
 class PopularTvNotifier extends ChangeNotifier {
+  final GetPopularTv getPopularTv;
+
+  PopularTvNotifier({
+    required this.getPopularTv,
+  });
+
   RequestState _state = RequestState.empty;
   RequestState get state => _state;
   List<Tv> _tv = [];
@@ -12,17 +18,10 @@ class PopularTvNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  final GetPopularTv getPopularTv;
-  PopularTvNotifier({
-    required this.getPopularTv,
-  });
-
   Future<void> fetchPopularTv() async {
     _state = RequestState.loading;
     notifyListeners();
-
     final result = await getPopularTv.execute();
-
     result.fold(
       (failure) {
         _message = failure.message;

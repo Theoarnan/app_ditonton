@@ -88,7 +88,12 @@ class MyApp extends StatelessWidget {
           colorScheme: kColorScheme,
           primaryColor: kRichBlack,
           scaffoldBackgroundColor: kRichBlack,
-          textTheme: kTextTheme,
+          textTheme: TextTheme(
+            titleMedium: kHeading5,
+            titleSmall: kHeading6,
+            labelMedium: kSubtitle,
+            bodyMedium: kBodyText,
+          ),
         ),
         initialRoute: '/home-movie',
         navigatorObservers: [routeObserver],
@@ -103,19 +108,19 @@ class MyApp extends StatelessWidget {
                   builder: (_) => const Material(
                       child: CustomDrawer(content: HomeTvPage())));
             case PopularMoviesPage.routeName:
-              return CupertinoPageRoute(
+              return MaterialPageRoute(
                 builder: (_) => const PopularMoviesPage(),
               );
             case PopularTvPage.routeName:
-              return CupertinoPageRoute(
+              return MaterialPageRoute(
                 builder: (_) => const PopularTvPage(),
               );
             case TopRatedMoviesPage.routeName:
-              return CupertinoPageRoute(
+              return MaterialPageRoute(
                 builder: (_) => const TopRatedMoviesPage(),
               );
             case TopRatedTvPage.routeName:
-              return CupertinoPageRoute(
+              return MaterialPageRoute(
                 builder: (_) => const TopRatedTvPage(),
               );
             case MovieDetailPage.routeName:
@@ -131,10 +136,9 @@ class MyApp extends StatelessWidget {
                 settings: settings,
               );
             case SearchMoviePage.routeName:
-              return CupertinoPageRoute(
-                  builder: (_) => const SearchMoviePage());
+              return MaterialPageRoute(builder: (_) => const SearchMoviePage());
             case SearchTvPage.routeName:
-              return CupertinoPageRoute(builder: (_) => const SearchTvPage());
+              return MaterialPageRoute(builder: (_) => const SearchTvPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
             case WatchlistMoviesPage.routeName:

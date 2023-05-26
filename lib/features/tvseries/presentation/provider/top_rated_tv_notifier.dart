@@ -4,6 +4,11 @@ import 'package:app_ditonton/features/tvseries/domain/usecases/get_top_rated_tv.
 import 'package:flutter/material.dart';
 
 class TopRatedTvNotifier extends ChangeNotifier {
+  final GetTopRatedTv getTopRatedTv;
+  TopRatedTvNotifier({
+    required this.getTopRatedTv,
+  });
+
   RequestState _state = RequestState.empty;
   RequestState get state => _state;
   List<Tv> _tv = [];
@@ -12,18 +17,10 @@ class TopRatedTvNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  final GetTopRatedTv getTopRatedTv;
-
-  TopRatedTvNotifier({
-    required this.getTopRatedTv,
-  });
-
   Future<void> fetchTopRatedTv() async {
     _state = RequestState.loading;
     notifyListeners();
-
     final result = await getTopRatedTv.execute();
-
     result.fold(
       (failure) {
         _message = failure.message;

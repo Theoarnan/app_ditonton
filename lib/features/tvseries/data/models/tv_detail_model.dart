@@ -43,25 +43,28 @@ class TvDetailModel extends Equatable {
   });
 
   factory TvDetailModel.fromJson(Map<String, dynamic> json) => TvDetailModel(
-      adult: json["adult"],
-      backdropPath: json["backdrop_path"],
-      firstAirDate: json["first_air_date"],
-      genres: List<GenreModel>.from(
-          json["genres"].map((x) => GenreModel.fromJson(x))),
-      id: json["id"],
-      name: json["name"],
-      numberOfEpisodes: json["number_of_episodes"],
-      numberOfSeasons: json["number_of_seasons"],
-      originCountry: List<String>.from(json["origin_country"].map((x) => x)),
-      originalLanguage: json["original_language"],
-      originalName: json["original_name"],
-      overview: json["overview"],
-      popularity: json["popularity"].toDouble(),
-      posterPath: json["poster_path"],
-      voteAverage: json["vote_average"].toDouble(),
-      voteCount: json["vote_count"],
-      seasons: List<SeasonModel>.from(
-          json["seasons"].map((x) => SeasonModel.fromJson(x))));
+        adult: json["adult"],
+        backdropPath: json["backdrop_path"],
+        firstAirDate: json["first_air_date"],
+        genres: List<GenreModel>.from(
+          json["genres"].map((x) => GenreModel.fromJson(x)),
+        ),
+        id: json["id"],
+        name: json["name"],
+        numberOfEpisodes: json["number_of_episodes"],
+        numberOfSeasons: json["number_of_seasons"],
+        originCountry: List<String>.from(json["origin_country"].map((x) => x)),
+        originalLanguage: json["original_language"],
+        originalName: json["original_name"],
+        overview: json["overview"],
+        popularity: json["popularity"].toDouble(),
+        posterPath: json["poster_path"],
+        voteAverage: json["vote_average"].toDouble(),
+        voteCount: json["vote_count"],
+        seasons: List<SeasonModel>.from(
+          json["seasons"].map((x) => SeasonModel.fromJson(x)),
+        ),
+      );
 
   TvDetail toEntity() {
     return TvDetail(

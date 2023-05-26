@@ -30,7 +30,8 @@ class SeasonDetailModel extends Equatable {
         posterPath: json["poster_path"],
         seasonNumber: json["season_number"],
         episodes: List<EpisodeModel>.from(
-            json["episodes"].map((x) => EpisodeModel.fromJson(x))),
+          json["episodes"].map((x) => EpisodeModel.fromJson(x)),
+        ),
       );
 
   SeasonDetail toEntity() {

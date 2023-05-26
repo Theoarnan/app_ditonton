@@ -7,9 +7,7 @@ import 'package:provider/provider.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   static const routeName = '/watchlist-movie';
-
   const WatchlistMoviesPage({super.key});
-
   @override
   State<WatchlistMoviesPage> createState() => _WatchlistMoviesPageState();
 }
@@ -19,9 +17,12 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
+    Future.microtask(
+      () => Provider.of<WatchlistNotifier>(
+        context,
+        listen: false,
+      ).fetchWatchlistMovies(),
+    );
   }
 
   @override
@@ -32,8 +33,10 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
+    Provider.of<WatchlistNotifier>(
+      context,
+      listen: false,
+    ).fetchWatchlistMovies();
   }
 
   @override
@@ -53,6 +56,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
             } else if (data.watchlistState == RequestState.loaded) {
               return ListView.builder(
                 key: const Key('watchlistMovieScrollView'),
+                itemCount: data.watchlistMovies.length,
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];
                   return MovieCard(
@@ -60,7 +64,6 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                     movie,
                   );
                 },
-                itemCount: data.watchlistMovies.length,
               );
             } else {
               return Center(

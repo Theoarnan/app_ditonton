@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_search_notifier.dart';
@@ -9,7 +7,6 @@ import 'package:provider/provider.dart';
 
 class SearchTvPage extends StatelessWidget {
   static const routeName = '/search-tv';
-
   const SearchTvPage({super.key});
 
   @override
@@ -26,8 +23,10 @@ class SearchTvPage extends StatelessWidget {
             TextField(
               key: const Key('enterSearchQueryTv'),
               onSubmitted: (query) {
-                Provider.of<TvSearchNotifier>(context, listen: false)
-                    .fetchTvSearch(query);
+                Provider.of<TvSearchNotifier>(
+                  context,
+                  listen: false,
+                ).fetchTvSearch(query);
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -57,6 +56,7 @@ class SearchTvPage extends StatelessWidget {
                     child: ListView.builder(
                       key: const Key('tvSearchScrollView'),
                       padding: const EdgeInsets.all(8),
+                      itemCount: result.length,
                       itemBuilder: (context, index) {
                         final tv = data.searchResult[index];
                         return TvCard(
@@ -64,11 +64,9 @@ class SearchTvPage extends StatelessWidget {
                           tv,
                         );
                       },
-                      itemCount: result.length,
                     ),
                   );
                 } else {
-                  log('Sini');
                   return Expanded(
                     child: Center(
                       key: const Key('error_message_search_tv'),

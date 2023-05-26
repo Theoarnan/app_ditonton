@@ -33,7 +33,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ditonton - Movie'),
+        title: const Text('Ditonton Movie'),
         key: const Key('drawerButtonMovie'),
         leading: const Icon(Icons.menu),
         actions: [
@@ -74,8 +74,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               }),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, PopularMoviesPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  PopularMoviesPage.routeName,
+                ),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.popularMoviesState;
@@ -94,24 +96,28 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               }),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  TopRatedMoviesPage.routeName,
+                ),
               ),
-              Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedMoviesState;
-                if (state == RequestState.loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.loaded) {
-                  return MovieList(
-                    keyList: 'toprated',
-                    data.topRatedMovies,
-                  );
-                } else {
-                  return const Text('Failed');
-                }
-              }),
+              Consumer<MovieListNotifier>(
+                builder: (context, data, child) {
+                  final state = data.topRatedMoviesState;
+                  if (state == RequestState.loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state == RequestState.loaded) {
+                    return MovieList(
+                      keyList: 'toprated',
+                      data.topRatedMovies,
+                    );
+                  } else {
+                    return const Text('Failed');
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -164,6 +170,7 @@ class MovieList extends StatelessWidget {
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        itemCount: movies.length,
         itemBuilder: (context, index) {
           final movie = movies[index];
           return Container(
@@ -190,7 +197,6 @@ class MovieList extends StatelessWidget {
             ),
           );
         },
-        itemCount: movies.length,
       ),
     );
   }

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 class PopularTvPage extends StatefulWidget {
   static const routeName = '/popular-tv';
   const PopularTvPage({super.key});
-
   @override
   State<PopularTvPage> createState() => _PopularTvPageState();
 }
@@ -16,9 +15,12 @@ class _PopularTvPageState extends State<PopularTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvNotifier>(context, listen: false)
-            .fetchPopularTv());
+    Future.microtask(
+      () => Provider.of<PopularTvNotifier>(
+        context,
+        listen: false,
+      ).fetchPopularTv(),
+    );
   }
 
   @override

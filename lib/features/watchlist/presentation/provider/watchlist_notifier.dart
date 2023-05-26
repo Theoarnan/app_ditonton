@@ -6,6 +6,14 @@ import 'package:app_ditonton/features/watchlist/domain/usecases/get_watchlist_tv
 import 'package:flutter/material.dart';
 
 class WatchlistNotifier extends ChangeNotifier {
+  final GetWatchlistMovies getWatchlistMovies;
+  final GetWatchlistTv getWatchlistTv;
+
+  WatchlistNotifier({
+    required this.getWatchlistMovies,
+    required this.getWatchlistTv,
+  });
+
   var _watchlistMovies = <Movie>[];
   List<Movie> get watchlistMovies => _watchlistMovies;
 
@@ -18,18 +26,9 @@ class WatchlistNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  WatchlistNotifier({
-    required this.getWatchlistMovies,
-    required this.getWatchlistTv,
-  });
-
-  final GetWatchlistMovies getWatchlistMovies;
-  final GetWatchlistTv getWatchlistTv;
-
   Future<void> fetchWatchlistMovies() async {
     _watchlistState = RequestState.loading;
     notifyListeners();
-
     final result = await getWatchlistMovies.execute();
     result.fold(
       (failure) {
@@ -48,7 +47,6 @@ class WatchlistNotifier extends ChangeNotifier {
   Future<void> fetchWatchlistTv() async {
     _watchlistState = RequestState.loading;
     notifyListeners();
-
     final result = await getWatchlistTv.execute();
     result.fold(
       (failure) {

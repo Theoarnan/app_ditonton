@@ -32,14 +32,6 @@ final TextStyle kBodyText = GoogleFonts.poppins(
   letterSpacing: 0.25,
 );
 
-// text theme
-final kTextTheme = TextTheme(
-  titleMedium: kHeading5,
-  titleSmall: kHeading6,
-  labelMedium: kSubtitle,
-  bodyMedium: kBodyText,
-);
-
 const kColorScheme = ColorScheme(
   primary: kMikadoYellow,
   primaryContainer: kMikadoYellow,

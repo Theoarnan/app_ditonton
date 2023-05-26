@@ -1,5 +1,4 @@
 import 'package:app_ditonton/common/state_enum.dart';
-import 'package:app_ditonton/domain/entities/movie.dart';
 import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
 import 'package:app_ditonton/features/watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../dummy_data/dummy_objects.dart';
 import 'watchlist_movie_page_test.mocks.dart';
 
 @GenerateMocks([WatchlistNotifier])
@@ -45,7 +45,7 @@ void main() {
         'should display list watchlist movie content when data is loaded',
         (WidgetTester tester) async {
       when(mockNotifier.watchlistState).thenReturn(RequestState.loaded);
-      when(mockNotifier.watchlistMovies).thenReturn(<Movie>[]);
+      when(mockNotifier.watchlistMovies).thenReturn(testMovieList);
 
       final listViewFinder = find.byType(ListView);
 
