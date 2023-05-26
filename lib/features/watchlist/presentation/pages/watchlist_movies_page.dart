@@ -64,7 +64,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               );
             } else {
               return Center(
-                key: const Key('error_message'),
+                key: const Key('error_message_watchlist_movie'),
                 child: Text(data.message),
               );
             }

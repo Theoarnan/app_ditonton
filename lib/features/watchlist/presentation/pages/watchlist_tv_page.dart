@@ -62,7 +62,7 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
               );
             } else {
               return Center(
-                key: const Key('error_message'),
+                key: const Key('error_message_watchlist_movie_tv'),
                 child: Text(data.message),
               );
             }
