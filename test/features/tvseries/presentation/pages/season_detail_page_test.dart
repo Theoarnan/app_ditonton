@@ -34,7 +34,7 @@ void main() {
   const arguments = SeasonDetailArgument(
     id: tId,
     season: Season(
-      airDate: "airDate",
+      airDate: "2023-05-11",
       episodeCount: 1,
       id: tId,
       name: "name",
@@ -44,7 +44,7 @@ void main() {
     ),
   );
   const episode = Episode(
-    airDate: "airDate",
+    airDate: "2023-05-11",
     episodeNumber: 1,
     id: 1,
     name: "name",
@@ -57,7 +57,7 @@ void main() {
   );
   const seasonDetail = SeasonDetail(
     id: 1,
-    airDate: "airDate",
+    airDate: "2023-05-11",
     name: "name",
     overview: "overview",
     posterPath: "posterPath",
