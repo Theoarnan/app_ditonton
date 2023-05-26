@@ -8,10 +8,10 @@ class SeasonDetailTvRobot {
   Future<void> scrollSeasonEpisodeDetailTvPage({bool scrollUp = false}) async {
     final scrollViewFinder = find.byKey(const Key('listSeasonEpisodeTv'));
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, const Offset(0, 600), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, 1000), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, const Offset(0, -600), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, -1000), 10000);
       await tester.pumpAndSettle();
     }
   }

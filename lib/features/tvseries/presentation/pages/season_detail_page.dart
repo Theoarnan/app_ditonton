@@ -6,6 +6,7 @@ import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_arg
 import 'package:app_ditonton/features/tvseries/presentation/provider/season_detail_notifier.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
@@ -120,7 +121,7 @@ class DetailContent extends StatelessWidget {
             children: [
               Text(
                 season.name,
-                style: kHeading6.copyWith(
+                style: kHeading5.copyWith(
                   fontWeight: FontWeight.bold,
                   color: kMikadoYellow,
                 ),
@@ -136,6 +137,8 @@ class DetailContent extends StatelessWidget {
         Container(
           width: screenWidth,
           padding: const EdgeInsets.symmetric(horizontal: 16),
+          height:
+              MediaQuery.of(context).size.height - (screenHeight * 0.37) - 16,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -144,8 +147,7 @@ class DetailContent extends StatelessWidget {
                 style: kHeading6,
               ),
               const SizedBox(height: 8),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.52,
+              Expanded(
                 child: ListView.separated(
                   key: const Key('listSeasonEpisodeTv'),
                   separatorBuilder: (context, index) => Divider(
@@ -165,7 +167,6 @@ class DetailContent extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                /// TODO: Add Validation Empty Image
                                 SizedBox(
                                   width: 100,
                                   height: 70,
@@ -190,17 +191,27 @@ class DetailContent extends StatelessWidget {
                                   children: [
                                     Text(
                                       'Episode ${episode.episodeNumber}',
-                                      style: kBodyText,
+                                      style: kBodyText.copyWith(fontSize: 14),
                                     ),
-                                    Text(
-                                      episode.name,
-                                      style: kBodyText.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: kMikadoYellow,
+                                    SizedBox(
+                                      width: 250,
+                                      child: Text(
+                                        episode.name,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: kBodyText.copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: kMikadoYellow,
+                                        ),
                                       ),
                                     ),
                                     Text(
-                                      episode.airDate,
+                                      episode.airDate.isNotEmpty
+                                          ? DateFormat.yMMMEd().format(
+                                              DateTime.parse(episode.airDate),
+                                            )
+                                          : '-',
                                       style: kBodyText.copyWith(
                                         fontSize: 10,
                                         color: Colors.grey.shade300,

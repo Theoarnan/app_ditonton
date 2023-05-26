@@ -290,7 +290,7 @@ class DetailContent extends StatelessWidget {
         right: 10,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.all(

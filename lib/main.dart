@@ -28,7 +28,6 @@ import 'package:app_ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:app_ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:app_ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:app_ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ditonton/injection.dart' as di;
 import 'package:provider/provider.dart';

@@ -8,10 +8,10 @@ class DetailTvRobot {
   Future<void> scrollDetailTvPage({bool scrollUp = false}) async {
     final scrollViewFinder = find.byKey(const Key('tvDetailScrollView'));
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, const Offset(0, 600), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, 1000), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, const Offset(0, -600), 10000);
+      await tester.fling(scrollViewFinder, const Offset(0, -1000), 10000);
       await tester.pumpAndSettle();
     }
   }
@@ -26,10 +26,10 @@ class DetailTvRobot {
   Future<void> scrollSeasonDetailTvPage({bool scrollBack = false}) async {
     final scrollViewFinder = find.byKey(const Key('seasonTvDetailScrollView'));
     if (scrollBack) {
-      await tester.fling(scrollViewFinder, const Offset(600, 0), 10000);
+      await tester.fling(scrollViewFinder, const Offset(1000, 0), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, const Offset(-600, 0), 10000);
+      await tester.fling(scrollViewFinder, const Offset(-1000, 0), 10000);
       await tester.pumpAndSettle();
     }
   }
@@ -38,10 +38,10 @@ class DetailTvRobot {
     final scrollViewFinder =
         find.byKey(const Key('recomendationTvDetailScrollView'));
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, const Offset(600, 0), 10000);
+      await tester.fling(scrollViewFinder, const Offset(1000, 0), 10000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, const Offset(-600, 0), 10000);
+      await tester.fling(scrollViewFinder, const Offset(-1000, 0), 10000);
       await tester.pumpAndSettle();
     }
   }

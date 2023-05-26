@@ -10,10 +10,10 @@ class PopularMovieRobot {
   Future<void> scrollPopularMoviePage({bool scrollUp = false}) async {
     final scrollViewFinder = find.byKey(const Key('listPopularMovies'));
     if (scrollUp) {
-      await tester.fling(scrollViewFinder, const Offset(0, 600), 5000);
+      await tester.fling(scrollViewFinder, const Offset(0, 1000), 5000);
       await tester.pumpAndSettle();
     } else {
-      await tester.fling(scrollViewFinder, const Offset(0, -600), 5000);
+      await tester.fling(scrollViewFinder, const Offset(0, -1000), 5000);
       await tester.pumpAndSettle();
     }
   }
