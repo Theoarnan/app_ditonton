@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">Fri May 26 20:58:47 2023</td>
+            <td class="headerValue">Fri May 26 21:35:21 2023</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -196,119 +196,120 @@
 <a name="134"><span class="lineNum">     134 </span>            :           ),</a>
 <a name="135"><span class="lineNum">     135 </span>            :         ),</a>
 <a name="136"><span class="lineNum">     136 </span>            :         const SizedBox(height: 8),</a>
-<a name="137"><span class="lineNum">     137 </span><span class="lineCov">          1 :         Container(</span></a>
-<a name="138"><span class="lineNum">     138 </span>            :           width: screenWidth,</a>
-<a name="139"><span class="lineNum">     139 </span>            :           padding: const EdgeInsets.symmetric(horizontal: 16),</a>
-<a name="140"><span class="lineNum">     140 </span>            :           height:</a>
-<a name="141"><span class="lineNum">     141 </span><span class="lineCov">          6 :               MediaQuery.of(context).size.height - (screenHeight * 0.37) - 16,</span></a>
-<a name="142"><span class="lineNum">     142 </span><span class="lineCov">          1 :           child: Column(</span></a>
-<a name="143"><span class="lineNum">     143 </span>            :             crossAxisAlignment: CrossAxisAlignment.start,</a>
-<a name="144"><span class="lineNum">     144 </span><span class="lineCov">          1 :             children: [</span></a>
-<a name="145"><span class="lineNum">     145 </span><span class="lineCov">          1 :               Text(</span></a>
-<a name="146"><span class="lineNum">     146 </span>            :                 'Episodes',</a>
-<a name="147"><span class="lineNum">     147 </span><span class="lineCov">          1 :                 style: kHeading6,</span></a>
-<a name="148"><span class="lineNum">     148 </span>            :               ),</a>
-<a name="149"><span class="lineNum">     149 </span>            :               const SizedBox(height: 8),</a>
-<a name="150"><span class="lineNum">     150 </span><span class="lineCov">          1 :               Expanded(</span></a>
-<a name="151"><span class="lineNum">     151 </span><span class="lineCov">          1 :                 child: ListView.separated(</span></a>
-<a name="152"><span class="lineNum">     152 </span>            :                   key: const Key('listSeasonEpisodeTv'),</a>
-<a name="153"><span class="lineNum">     153 </span><span class="lineCov">          2 :                   separatorBuilder: (context, index) =&gt; Divider(</span></a>
-<a name="154"><span class="lineNum">     154 </span><span class="lineCov">          2 :                     key: Key('divider_content_detail_season$index'),</span></a>
-<a name="155"><span class="lineNum">     155 </span>            :                   ),</a>
-<a name="156"><span class="lineNum">     156 </span><span class="lineCov">          3 :                   itemCount: seasonDetail.episodes.length,</span></a>
-<a name="157"><span class="lineNum">     157 </span><span class="lineCov">          1 :                   itemBuilder: (context, index) {</span></a>
-<a name="158"><span class="lineNum">     158 </span><span class="lineCov">          3 :                     final episode = seasonDetail.episodes[index];</span></a>
-<a name="159"><span class="lineNum">     159 </span><span class="lineCov">          1 :                     return ListTile(</span></a>
-<a name="160"><span class="lineNum">     160 </span>            :                       contentPadding: EdgeInsets.zero,</a>
-<a name="161"><span class="lineNum">     161 </span><span class="lineCov">          1 :                       title: Column(</span></a>
-<a name="162"><span class="lineNum">     162 </span>            :                         crossAxisAlignment: CrossAxisAlignment.start,</a>
-<a name="163"><span class="lineNum">     163 </span><span class="lineCov">          1 :                         children: [</span></a>
-<a name="164"><span class="lineNum">     164 </span><span class="lineCov">          1 :                           SizedBox(</span></a>
-<a name="165"><span class="lineNum">     165 </span>            :                             width: screenWidth,</a>
-<a name="166"><span class="lineNum">     166 </span><span class="lineCov">          1 :                             child: Row(</span></a>
-<a name="167"><span class="lineNum">     167 </span>            :                               mainAxisAlignment: MainAxisAlignment.start,</a>
-<a name="168"><span class="lineNum">     168 </span>            :                               crossAxisAlignment: CrossAxisAlignment.center,</a>
-<a name="169"><span class="lineNum">     169 </span><span class="lineCov">          1 :                               children: [</span></a>
-<a name="170"><span class="lineNum">     170 </span><span class="lineCov">          1 :                                 SizedBox(</span></a>
-<a name="171"><span class="lineNum">     171 </span>            :                                   width: 100,</a>
-<a name="172"><span class="lineNum">     172 </span>            :                                   height: 70,</a>
-<a name="173"><span class="lineNum">     173 </span><span class="lineCov">          2 :                                   child: episode.stillPath.isNotEmpty</span></a>
-<a name="174"><span class="lineNum">     174 </span><span class="lineCov">          1 :                                       ? CachedNetworkImage(</span></a>
-<a name="175"><span class="lineNum">     175 </span>            :                                           imageUrl:</a>
-<a name="176"><span class="lineNum">     176 </span><span class="lineCov">          4 :                                               'https://image.tmdb.org/t/p/w500${episode.stillPath.isEmpty ? '/' : episode.stillPath}',</span></a>
-<a name="177"><span class="lineNum">     177 </span><span class="lineCov">          1 :                                           placeholder: (context, url) =&gt;</span></a>
-<a name="178"><span class="lineNum">     178 </span>            :                                               const Center(</a>
-<a name="179"><span class="lineNum">     179 </span>            :                                                 child:</a>
-<a name="180"><span class="lineNum">     180 </span>            :                                                     CircularProgressIndicator(),</a>
-<a name="181"><span class="lineNum">     181 </span>            :                                               ),</a>
-<a name="182"><span class="lineNum">     182 </span><span class="lineNoCov">          0 :                                           errorWidget: (context, url, error) {</span></a>
-<a name="183"><span class="lineNum">     183 </span>            :                                             return const Icon(Icons.error);</a>
-<a name="184"><span class="lineNum">     184 </span>            :                                           })</a>
-<a name="185"><span class="lineNum">     185 </span>            :                                       : const Icon(Icons.error),</a>
-<a name="186"><span class="lineNum">     186 </span>            :                                 ),</a>
-<a name="187"><span class="lineNum">     187 </span>            :                                 const SizedBox(width: 8),</a>
-<a name="188"><span class="lineNum">     188 </span><span class="lineCov">          1 :                                 Column(</span></a>
-<a name="189"><span class="lineNum">     189 </span>            :                                   crossAxisAlignment: CrossAxisAlignment.start,</a>
-<a name="190"><span class="lineNum">     190 </span>            :                                   mainAxisAlignment: MainAxisAlignment.start,</a>
-<a name="191"><span class="lineNum">     191 </span><span class="lineCov">          1 :                                   children: [</span></a>
-<a name="192"><span class="lineNum">     192 </span><span class="lineCov">          1 :                                     Text(</span></a>
-<a name="193"><span class="lineNum">     193 </span><span class="lineCov">          2 :                                       'Episode ${episode.episodeNumber}',</span></a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineCov">          2 :                                       style: kBodyText.copyWith(fontSize: 14),</span></a>
-<a name="195"><span class="lineNum">     195 </span>            :                                     ),</a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineCov">          1 :                                     SizedBox(</span></a>
-<a name="197"><span class="lineNum">     197 </span>            :                                       width: 250,</a>
-<a name="198"><span class="lineNum">     198 </span><span class="lineCov">          1 :                                       child: Text(</span></a>
-<a name="199"><span class="lineNum">     199 </span><span class="lineCov">          1 :                                         episode.name,</span></a>
-<a name="200"><span class="lineNum">     200 </span>            :                                         maxLines: 2,</a>
-<a name="201"><span class="lineNum">     201 </span>            :                                         overflow: TextOverflow.ellipsis,</a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">          2 :                                         style: kBodyText.copyWith(</span></a>
-<a name="203"><span class="lineNum">     203 </span>            :                                           fontSize: 16,</a>
-<a name="204"><span class="lineNum">     204 </span>            :                                           fontWeight: FontWeight.bold,</a>
-<a name="205"><span class="lineNum">     205 </span>            :                                           color: kMikadoYellow,</a>
-<a name="206"><span class="lineNum">     206 </span>            :                                         ),</a>
-<a name="207"><span class="lineNum">     207 </span>            :                                       ),</a>
-<a name="208"><span class="lineNum">     208 </span>            :                                     ),</a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">          1 :                                     Text(</span></a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">          2 :                                       episode.airDate.isNotEmpty</span></a>
-<a name="211"><span class="lineNum">     211 </span><span class="lineCov">          2 :                                           ? DateFormat.yMMMEd().format(</span></a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineCov">          2 :                                               DateTime.parse(episode.airDate),</span></a>
-<a name="213"><span class="lineNum">     213 </span>            :                                             )</a>
-<a name="214"><span class="lineNum">     214 </span>            :                                           : '-',</a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineCov">          2 :                                       style: kBodyText.copyWith(</span></a>
-<a name="216"><span class="lineNum">     216 </span>            :                                         fontSize: 10,</a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">          1 :                                         color: Colors.grey.shade300,</span></a>
-<a name="218"><span class="lineNum">     218 </span>            :                                       ),</a>
-<a name="219"><span class="lineNum">     219 </span>            :                                     ),</a>
-<a name="220"><span class="lineNum">     220 </span>            :                                   ],</a>
-<a name="221"><span class="lineNum">     221 </span>            :                                 ),</a>
-<a name="222"><span class="lineNum">     222 </span>            :                               ],</a>
-<a name="223"><span class="lineNum">     223 </span>            :                             ),</a>
-<a name="224"><span class="lineNum">     224 </span>            :                           ),</a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">          1 :                           ReadMoreText(</span></a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineCov">          1 :                             episode.overview,</span></a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">          1 :                             style: kBodyText,</span></a>
-<a name="228"><span class="lineNum">     228 </span>            :                             trimLines: 2,</a>
-<a name="229"><span class="lineNum">     229 </span>            :                             colorClickableText: kMikadoYellow,</a>
-<a name="230"><span class="lineNum">     230 </span>            :                             trimMode: TrimMode.Line,</a>
-<a name="231"><span class="lineNum">     231 </span>            :                             trimCollapsedText: ' Show more',</a>
-<a name="232"><span class="lineNum">     232 </span>            :                             trimExpandedText: ' Show less',</a>
-<a name="233"><span class="lineNum">     233 </span><span class="lineCov">          2 :                             moreStyle: kBodyText.copyWith(</span></a>
-<a name="234"><span class="lineNum">     234 </span>            :                               color: kMikadoYellow,</a>
-<a name="235"><span class="lineNum">     235 </span>            :                             ),</a>
-<a name="236"><span class="lineNum">     236 </span>            :                           ),</a>
-<a name="237"><span class="lineNum">     237 </span>            :                         ],</a>
-<a name="238"><span class="lineNum">     238 </span>            :                       ),</a>
-<a name="239"><span class="lineNum">     239 </span>            :                     );</a>
-<a name="240"><span class="lineNum">     240 </span>            :                   },</a>
-<a name="241"><span class="lineNum">     241 </span>            :                 ),</a>
-<a name="242"><span class="lineNum">     242 </span>            :               )</a>
-<a name="243"><span class="lineNum">     243 </span>            :             ],</a>
-<a name="244"><span class="lineNum">     244 </span>            :           ),</a>
-<a name="245"><span class="lineNum">     245 </span>            :         ),</a>
-<a name="246"><span class="lineNum">     246 </span>            :       ],</a>
-<a name="247"><span class="lineNum">     247 </span>            :     );</a>
-<a name="248"><span class="lineNum">     248 </span>            :   }</a>
-<a name="249"><span class="lineNum">     249 </span>            : }</a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineCov">          1 :         Flexible(</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">          1 :           child: Container(</span></a>
+<a name="139"><span class="lineNum">     139 </span>            :             width: screenWidth,</a>
+<a name="140"><span class="lineNum">     140 </span>            :             padding: const EdgeInsets.symmetric(horizontal: 16),</a>
+<a name="141"><span class="lineNum">     141 </span><span class="lineCov">          1 :             child: Column(</span></a>
+<a name="142"><span class="lineNum">     142 </span>            :               crossAxisAlignment: CrossAxisAlignment.start,</a>
+<a name="143"><span class="lineNum">     143 </span><span class="lineCov">          1 :               children: [</span></a>
+<a name="144"><span class="lineNum">     144 </span><span class="lineCov">          1 :                 Text(</span></a>
+<a name="145"><span class="lineNum">     145 </span>            :                   'Episodes',</a>
+<a name="146"><span class="lineNum">     146 </span><span class="lineCov">          1 :                   style: kHeading6,</span></a>
+<a name="147"><span class="lineNum">     147 </span>            :                 ),</a>
+<a name="148"><span class="lineNum">     148 </span>            :                 const SizedBox(height: 8),</a>
+<a name="149"><span class="lineNum">     149 </span><span class="lineCov">          1 :                 Expanded(</span></a>
+<a name="150"><span class="lineNum">     150 </span><span class="lineCov">          1 :                   child: ListView.separated(</span></a>
+<a name="151"><span class="lineNum">     151 </span>            :                     key: const Key('listSeasonEpisodeTv'),</a>
+<a name="152"><span class="lineNum">     152 </span><span class="lineCov">          2 :                     separatorBuilder: (context, index) =&gt; Divider(</span></a>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">          2 :                       key: Key('divider_content_detail_season$index'),</span></a>
+<a name="154"><span class="lineNum">     154 </span>            :                     ),</a>
+<a name="155"><span class="lineNum">     155 </span><span class="lineCov">          3 :                     itemCount: seasonDetail.episodes.length,</span></a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">          1 :                     itemBuilder: (context, index) {</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">          3 :                       final episode = seasonDetail.episodes[index];</span></a>
+<a name="158"><span class="lineNum">     158 </span><span class="lineCov">          1 :                       return ListTile(</span></a>
+<a name="159"><span class="lineNum">     159 </span>            :                         contentPadding: EdgeInsets.zero,</a>
+<a name="160"><span class="lineNum">     160 </span><span class="lineCov">          1 :                         title: Column(</span></a>
+<a name="161"><span class="lineNum">     161 </span>            :                           crossAxisAlignment: CrossAxisAlignment.start,</a>
+<a name="162"><span class="lineNum">     162 </span><span class="lineCov">          1 :                           children: [</span></a>
+<a name="163"><span class="lineNum">     163 </span><span class="lineCov">          1 :                             SizedBox(</span></a>
+<a name="164"><span class="lineNum">     164 </span>            :                               width: screenWidth,</a>
+<a name="165"><span class="lineNum">     165 </span><span class="lineCov">          1 :                               child: Row(</span></a>
+<a name="166"><span class="lineNum">     166 </span>            :                                 mainAxisAlignment: MainAxisAlignment.start,</a>
+<a name="167"><span class="lineNum">     167 </span>            :                                 crossAxisAlignment: CrossAxisAlignment.center,</a>
+<a name="168"><span class="lineNum">     168 </span><span class="lineCov">          1 :                                 children: [</span></a>
+<a name="169"><span class="lineNum">     169 </span><span class="lineCov">          1 :                                   SizedBox(</span></a>
+<a name="170"><span class="lineNum">     170 </span>            :                                     width: 100,</a>
+<a name="171"><span class="lineNum">     171 </span>            :                                     height: 70,</a>
+<a name="172"><span class="lineNum">     172 </span><span class="lineCov">          2 :                                     child: episode.stillPath.isNotEmpty</span></a>
+<a name="173"><span class="lineNum">     173 </span><span class="lineCov">          1 :                                         ? CachedNetworkImage(</span></a>
+<a name="174"><span class="lineNum">     174 </span>            :                                             imageUrl:</a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineCov">          4 :                                                 'https://image.tmdb.org/t/p/w500${episode.stillPath.isEmpty ? '/' : episode.stillPath}',</span></a>
+<a name="176"><span class="lineNum">     176 </span><span class="lineCov">          1 :                                             placeholder: (context, url) =&gt;</span></a>
+<a name="177"><span class="lineNum">     177 </span>            :                                                 const Center(</a>
+<a name="178"><span class="lineNum">     178 </span>            :                                                   child:</a>
+<a name="179"><span class="lineNum">     179 </span>            :                                                       CircularProgressIndicator(),</a>
+<a name="180"><span class="lineNum">     180 </span>            :                                                 ),</a>
+<a name="181"><span class="lineNum">     181 </span><span class="lineNoCov">          0 :                                             errorWidget: (context, url, error) {</span></a>
+<a name="182"><span class="lineNum">     182 </span>            :                                               return const Icon(Icons.error);</a>
+<a name="183"><span class="lineNum">     183 </span>            :                                             })</a>
+<a name="184"><span class="lineNum">     184 </span>            :                                         : const Icon(Icons.error),</a>
+<a name="185"><span class="lineNum">     185 </span>            :                                   ),</a>
+<a name="186"><span class="lineNum">     186 </span>            :                                   const SizedBox(width: 8),</a>
+<a name="187"><span class="lineNum">     187 </span><span class="lineCov">          1 :                                   Column(</span></a>
+<a name="188"><span class="lineNum">     188 </span>            :                                     crossAxisAlignment:</a>
+<a name="189"><span class="lineNum">     189 </span>            :                                         CrossAxisAlignment.start,</a>
+<a name="190"><span class="lineNum">     190 </span>            :                                     mainAxisAlignment: MainAxisAlignment.start,</a>
+<a name="191"><span class="lineNum">     191 </span><span class="lineCov">          1 :                                     children: [</span></a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">          1 :                                       Text(</span></a>
+<a name="193"><span class="lineNum">     193 </span><span class="lineCov">          2 :                                         'Episode ${episode.episodeNumber}',</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">          2 :                                         style: kBodyText.copyWith(fontSize: 14),</span></a>
+<a name="195"><span class="lineNum">     195 </span>            :                                       ),</a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">          1 :                                       SizedBox(</span></a>
+<a name="197"><span class="lineNum">     197 </span>            :                                         width: 250,</a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">          1 :                                         child: Text(</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">          1 :                                           episode.name,</span></a>
+<a name="200"><span class="lineNum">     200 </span>            :                                           maxLines: 2,</a>
+<a name="201"><span class="lineNum">     201 </span>            :                                           overflow: TextOverflow.ellipsis,</a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">          2 :                                           style: kBodyText.copyWith(</span></a>
+<a name="203"><span class="lineNum">     203 </span>            :                                             fontSize: 16,</a>
+<a name="204"><span class="lineNum">     204 </span>            :                                             fontWeight: FontWeight.bold,</a>
+<a name="205"><span class="lineNum">     205 </span>            :                                             color: kMikadoYellow,</a>
+<a name="206"><span class="lineNum">     206 </span>            :                                           ),</a>
+<a name="207"><span class="lineNum">     207 </span>            :                                         ),</a>
+<a name="208"><span class="lineNum">     208 </span>            :                                       ),</a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">          1 :                                       Text(</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">          2 :                                         episode.airDate.isNotEmpty</span></a>
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">          2 :                                             ? DateFormat.yMMMEd().format(</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">          2 :                                                 DateTime.parse(episode.airDate),</span></a>
+<a name="213"><span class="lineNum">     213 </span>            :                                               )</a>
+<a name="214"><span class="lineNum">     214 </span>            :                                             : '-',</a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">          2 :                                         style: kBodyText.copyWith(</span></a>
+<a name="216"><span class="lineNum">     216 </span>            :                                           fontSize: 10,</a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">          1 :                                           color: Colors.grey.shade300,</span></a>
+<a name="218"><span class="lineNum">     218 </span>            :                                         ),</a>
+<a name="219"><span class="lineNum">     219 </span>            :                                       ),</a>
+<a name="220"><span class="lineNum">     220 </span>            :                                     ],</a>
+<a name="221"><span class="lineNum">     221 </span>            :                                   ),</a>
+<a name="222"><span class="lineNum">     222 </span>            :                                 ],</a>
+<a name="223"><span class="lineNum">     223 </span>            :                               ),</a>
+<a name="224"><span class="lineNum">     224 </span>            :                             ),</a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">          1 :                             ReadMoreText(</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">          1 :                               episode.overview,</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">          1 :                               style: kBodyText,</span></a>
+<a name="228"><span class="lineNum">     228 </span>            :                               trimLines: 2,</a>
+<a name="229"><span class="lineNum">     229 </span>            :                               colorClickableText: kMikadoYellow,</a>
+<a name="230"><span class="lineNum">     230 </span>            :                               trimMode: TrimMode.Line,</a>
+<a name="231"><span class="lineNum">     231 </span>            :                               trimCollapsedText: ' Show more',</a>
+<a name="232"><span class="lineNum">     232 </span>            :                               trimExpandedText: ' Show less',</a>
+<a name="233"><span class="lineNum">     233 </span><span class="lineCov">          2 :                               moreStyle: kBodyText.copyWith(</span></a>
+<a name="234"><span class="lineNum">     234 </span>            :                                 color: kMikadoYellow,</a>
+<a name="235"><span class="lineNum">     235 </span>            :                               ),</a>
+<a name="236"><span class="lineNum">     236 </span>            :                             ),</a>
+<a name="237"><span class="lineNum">     237 </span>            :                           ],</a>
+<a name="238"><span class="lineNum">     238 </span>            :                         ),</a>
+<a name="239"><span class="lineNum">     239 </span>            :                       );</a>
+<a name="240"><span class="lineNum">     240 </span>            :                     },</a>
+<a name="241"><span class="lineNum">     241 </span>            :                   ),</a>
+<a name="242"><span class="lineNum">     242 </span>            :                 )</a>
+<a name="243"><span class="lineNum">     243 </span>            :               ],</a>
+<a name="244"><span class="lineNum">     244 </span>            :             ),</a>
+<a name="245"><span class="lineNum">     245 </span>            :           ),</a>
+<a name="246"><span class="lineNum">     246 </span>            :         ),</a>
+<a name="247"><span class="lineNum">     247 </span>            :       ],</a>
+<a name="248"><span class="lineNum">     248 </span>            :     );</a>
+<a name="249"><span class="lineNum">     249 </span>            :   }</a>
+<a name="250"><span class="lineNum">     250 </span>            : }</a>
 </pre>
       </td>
     </tr>

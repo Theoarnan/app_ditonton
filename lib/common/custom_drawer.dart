@@ -1,6 +1,7 @@
 import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
 import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
 import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_tv_page.dart';
+import 'package:app_ditonton/presentation/pages/about_page.dart';
 import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,7 @@ class _CustomDrawerState extends State<CustomDrawer>
         ),
         ListTile(
           key: const Key('movieListTile'),
-          leading: const Icon(Icons.movie),
+          leading: const Icon(Icons.movie_creation_outlined),
           title: const Text('Movies'),
           onTap: () {
             Navigator.pushNamed(context, HomeMoviePage.routeName);
@@ -110,6 +111,15 @@ class _CustomDrawerState extends State<CustomDrawer>
               },
             ),
           ],
+        ),
+        ListTile(
+          key: const Key(''),
+          leading: const Icon(Icons.info_outline),
+          title: const Text('About'),
+          onTap: () {
+            Navigator.pushNamed(context, AboutPage.routeName);
+            animationController.reverse();
+          },
         ),
       ],
     );
