@@ -2,6 +2,8 @@
 
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/common/utils.dart';
+import 'package:app_ditonton/common/widgets.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
 import 'package:app_ditonton/domain/entities/movie.dart';
 import 'package:app_ditonton/domain/entities/movie_detail.dart';
@@ -144,7 +146,7 @@ class DetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('${movie.voteAverage}')
+                                Text(formatVoteAverage(movie.voteAverage))
                               ],
                             ),
                             const SizedBox(height: 16),
@@ -240,19 +242,8 @@ class DetailContent extends StatelessWidget {
     );
   }
 
-  ClipRRect cardRecomendation(Movie movie) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(8),
-      ),
-      child: CachedNetworkImage(
-        imageUrl: '$baseImageURL${movie.posterPath}',
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-      ),
-    );
+  Widget cardRecomendation(Movie movie) {
+    return Widgets.imageCachedNetwork('$baseImageURL${movie.posterPath!}');
   }
 
   Future<void> handleOnTapButton(BuildContext context) async {

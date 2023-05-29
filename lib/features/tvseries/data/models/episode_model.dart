@@ -52,7 +52,6 @@ class EpisodeModel extends Equatable {
       id: id,
       name: name,
       overview: overview,
-      runtime: runtime,
       seasonNumber: seasonNumber,
       stillPath: stillPath,
       voteAverage: voteAverage,

@@ -1,12 +1,13 @@
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/common/utils.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/episode.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season_detail.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_argument.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/season_detail_notifier.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
@@ -94,7 +95,12 @@ class DetailContent extends StatelessWidget {
               placeholder: (context, url) => const Center(
                 child: CircularProgressIndicator(),
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+              errorWidget: (context, url, error) => SizedBox(
+                child: Image.asset(
+                  'assets/no-image.gif',
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -125,10 +131,7 @@ class DetailContent extends StatelessWidget {
                   color: kMikadoYellow,
                 ),
               ),
-              Text(
-                'Total Episode ${season.episodeCount}',
-                style: kBodyText,
-              ),
+              Text('Total Episode ${season.episodeCount}', style: kBodyText),
             ],
           ),
         ),
@@ -154,87 +157,9 @@ class DetailContent extends StatelessWidget {
                     itemCount: seasonDetail.episodes.length,
                     itemBuilder: (context, index) {
                       final episode = seasonDetail.episodes[index];
-                      return ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: screenWidth,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 100,
-                                    height: 70,
-                                    child: episode.stillPath.isNotEmpty
-                                        ? CachedNetworkImage(
-                                            imageUrl:
-                                                '$baseImageURL${episode.stillPath}',
-                                            placeholder: (context, url) =>
-                                                const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                            errorWidget: (context, url, error) {
-                                              return const Icon(Icons.error);
-                                            })
-                                        : const Icon(Icons.error),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Episode ${episode.episodeNumber}',
-                                        style: kBodyText.copyWith(fontSize: 14),
-                                      ),
-                                      SizedBox(
-                                        width: 250,
-                                        child: Text(
-                                          episode.name,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: kBodyText.copyWith(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: kMikadoYellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        episode.airDate.isNotEmpty
-                                            ? DateFormat.yMMMEd().format(
-                                                DateTime.parse(episode.airDate),
-                                              )
-                                            : '-',
-                                        style: kBodyText.copyWith(
-                                          fontSize: 10,
-                                          color: Colors.grey.shade300,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            ReadMoreText(
-                              episode.overview,
-                              style: kBodyText,
-                              trimLines: 2,
-                              colorClickableText: kMikadoYellow,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: ' Show more',
-                              trimExpandedText: ' Show less',
-                              moreStyle: kBodyText.copyWith(
-                                color: kMikadoYellow,
-                              ),
-                            ),
-                          ],
-                        ),
+                      return ListTileEpisode(
+                        screenWidth: screenWidth,
+                        episode: episode,
                       );
                     },
                   ),
@@ -244,6 +169,101 @@ class DetailContent extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ListTileEpisode extends StatelessWidget {
+  const ListTileEpisode({
+    super.key,
+    required this.screenWidth,
+    required this.episode,
+  });
+
+  final double screenWidth;
+  final Episode episode;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: screenWidth,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 100,
+                  height: 70,
+                  child: CachedNetworkImage(
+                    imageUrl: '$baseImageURL${episode.stillPath!}',
+                    placeholder: (_, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => SizedBox(
+                      height: 100,
+                      width: 70,
+                      child: Image.asset(
+                        'assets/no-image.gif',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Episode ${episode.episodeNumber}',
+                      style: kBodyText.copyWith(fontSize: 14),
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        episode.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: kBodyText.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: kMikadoYellow,
+                        ),
+                      ),
+                    ),
+                    if (!checkIsEmpty(episode.airDate))
+                      Text(
+                        formatDate(episode.airDate!),
+                        style: kBodyText.copyWith(
+                          fontSize: 10,
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (episode.overview.isNotEmpty)
+            ReadMoreText(
+              episode.overview,
+              style: kBodyText,
+              trimLines: 2,
+              colorClickableText: kMikadoYellow,
+              trimMode: TrimMode.Line,
+              trimCollapsedText: ' Show more',
+              trimExpandedText: ' Show less',
+              moreStyle: kBodyText.copyWith(
+                color: kMikadoYellow,
+              ),
+            )
+        ],
+      ),
     );
   }
 }

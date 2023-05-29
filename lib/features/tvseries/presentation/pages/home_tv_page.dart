@@ -1,5 +1,6 @@
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/common/widgets.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/on_the_air_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/popular_tv_page.dart';
@@ -7,7 +8,6 @@ import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page
 import 'package:app_ditonton/features/tvseries/presentation/pages/top_rated_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/tv_detail_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_list_notifier.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +23,7 @@ class _HomeTvPageState extends State<HomeTvPage> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => Provider.of<TvListNotifier>(
-        context,
-        listen: false,
-      )
+      () => Provider.of<TvListNotifier>(context, listen: false)
         ..fetchOnTheAirTv()
         ..fetchPopularTv()
         ..fetchTopRatedTv(),
@@ -164,10 +161,10 @@ class _HomeTvPageState extends State<HomeTvPage> {
         InkWell(
           key: Key('seeMore${title.replaceAll(' ', '')}Tv'),
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Row(
-              children: const [
+              children: [
                 Text('See More'),
                 Icon(Icons.arrow_forward_ios),
               ],
@@ -209,15 +206,8 @@ class TvList extends StatelessWidget {
                   arguments: tv.id,
                 );
               },
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                child: CachedNetworkImage(
-                  imageUrl: '$baseImageURL${tv.posterPath}',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+              child: Widgets.imageCachedNetwork(
+                '$baseImageURL${tv.posterPath}',
               ),
             ),
           );

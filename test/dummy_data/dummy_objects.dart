@@ -113,7 +113,6 @@ const episodes = <Episode>[
     name: "Four Underground",
     overview:
         "The powerful and influential Fiero clan celebrates the 15th anniversary of their cockpit arena built on the remains of a tragic and bloody past. A girl stops at nothing until she unravels the mystery behind her mother's disappearance.",
-    runtime: 46,
     seasonNumber: 1,
     stillPath: "/8u3iGSXXTNA46GPcvgzmMBSjnkj.jpg",
     voteAverage: 10.0,

@@ -49,7 +49,6 @@ void main() {
     id: 1,
     name: "name",
     overview: "overview",
-    runtime: 1,
     seasonNumber: 1,
     stillPath: "stillPath",
     voteAverage: 5,

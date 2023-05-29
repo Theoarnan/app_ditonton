@@ -1,7 +1,7 @@
-import 'dart:developer';
-
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/common/utils.dart';
+import 'package:app_ditonton/common/widgets.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_argument.dart';
@@ -75,7 +75,6 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    log('Data img poster detail : ${tvDetail.posterPath}');
     return Stack(
       children: [
         CachedNetworkImage(
@@ -137,12 +136,14 @@ class DetailContent extends StatelessWidget {
                                   ),
                                   itemSize: 24,
                                 ),
-                                Text('${tvDetail.voteAverage}')
+                                Text(formatVoteAverage(tvDetail.voteAverage))
                               ],
                             ),
                             const SizedBox(height: 16),
                             Text('Overview', style: kHeading6),
-                            Text(tvDetail.overview),
+                            Text(tvDetail.overview.isNotEmpty
+                                ? tvDetail.overview
+                                : 'No Description'),
                             const SizedBox(height: 16),
                             if (tvDetail.seasons.isNotEmpty)
                               Column(
@@ -192,40 +193,49 @@ class DetailContent extends StatelessWidget {
                                   return Center(
                                     key: const Key(
                                         'error_message_recomendation'),
-                                    child: Text(
-                                      data.message,
-                                    ),
+                                    child: Text(data.message),
                                   );
                                 } else if (state == RequestState.loaded) {
-                                  return SizedBox(
-                                    key: const Key(
-                                      'content_detail_recommendation',
-                                    ),
-                                    height: 150,
-                                    child: ListView.builder(
-                                      key: const Key(
-                                        'recomendationTvDetailScrollView',
-                                      ),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: data.tvRecommendations.length,
-                                      itemBuilder: (context, i) {
-                                        final tv = data.tvRecommendations[i];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            key: Key('recomendation${i}tv'),
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                TvDetailPage.routeName,
-                                                arguments: tv.id,
-                                              );
-                                            },
-                                            child: cardRecomendation(tv),
+                                  if (data.tvRecommendations.isEmpty) {
+                                    return const Text('Empty Tv Recomendation');
+                                  }
+                                  return Column(
+                                    children: [
+                                      SizedBox(
+                                        key: const Key(
+                                          'content_detail_recommendation',
+                                        ),
+                                        height: 150,
+                                        child: ListView.builder(
+                                          key: const Key(
+                                            'recomendationTvDetailScrollView',
                                           ),
-                                        );
-                                      },
-                                    ),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount:
+                                              data.tvRecommendations.length,
+                                          itemBuilder: (context, i) {
+                                            final tv =
+                                                data.tvRecommendations[i];
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: InkWell(
+                                                key: Key('recomendation${i}tv'),
+                                                onTap: () {
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                    context,
+                                                    TvDetailPage.routeName,
+                                                    arguments: tv.id,
+                                                  );
+                                                },
+                                                child: cardRecomendation(tv),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   );
                                 } else {
                                   return const SizedBox(
@@ -270,24 +280,13 @@ class DetailContent extends StatelessWidget {
     );
   }
 
-  ClipRRect cardRecomendation(Tv tv) {
-    log('Data img poster recomendation detail : ${tv.posterPath}');
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(8),
-      ),
-      child: CachedNetworkImage(
-        imageUrl: '$baseImageURL${tv.posterPath}',
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-      ),
+  Widget cardRecomendation(Tv tv) {
+    return Widgets.imageCachedNetwork(
+      '$baseImageURL${tv.posterPath}',
     );
   }
 
   Container cardSeason(Season season) {
-    log('Data img poster season detail : ${season.posterPath}');
     return Container(
       width: 100,
       height: 130,
@@ -297,22 +296,7 @@ class DetailContent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-            child: season.posterPath.isNotEmpty
-                ? CachedNetworkImage(
-                    imageUrl: '$baseImageURL${season.posterPath}',
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => Image.asset(
-                      'assets/no-image.gif',
-                    ),
-                  )
-                : Image.asset('assets/no-image.gif'),
-          ),
+          Widgets.imageCachedNetwork('$baseImageURL${season.posterPath!}'),
           const SizedBox(height: 6),
           Text(
             season.name,

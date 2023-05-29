@@ -1,12 +1,12 @@
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/common/widgets.dart';
 import 'package:app_ditonton/domain/entities/movie.dart';
 import 'package:app_ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:app_ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:app_ditonton/presentation/pages/search_movie_page.dart';
 import 'package:app_ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:app_ditonton/presentation/provider/movie_list_notifier.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -139,10 +139,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         InkWell(
           key: Key('seeMore${title.replaceAll(' ', '')}Movies'),
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Row(
-              children: const [
+              children: [
                 Text('See More'),
                 Icon(Icons.arrow_forward_ios),
               ],
@@ -184,15 +184,8 @@ class MovieList extends StatelessWidget {
                   arguments: movie.id,
                 );
               },
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                child: CachedNetworkImage(
-                  imageUrl: '$baseImageURL${movie.posterPath}',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+              child: Widgets.imageCachedNetwork(
+                '$baseImageURL${movie.posterPath}',
               ),
             ),
           );
