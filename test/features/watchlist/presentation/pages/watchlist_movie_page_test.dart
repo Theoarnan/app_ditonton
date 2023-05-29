@@ -1,4 +1,5 @@
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/domain/entities/movie.dart';
 import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
 import 'package:app_ditonton/features/watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,21 @@ void main() {
       await tester.pumpWidget(makeTestableWidget(const WatchlistMoviesPage()));
 
       expect(listViewFinder, findsOneWidget);
+    });
+
+    testWidgets(
+        'should display empty content  watchlist movie when data is loaded',
+        (WidgetTester tester) async {
+      when(mockNotifier.watchlistState).thenReturn(RequestState.loaded);
+      when(mockNotifier.watchlistMovies).thenReturn(<Movie>[]);
+
+      final emptyContent = find.byKey(const Key('emptyDataWatchlistMovie'));
+      final emptyContentText = find.text('Empty data watchlist movie');
+
+      await tester.pumpWidget(makeTestableWidget(const WatchlistMoviesPage()));
+
+      expect(emptyContent, findsOneWidget);
+      expect(emptyContentText, findsOneWidget);
     });
 
     testWidgets('should display text with message when Error',

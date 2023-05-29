@@ -1,3 +1,8 @@
+import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
+import 'package:app_ditonton/presentation/pages/movie_detail_page.dart';
+import 'package:app_ditonton/presentation/pages/popular_movies_page.dart';
+import 'package:app_ditonton/presentation/pages/search_movie_page.dart';
+import 'package:app_ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,14 +19,29 @@ class HomeMovieRobot {
       await tester.fling(scrollViewFinder, const Offset(0, -1000), 10000);
       await tester.pumpAndSettle();
     }
+
+    /// expected
+    expect(find.text('Now Playing'), findsOneWidget);
+    expect(find.text('Popular'), findsOneWidget);
+    expect(find.text('Top Rated'), findsOneWidget);
+    expect(find.byKey(const Key('nowplaying')), findsOneWidget);
+    expect(find.byKey(const Key('popular')), findsOneWidget);
+    expect(find.byKey(const Key('toprated')), findsOneWidget);
   }
 
   Future<void> clickSeeMorePopularMovies() async {
-    final seePopularMoviesButtonFinder =
-        find.byKey(const Key('seeMorePopularMovies'));
+    final seePopularMoviesButtonFinder = find.byKey(
+      const Key('seeMorePopularMovies'),
+    );
     await tester.ensureVisible(seePopularMoviesButtonFinder);
     await tester.tap(seePopularMoviesButtonFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(PopularMoviesPage), findsOneWidget);
+    expect(find.text('Popular Movies'), findsOneWidget);
+    expect(find.byKey(const Key('listPopularMovies')), findsOneWidget);
   }
 
   Future<void> clickSeeMoreTopRatedMovies() async {
@@ -30,6 +50,12 @@ class HomeMovieRobot {
     await tester.ensureVisible(seeTopRatedMoviesButtonFinder);
     await tester.tap(seeTopRatedMoviesButtonFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(TopRatedMoviesPage), findsOneWidget);
+    expect(find.text('Top Rated Movies'), findsOneWidget);
+    expect(find.byKey(const Key('listTopRatedMovies')), findsOneWidget);
   }
 
   Future<void> clickMovieItem({required String keyList}) async {
@@ -37,6 +63,10 @@ class HomeMovieRobot {
     await tester.ensureVisible(movieItemFinder);
     await tester.tap(movieItemFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(MovieDetailPage), findsOneWidget);
   }
 
   Future<void> clickSearchMovieButton() async {
@@ -44,5 +74,14 @@ class HomeMovieRobot {
     await tester.ensureVisible(searchButtonMovieFinder);
     await tester.tap(searchButtonMovieFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(SearchMoviePage), findsOneWidget);
+    expect(find.text('Search Movies'), findsOneWidget);
+    expect(find.byKey(const Key('enterSearchQueryMovie')), findsOneWidget);
+    expect(find.byKey(const Key('list_search_movie')), findsNothing);
+    expect(find.byKey(const Key('emptyDataSearchMovie')), findsOneWidget);
+    expect(find.text('Search movie'), findsOneWidget);
   }
 }

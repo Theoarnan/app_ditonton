@@ -43,7 +43,10 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
                 itemCount: data.tv.length,
                 itemBuilder: (context, index) {
                   final tv = data.tv[index];
-                  return TvCard(tv);
+                  return TvCard(
+                    key: Key('listTopRatedTv$index'),
+                    tv,
+                  );
                 },
               );
             } else {

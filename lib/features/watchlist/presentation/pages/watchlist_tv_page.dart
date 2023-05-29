@@ -1,3 +1,4 @@
+import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/common/utils.dart';
 import 'package:app_ditonton/features/tvseries/presentation/widgets/tv_card_list.dart';
@@ -50,6 +51,21 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.loaded) {
+              if (data.watchlistTv.isEmpty) {
+                return Center(
+                  key: const Key('emptyDataWatchlistTv'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/no-data.gif'),
+                      Text(
+                        'Empty data watchlist tv',
+                        style: kHeading6,
+                      )
+                    ],
+                  ),
+                );
+              }
               return ListView.builder(
                 key: const Key('watchlistTvScrollView'),
                 itemBuilder: (context, index) {

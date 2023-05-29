@@ -158,6 +158,7 @@ class DetailContent extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final episode = seasonDetail.episodes[index];
                       return ListTileEpisode(
+                        key: Key('listSeasonEpisodeTv$index'),
                         screenWidth: screenWidth,
                         episode: episode,
                       );

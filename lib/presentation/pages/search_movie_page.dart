@@ -51,6 +51,11 @@ class SearchMoviePage extends StatelessWidget {
                   );
                 } else if (data.state == RequestState.loaded) {
                   final result = data.searchResult;
+                  if (result.isEmpty) {
+                    return const NoDataSearchMovie(
+                      title: 'Search movie not found',
+                    );
+                  }
                   return Expanded(
                     key: const Key('list_search_movie'),
                     child: ListView.builder(
@@ -66,17 +71,48 @@ class SearchMoviePage extends StatelessWidget {
                       },
                     ),
                   );
-                } else {
+                } else if (data.state == RequestState.error) {
                   return Expanded(
                     child: Center(
                       key: const Key('error_message_search_movie'),
                       child: Text(data.message),
                     ),
                   );
+                } else {
+                  return const NoDataSearchMovie();
                 }
               },
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class NoDataSearchMovie extends StatelessWidget {
+  final String title;
+  const NoDataSearchMovie({
+    super.key,
+    this.title = 'Search movie',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Center(
+          key: const Key('emptyDataSearchMovie'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/no-data.gif'),
+              Text(
+                title,
+                style: kHeading6,
+              )
+            ],
+          ),
         ),
       ),
     );

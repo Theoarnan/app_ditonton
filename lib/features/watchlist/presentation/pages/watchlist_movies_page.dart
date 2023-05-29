@@ -1,3 +1,4 @@
+import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/common/utils.dart';
 import 'package:app_ditonton/features/watchlist/presentation/provider/watchlist_notifier.dart';
@@ -54,6 +55,21 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.loaded) {
+              if (data.watchlistMovies.isEmpty) {
+                return Center(
+                  key: const Key('emptyDataWatchlistMovie'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/no-data.gif'),
+                      Text(
+                        'Empty data watchlist movie',
+                        style: kHeading6,
+                      )
+                    ],
+                  ),
+                );
+              }
               return ListView.builder(
                 key: const Key('watchlistMovieScrollView'),
                 itemCount: data.watchlistMovies.length,

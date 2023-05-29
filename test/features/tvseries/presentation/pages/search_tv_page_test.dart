@@ -69,6 +69,36 @@ void main() {
       expect(listViewFinder, findsOneWidget);
     });
 
+    testWidgets(
+        'should display empty content in list search when data is loaded',
+        (WidgetTester tester) async {
+      when(mockNotifier.state).thenReturn(RequestState.loaded);
+      when(mockNotifier.searchResult).thenReturn(<Tv>[]);
+
+      final emptyContent = find.byKey(const Key('emptyDataSearchTv'));
+      final emptyContentText = find.text('Search tv not found');
+
+      await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
+
+      expect(emptyContent, findsOneWidget);
+      expect(emptyContentText, findsOneWidget);
+    });
+
+    testWidgets(
+        'should display empty content in list search when data is empty',
+        (WidgetTester tester) async {
+      when(mockNotifier.state).thenReturn(RequestState.empty);
+      when(mockNotifier.searchResult).thenReturn(<Tv>[]);
+
+      final emptyContent = find.byKey(const Key('emptyDataSearchTv'));
+      final emptyContentText = find.text('Search tv');
+
+      await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
+
+      expect(emptyContent, findsOneWidget);
+      expect(emptyContentText, findsOneWidget);
+    });
+
     testWidgets('should display text with message when Error',
         (WidgetTester tester) async {
       when(mockNotifier.state).thenReturn(RequestState.error);

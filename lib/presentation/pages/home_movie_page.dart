@@ -169,6 +169,7 @@ class MovieList extends StatelessWidget {
     return SizedBox(
       height: 200,
       child: ListView.builder(
+        key: Key(keyList),
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
         itemBuilder: (context, index) {

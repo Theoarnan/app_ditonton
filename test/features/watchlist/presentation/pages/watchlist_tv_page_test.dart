@@ -55,8 +55,7 @@ void main() {
       expect(progressBarFinder, findsOneWidget);
     });
 
-    testWidgets(
-        'should display list watchlist movie content when data is loaded',
+    testWidgets('should display list watchlist tv content when data is loaded',
         (WidgetTester tester) async {
       when(mockNotifier.watchlistState).thenReturn(RequestState.loaded);
       when(mockNotifier.watchlistTv).thenReturn(listTv);
@@ -66,6 +65,20 @@ void main() {
       await tester.pumpWidget(makeTestableWidget(const WatchlistTvPage()));
 
       expect(listViewFinder, findsOneWidget);
+    });
+
+    testWidgets('should display empty content watchlist tv when data is loaded',
+        (WidgetTester tester) async {
+      when(mockNotifier.watchlistState).thenReturn(RequestState.loaded);
+      when(mockNotifier.watchlistTv).thenReturn(<Tv>[]);
+
+      final emptyContent = find.byKey(const Key('emptyDataWatchlistTv'));
+      final emptyContentText = find.text('Empty data watchlist tv');
+
+      await tester.pumpWidget(makeTestableWidget(const WatchlistTvPage()));
+
+      expect(emptyContent, findsOneWidget);
+      expect(emptyContentText, findsOneWidget);
     });
 
     testWidgets('should display text with message when Error',

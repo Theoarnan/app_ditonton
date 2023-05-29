@@ -42,7 +42,10 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                 key: const Key('listTopRatedMovies'),
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
-                  return MovieCard(movie);
+                  return MovieCard(
+                    key: Key('listTopRatedMovies$index'),
+                    movie,
+                  );
                 },
                 itemCount: data.movies.length,
               );

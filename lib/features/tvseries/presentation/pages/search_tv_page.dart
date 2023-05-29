@@ -13,7 +13,7 @@ class SearchTvPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
+        title: const Text('Search TV'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -51,6 +51,11 @@ class SearchTvPage extends StatelessWidget {
                   );
                 } else if (data.state == RequestState.loaded) {
                   final result = data.searchResult;
+                  if (result.isEmpty) {
+                    return const NoDataSearchTv(
+                      title: 'Search tv not found',
+                    );
+                  }
                   return Expanded(
                     key: const Key('list_search_tv'),
                     child: ListView.builder(
@@ -66,17 +71,48 @@ class SearchTvPage extends StatelessWidget {
                       },
                     ),
                   );
-                } else {
+                } else if (data.state == RequestState.error) {
                   return Expanded(
                     child: Center(
                       key: const Key('error_message_search_tv'),
                       child: Text(data.message),
                     ),
                   );
+                } else {
+                  return const NoDataSearchTv();
                 }
               },
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class NoDataSearchTv extends StatelessWidget {
+  final String title;
+  const NoDataSearchTv({
+    super.key,
+    this.title = 'Search tv',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Center(
+          key: const Key('emptyDataSearchTv'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/no-data.gif'),
+              Text(
+                title,
+                style: kHeading6,
+              )
+            ],
+          ),
         ),
       ),
     );

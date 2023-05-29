@@ -61,6 +61,7 @@ class _CustomDrawerState extends State<CustomDrawer>
 
   Widget buildDrawer() {
     return Column(
+      key: const Key('contentDrawer'),
       children: [
         const UserAccountsDrawerHeader(
           currentAccountPicture: CircleAvatar(

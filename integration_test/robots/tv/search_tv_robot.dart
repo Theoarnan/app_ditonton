@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
+import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -13,8 +15,12 @@ class SearchTvRobot {
     await tester.ensureVisible(textFieldFinder);
     await tester.enterText(textFieldFinder, query);
     await tester.testTextInput.receiveAction(TextInputAction.done);
-
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byKey(const Key('list_search_tv')), findsOneWidget);
+    expect(find.byKey(const Key('tvSearchScrollView')), findsOneWidget);
+    expect(find.byKey(const Key('listTvSearch0')), findsOneWidget);
   }
 
   Future<void> scrollSearchTvPage({bool scrollUp = false}) async {
@@ -22,6 +28,9 @@ class SearchTvRobot {
     if (scrollUp) {
       await tester.fling(scrollViewFinder, const Offset(0, 1000), 10000);
       await tester.pumpAndSettle();
+
+      /// expected
+      expect(find.byKey(const Key('listTvSearch0')), findsOneWidget);
     } else {
       await tester.fling(scrollViewFinder, const Offset(0, -1000), 10000);
       await tester.pumpAndSettle();
@@ -32,5 +41,9 @@ class SearchTvRobot {
     await tester.pageBack();
     await tester.pumpAndSettle();
     sleep(const Duration(seconds: 2));
+
+    /// expected
+    expect(find.byType(HomeTvPage), findsOneWidget);
+    expect(find.byType(SearchTvPage), findsNothing);
   }
 }

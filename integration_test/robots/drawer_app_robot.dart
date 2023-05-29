@@ -1,3 +1,7 @@
+import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
+import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
+import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_tv_page.dart';
+import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,6 +14,11 @@ class DrawerAppRobot {
     await tester.ensureVisible(drawerButtonFinder);
     await tester.tap(drawerButtonFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byKey(const Key('contentDrawer')), findsOneWidget);
+    expect(find.byKey(const Key('movieListTile')), findsOneWidget);
+    expect(find.byKey(const Key('watchlistListTile')), findsOneWidget);
   }
 
   Future<void> clickNavigationDrawerButtonTv() async {
@@ -17,6 +26,11 @@ class DrawerAppRobot {
     await tester.ensureVisible(drawerButtonFinder);
     await tester.tap(drawerButtonFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byKey(const Key('contentDrawer')), findsOneWidget);
+    expect(find.byKey(const Key('tvListTile')), findsOneWidget);
+    expect(find.byKey(const Key('watchlistListTile')), findsOneWidget);
   }
 
   Future<void> clickMovieListTile() async {
@@ -31,6 +45,10 @@ class DrawerAppRobot {
     await tester.ensureVisible(tvListTileFinder);
     await tester.tap(tvListTileFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(HomeTvPage), findsOneWidget);
   }
 
   Future<void> clickWatchlistListTile() async {
@@ -38,6 +56,10 @@ class DrawerAppRobot {
     await tester.ensureVisible(tvListTileFinder);
     await tester.tap(tvListTileFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byKey(const Key('watchlistMovieListTile')), findsOneWidget);
+    expect(find.byKey(const Key('watchlistTvListTile')), findsOneWidget);
   }
 
   Future<void> clickWatchlistMovieListTile() async {
@@ -45,6 +67,10 @@ class DrawerAppRobot {
     await tester.ensureVisible(tvListTileFinder);
     await tester.tap(tvListTileFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(WatchlistMoviesPage), findsOneWidget);
   }
 
   Future<void> clickWatchlistTvListTile() async {
@@ -52,5 +78,9 @@ class DrawerAppRobot {
     await tester.ensureVisible(tvListTileFinder);
     await tester.tap(tvListTileFinder);
     await tester.pumpAndSettle();
+
+    /// expected
+    expect(find.byType(HomeMoviePage), findsNothing);
+    expect(find.byType(WatchlistTvPage), findsOneWidget);
   }
 }

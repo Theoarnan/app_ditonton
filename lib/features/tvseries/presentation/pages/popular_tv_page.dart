@@ -42,7 +42,10 @@ class _PopularTvPageState extends State<PopularTvPage> {
                 key: const Key('listPopularTv'),
                 itemBuilder: (context, index) {
                   final tv = data.tv[index];
-                  return TvCard(tv);
+                  return TvCard(
+                    key: Key('listPopularTv$index'),
+                    tv,
+                  );
                 },
                 itemCount: data.tv.length,
               );

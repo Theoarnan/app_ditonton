@@ -42,7 +42,10 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                 key: const Key('listPopularMovies'),
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
-                  return MovieCard(movie);
+                  return MovieCard(
+                    key: Key('listPopularMovies$index'),
+                    movie,
+                  );
                 },
                 itemCount: data.movies.length,
               );

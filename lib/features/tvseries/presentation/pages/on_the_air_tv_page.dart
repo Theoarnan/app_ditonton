@@ -42,7 +42,10 @@ class _OnTheAirTvPageState extends State<OnTheAirTvPage> {
                 key: const Key('listOnTheAirTv'),
                 itemBuilder: (context, index) {
                   final tv = data.tv[index];
-                  return TvCard(tv);
+                  return TvCard(
+                    key: Key('listOnTheAirTv$index'),
+                    tv,
+                  );
                 },
                 itemCount: data.tv.length,
               );
