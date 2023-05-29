@@ -289,7 +289,7 @@ class DetailContent extends StatelessWidget {
   Container cardSeason(Season season) {
     return Container(
       width: 100,
-      height: 130,
+      height: 126,
       margin: const EdgeInsets.only(
         right: 10,
       ),
