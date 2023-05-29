@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">Sat May 27 09:52:16 2023</td>
+            <td class="headerValue">Mon May 29 11:13:34 2023</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -144,7 +144,7 @@
 <a name="82"><span class="lineNum">      82 </span><span class="lineCov">          1 :     return Stack(</span></a>
 <a name="83"><span class="lineNum">      83 </span><span class="lineCov">          1 :       children: [</span></a>
 <a name="84"><span class="lineNum">      84 </span><span class="lineCov">          1 :         CachedNetworkImage(</span></a>
-<a name="85"><span class="lineNum">      85 </span><span class="lineCov">          3 :           imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',</span></a>
+<a name="85"><span class="lineNum">      85 </span><span class="lineCov">          3 :           imageUrl: '$baseImageURL${movie.posterPath}',</span></a>
 <a name="86"><span class="lineNum">      86 </span>            :           width: screenWidth,</a>
 <a name="87"><span class="lineNum">      87 </span><span class="lineCov">          1 :           placeholder: (context, url) =&gt; const Center(</span></a>
 <a name="88"><span class="lineNum">      88 </span>            :             child: CircularProgressIndicator(),</a>
@@ -308,7 +308,7 @@
 <a name="246"><span class="lineNum">     246 </span>            :         Radius.circular(8),</a>
 <a name="247"><span class="lineNum">     247 </span>            :       ),</a>
 <a name="248"><span class="lineNum">     248 </span><span class="lineCov">          1 :       child: CachedNetworkImage(</span></a>
-<a name="249"><span class="lineNum">     249 </span><span class="lineCov">          2 :         imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">          2 :         imageUrl: '$baseImageURL${movie.posterPath}',</span></a>
 <a name="250"><span class="lineNum">     250 </span><span class="lineCov">          1 :         placeholder: (context, url) =&gt; const Center(</span></a>
 <a name="251"><span class="lineNum">     251 </span>            :           child: CircularProgressIndicator(),</a>
 <a name="252"><span class="lineNum">     252 </span>            :         ),</a>
