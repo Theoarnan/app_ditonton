@@ -17,6 +17,7 @@ import 'package:app_ditonton/features/tvseries/domain/usecases/get_top_rated_tv.
 import 'package:app_ditonton/features/tvseries/domain/usecases/get_tv_detail.dart';
 import 'package:app_ditonton/features/tvseries/domain/usecases/get_tv_recommendations.dart';
 import 'package:app_ditonton/features/tvseries/domain/usecases/search_tv.dart';
+import 'package:app_ditonton/features/tvseries/presentation/provider/on_the_air_tv_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/populer_tv_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/season_detail_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/top_rated_tv_notifier.dart';
@@ -118,6 +119,11 @@ void init() {
     () => WatchlistNotifier(
       getWatchlistMovies: locator(),
       getWatchlistTv: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => OnTheAirTvNotifier(
+      getOnTheAirTv: locator(),
     ),
   );
 

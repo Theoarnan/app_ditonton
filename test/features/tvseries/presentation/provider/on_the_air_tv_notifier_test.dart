@@ -1,25 +1,25 @@
 import 'package:app_ditonton/common/failure.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
-import 'package:app_ditonton/features/tvseries/domain/usecases/get_popular_tv.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/populer_tv_notifier.dart';
+import 'package:app_ditonton/features/tvseries/domain/usecases/get_on_the_air_tv.dart';
+import 'package:app_ditonton/features/tvseries/presentation/provider/on_the_air_tv_notifier.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'populer_tv_notifier_test.mocks.dart';
+import 'on_the_air_tv_notifier_test.mocks.dart';
 
-@GenerateMocks([GetPopularTv])
+@GenerateMocks([GetOnTheAirTv])
 void main() {
-  late MockGetPopularTv mockGetPopularTv;
-  late PopularTvNotifier notifier;
+  late MockGetOnTheAirTv mockGetOnTheAirTv;
+  late OnTheAirTvNotifier notifier;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetPopularTv = MockGetPopularTv();
-    notifier = PopularTvNotifier(getPopularTv: mockGetPopularTv)
+    mockGetOnTheAirTv = MockGetOnTheAirTv();
+    notifier = OnTheAirTvNotifier(getOnTheAirTv: mockGetOnTheAirTv)
       ..addListener(() {
         listenerCallCount++;
       });
@@ -41,12 +41,12 @@ void main() {
   );
   final tTvList = <Tv>[tTv];
 
-  group('Get Popular Tv', () {
+  group('Get On The Air Tv', () {
     test('should change state to loading when usecase is called', () async {
       // arrange
-      when(mockGetPopularTv.execute()).thenAnswer((_) async => Right(tTvList));
+      when(mockGetOnTheAirTv.execute()).thenAnswer((_) async => Right(tTvList));
       // act
-      notifier.fetchPopularTv();
+      notifier.fetchOnTheAirTv();
       // assert
       expect(notifier.state, RequestState.loading);
       expect(listenerCallCount, 1);
@@ -54,9 +54,9 @@ void main() {
 
     test('should change tv data when data is gotten successfully', () async {
       // arrange
-      when(mockGetPopularTv.execute()).thenAnswer((_) async => Right(tTvList));
+      when(mockGetOnTheAirTv.execute()).thenAnswer((_) async => Right(tTvList));
       // act
-      await notifier.fetchPopularTv();
+      await notifier.fetchOnTheAirTv();
       // assert
       expect(notifier.state, RequestState.loaded);
       expect(notifier.tv, tTvList);
@@ -65,10 +65,10 @@ void main() {
 
     test('should return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetPopularTv.execute())
+      when(mockGetOnTheAirTv.execute())
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
-      await notifier.fetchPopularTv();
+      await notifier.fetchOnTheAirTv();
       // assert
       expect(notifier.state, RequestState.error);
       expect(notifier.message, 'Server Failure');

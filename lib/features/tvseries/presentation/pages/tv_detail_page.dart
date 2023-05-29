@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/domain/entities/genre.dart';
@@ -73,10 +75,11 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    log('Data img poster detail : ${tvDetail.posterPath}');
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${tvDetail.posterPath}',
+          imageUrl: '$baseImageURL${tvDetail.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
@@ -268,12 +271,13 @@ class DetailContent extends StatelessWidget {
   }
 
   ClipRRect cardRecomendation(Tv tv) {
+    log('Data img poster recomendation detail : ${tv.posterPath}');
     return ClipRRect(
       borderRadius: const BorderRadius.all(
         Radius.circular(8),
       ),
       child: CachedNetworkImage(
-        imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}',
+        imageUrl: '$baseImageURL${tv.posterPath}',
         placeholder: (context, url) => const Center(
           child: CircularProgressIndicator(),
         ),
@@ -283,6 +287,7 @@ class DetailContent extends StatelessWidget {
   }
 
   Container cardSeason(Season season) {
+    log('Data img poster season detail : ${season.posterPath}');
     return Container(
       width: 100,
       height: 130,
@@ -296,13 +301,17 @@ class DetailContent extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(8),
             ),
-            child: CachedNetworkImage(
-              imageUrl: 'https://image.tmdb.org/t/p/w500${season.posterPath}',
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
+            child: season.posterPath.isNotEmpty
+                ? CachedNetworkImage(
+                    imageUrl: '$baseImageURL${season.posterPath}',
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/no-image.gif',
+                    ),
+                  )
+                : Image.asset('assets/no-image.gif'),
           ),
           const SizedBox(height: 6),
           Text(

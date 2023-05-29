@@ -27,7 +27,7 @@ class SeasonDetailModel extends Equatable {
         airDate: json["air_date"],
         name: json["name"],
         overview: json["overview"],
-        posterPath: json["poster_path"],
+        posterPath: json["poster_path"] ?? '',
         seasonNumber: json["season_number"],
         episodes: List<EpisodeModel>.from(
           json["episodes"].map((x) => EpisodeModel.fromJson(x)),

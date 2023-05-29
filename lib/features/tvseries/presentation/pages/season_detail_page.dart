@@ -87,8 +87,7 @@ class DetailContent extends StatelessWidget {
         Stack(
           children: [
             CachedNetworkImage(
-              imageUrl:
-                  'https://image.tmdb.org/t/p/w500${seasonDetail.posterPath}',
+              imageUrl: '$baseImageURL${seasonDetail.posterPath}',
               fit: BoxFit.cover,
               width: screenWidth,
               height: screenHeight * 0.26,
@@ -172,7 +171,7 @@ class DetailContent extends StatelessWidget {
                                     child: episode.stillPath.isNotEmpty
                                         ? CachedNetworkImage(
                                             imageUrl:
-                                                'https://image.tmdb.org/t/p/w500${episode.stillPath.isEmpty ? '/' : episode.stillPath}',
+                                                '$baseImageURL${episode.stillPath}',
                                             placeholder: (context, url) =>
                                                 const Center(
                                                   child:

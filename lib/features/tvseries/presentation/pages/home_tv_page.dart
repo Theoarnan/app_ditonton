@@ -1,6 +1,7 @@
 import 'package:app_ditonton/common/constants.dart';
 import 'package:app_ditonton/common/state_enum.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
+import 'package:app_ditonton/features/tvseries/presentation/pages/on_the_air_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/popular_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/top_rated_tv_page.dart';
@@ -35,7 +36,6 @@ class _HomeTvPageState extends State<HomeTvPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: const Key('Sinii'),
       appBar: AppBar(
         key: const Key('drawerButtonTv'),
         title: const Text('Ditonton TV'),
@@ -57,9 +57,12 @@ class _HomeTvPageState extends State<HomeTvPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'On The Air',
-                style: kHeading6,
+              _buildSubHeading(
+                title: 'On The Air',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  OnTheAirTvPage.routeName,
+                ),
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
                 final state = data.onTheAirState;

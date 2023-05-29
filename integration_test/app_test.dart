@@ -194,6 +194,7 @@ void main() {
       await watchlistTvRobot.scrollWatchlistTvPage();
       await watchlistTvRobot.scrollWatchlistTvPage(scrollUp: true);
       await homeTvRobot.clickTvItem(keyList: 'watchlistTv0');
+
       // remove watchlist
       await detailTvRobot.clickTvToWatchlistButton();
       await detailTvRobot.goBack();

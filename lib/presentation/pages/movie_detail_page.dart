@@ -82,7 +82,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+          imageUrl: '$baseImageURL${movie.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
@@ -246,7 +246,7 @@ class DetailContent extends StatelessWidget {
         Radius.circular(8),
       ),
       child: CachedNetworkImage(
-        imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+        imageUrl: '$baseImageURL${movie.posterPath}',
         placeholder: (context, url) => const Center(
           child: CircularProgressIndicator(),
         ),

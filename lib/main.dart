@@ -3,11 +3,13 @@ import 'package:app_ditonton/common/custom_drawer.dart';
 import 'package:app_ditonton/common/utils.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_argument.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
+import 'package:app_ditonton/features/tvseries/presentation/pages/on_the_air_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/popular_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/season_detail_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/top_rated_tv_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/tv_detail_page.dart';
+import 'package:app_ditonton/features/tvseries/presentation/provider/on_the_air_tv_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/populer_tv_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/season_detail_notifier.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/top_rated_tv_notifier.dart';
@@ -79,6 +81,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<OnTheAirTvNotifier>(),
         ),
       ],
       child: MaterialApp(
@@ -152,6 +157,10 @@ class MyApp extends StatelessWidget {
               final argument = settings.arguments as SeasonDetailArgument;
               return MaterialPageRoute(
                   builder: (_) => SeasonDetailPage(argument: argument));
+            case OnTheAirTvPage.routeName:
+              return MaterialPageRoute(
+                builder: (_) => const OnTheAirTvPage(),
+              );
             default:
               return MaterialPageRoute(
                 builder: (_) {

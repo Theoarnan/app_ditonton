@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const String baseURL = 'https://api.themoviedb.org/3';
+const String baseAPIKey = 'd733e78e94bdce11714e69b0946794a1';
 const String baseImageURL = 'https://image.tmdb.org/t/p/w500';
 
 // colors
