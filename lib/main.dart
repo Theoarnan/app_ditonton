@@ -96,7 +96,6 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             titleMedium: kHeading5,
             titleSmall: kHeading6,
-            labelMedium: kSubtitle,
             bodyMedium: kBodyText,
           ),
         ),

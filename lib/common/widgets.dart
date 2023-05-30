@@ -14,9 +14,11 @@ class Widgets {
         return Image.asset(
           imageLoadingAsset,
           fit: BoxFit.cover,
+          key: const Key('loading_image_empty'),
         );
       } else {
         return SizedBox(
+          key: const Key('loading_image_empty'),
           height: 150,
           width: 98,
           child: Image.asset(
@@ -42,6 +44,7 @@ class Widgets {
         ),
         errorWidget: (context, url, error) {
           return Padding(
+            key: Key('error_image$image'),
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

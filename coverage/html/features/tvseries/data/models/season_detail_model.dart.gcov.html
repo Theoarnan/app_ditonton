@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">Tue May 30 01:00:44 2023</td>
+            <td class="headerValue">Wed May 31 04:01:48 2023</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -66,7 +66,7 @@
 <a name="4"><span class="lineNum">       4 </span>            : </a>
 <a name="5"><span class="lineNum">       5 </span>            : class SeasonDetailModel extends Equatable {</a>
 <a name="6"><span class="lineNum">       6 </span>            :   final int id;</a>
-<a name="7"><span class="lineNum">       7 </span>            :   final String airDate;</a>
+<a name="7"><span class="lineNum">       7 </span>            :   final String? airDate;</a>
 <a name="8"><span class="lineNum">       8 </span>            :   final String name;</a>
 <a name="9"><span class="lineNum">       9 </span>            :   final String overview;</a>
 <a name="10"><span class="lineNum">      10 </span>            :   final String posterPath;</a>
@@ -99,7 +99,7 @@
 <a name="37"><span class="lineNum">      37 </span><span class="lineCov">          1 :   SeasonDetail toEntity() {</span></a>
 <a name="38"><span class="lineNum">      38 </span><span class="lineCov">          1 :     return SeasonDetail(</span></a>
 <a name="39"><span class="lineNum">      39 </span><span class="lineCov">          1 :       id: id,</span></a>
-<a name="40"><span class="lineNum">      40 </span><span class="lineCov">          1 :       airDate: airDate,</span></a>
+<a name="40"><span class="lineNum">      40 </span><span class="lineCov">          1 :       airDate: airDate ?? '',</span></a>
 <a name="41"><span class="lineNum">      41 </span><span class="lineCov">          1 :       name: name,</span></a>
 <a name="42"><span class="lineNum">      42 </span><span class="lineCov">          1 :       overview: overview,</span></a>
 <a name="43"><span class="lineNum">      43 </span><span class="lineCov">          1 :       posterPath: posterPath,</span></a>

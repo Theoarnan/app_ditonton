@@ -1,5 +1,8 @@
 import 'package:app_ditonton/common/state_enum.dart';
+import 'package:app_ditonton/domain/entities/genre.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/season.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
+import 'package:app_ditonton/features/tvseries/domain/entities/tv_detail.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/tv_detail_page.dart';
 import 'package:app_ditonton/features/tvseries/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +36,37 @@ void main() {
   }
 
   const tId = 1;
+
+  const seasonsTemp = <Season>[
+    Season(
+      airDate: "2023-01-23",
+      episodeCount: 73,
+      id: 294181,
+      name: "Season 1",
+      overview: "",
+      posterPath: '',
+      seasonNumber: 1,
+    )
+  ];
+
+  const testTvDetailTemp = TvDetail(
+    adult: false,
+    backdropPath: '/mAJ84W6I8I272Da87qplS2Dp9ST.jpg',
+    firstAirDate: '2023-01-23',
+    genres: [Genre(id: 9648, name: 'Mystery')],
+    id: 202250,
+    name: 'Dirty Linen',
+    numberOfEpisodes: 93,
+    numberOfSeasons: 2,
+    originalName: "Dirty Linen",
+    overview:
+        "To exact vengeance, a young woman infiltrates the household of an influential family as a housemaid to expose their dirty secrets. However, love will get in the way of her revenge plot.",
+    popularity: 2901.537,
+    posterPath: "",
+    voteAverage: 4.941,
+    voteCount: 17,
+    seasons: seasonsTemp,
+  );
 
   group('Page Tv Detail', () {
     testWidgets('should display center progress bar when loading',
@@ -69,6 +103,24 @@ void main() {
 
       expect(contentDetailFinder, findsOneWidget);
       expect(listViewRecomendationsFinder, findsOneWidget);
+    });
+
+    testWidgets('should season display image empty when data is loaded',
+        (WidgetTester tester) async {
+      when(mockNotifier.tvState).thenReturn(RequestState.loaded);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
+      when(mockNotifier.tvDetail).thenReturn(testTvDetailTemp);
+      when(mockNotifier.tvRecommendations).thenReturn(testTvList);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+
+      final imgEmptyLoadingFinder =
+          find.byKey(const Key('loading_image_empty'));
+
+      await tester.pumpWidget(makeTestableWidget(const TvDetailPage(
+        id: tId,
+      )));
+
+      expect(imgEmptyLoadingFinder, findsOneWidget);
     });
 
     testWidgets('should display text with message when error detail',
