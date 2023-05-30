@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class SeasonDetailModel extends Equatable {
   final int id;
-  final String airDate;
+  final String? airDate;
   final String name;
   final String overview;
   final String posterPath;
@@ -37,7 +37,7 @@ class SeasonDetailModel extends Equatable {
   SeasonDetail toEntity() {
     return SeasonDetail(
       id: id,
-      airDate: airDate,
+      airDate: airDate ?? '',
       name: name,
       overview: overview,
       posterPath: posterPath,

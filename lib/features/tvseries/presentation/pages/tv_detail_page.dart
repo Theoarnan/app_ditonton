@@ -75,15 +75,22 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final imageDetailPoster = '$baseImageURL${tvDetail.posterPath}';
+    final imageUse =
+        checkIsEmpty(tvDetail.posterPath) ? imageLoadingURL : imageDetailPoster;
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: '$baseImageURL${tvDetail.posterPath}',
+          imageUrl: imageUse,
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => const Center(
+            child: Icon(
+              Icons.error,
+            ),
+          ),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
@@ -151,7 +158,7 @@ class DetailContent extends StatelessWidget {
                                 children: [
                                   Text('Seasons', style: kHeading6),
                                   SizedBox(
-                                    height: 180,
+                                    height: 150,
                                     child: ListView.builder(
                                       key: const Key(
                                         'seasonTvDetailScrollView',
@@ -160,17 +167,20 @@ class DetailContent extends StatelessWidget {
                                       itemCount: tvDetail.seasons.length,
                                       itemBuilder: (context, index) {
                                         final season = tvDetail.seasons[index];
-                                        return InkWell(
-                                          key: Key('seasonList$index'),
-                                          onTap: () => Navigator.pushNamed(
-                                            context,
-                                            SeasonDetailPage.routeName,
-                                            arguments: SeasonDetailArgument(
-                                              id: tvDetail.id,
-                                              season: season,
+                                        return Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: InkWell(
+                                            key: Key('seasonList$index'),
+                                            onTap: () => Navigator.pushNamed(
+                                              context,
+                                              SeasonDetailPage.routeName,
+                                              arguments: SeasonDetailArgument(
+                                                id: tvDetail.id,
+                                                season: season,
+                                              ),
                                             ),
+                                            child: cardSeason(season),
                                           ),
-                                          child: cardSeason(season),
                                         );
                                       },
                                     ),
@@ -281,30 +291,11 @@ class DetailContent extends StatelessWidget {
   }
 
   Widget cardRecomendation(Tv tv) {
-    return Widgets.imageCachedNetwork(
-      '$baseImageURL${tv.posterPath}',
-    );
+    return Widgets.imageCachedNetworkCard(tv.posterPath);
   }
 
-  Container cardSeason(Season season) {
-    return Container(
-      width: 100,
-      height: 126,
-      margin: const EdgeInsets.only(
-        right: 10,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Widgets.imageCachedNetwork('$baseImageURL${season.posterPath!}'),
-          const SizedBox(height: 6),
-          Text(
-            season.name,
-            style: kSubtitle,
-          )
-        ],
-      ),
-    );
+  Widget cardSeason(Season season) {
+    return Widgets.imageCachedNetworkCard(season.posterPath);
   }
 
   Future<void> handleOnTapButtonWatchlist(BuildContext context) async {

@@ -35,6 +35,7 @@ import 'package:app_ditonton/injection.dart' as di;
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   di.init();
   runApp(const MyApp());
 }

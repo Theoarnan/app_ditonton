@@ -243,7 +243,7 @@ class DetailContent extends StatelessWidget {
   }
 
   Widget cardRecomendation(Movie movie) {
-    return Widgets.imageCachedNetwork('$baseImageURL${movie.posterPath!}');
+    return Widgets.imageCachedNetworkCard(movie.posterPath);
   }
 
   Future<void> handleOnTapButton(BuildContext context) async {

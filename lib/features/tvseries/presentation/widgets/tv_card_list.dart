@@ -1,4 +1,5 @@
 import 'package:app_ditonton/common/constants.dart';
+import 'package:app_ditonton/common/utils.dart';
 import 'package:app_ditonton/features/tvseries/domain/entities/tv.dart';
 import 'package:app_ditonton/features/tvseries/presentation/pages/tv_detail_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,6 +12,9 @@ class TvCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tvDataCard = '$baseImageURL${dataTv.posterPath}';
+    final imageUse =
+        checkIsEmpty(dataTv.posterPath) ? imageLoadingURL : tvDataCard;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
@@ -59,12 +63,14 @@ class TvCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$baseImageURL${dataTv.posterPath ?? '/'}',
+                  imageUrl: imageUse,
                   width: 80,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Center(
+                    child: Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

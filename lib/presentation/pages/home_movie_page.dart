@@ -185,9 +185,7 @@ class MovieList extends StatelessWidget {
                   arguments: movie.id,
                 );
               },
-              child: Widgets.imageCachedNetwork(
-                '$baseImageURL${movie.posterPath}',
-              ),
+              child: Widgets.imageCachedNetworkCard(movie.posterPath),
             ),
           );
         },

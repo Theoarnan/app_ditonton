@@ -27,15 +27,17 @@ class _SeasonDetailPageState extends State<SeasonDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<SeasonDetailNotifier>(
-        context,
-        listen: false,
-      ).fetchSeasonDetail(
-        id: widget.argument.id,
-        seasonNumber: widget.argument.season.seasonNumber,
-      );
-    });
+    Future.microtask(
+      () {
+        Provider.of<SeasonDetailNotifier>(
+          context,
+          listen: false,
+        ).fetchSeasonDetail(
+          id: widget.argument.id,
+          seasonNumber: widget.argument.season.seasonNumber,
+        );
+      },
+    );
   }
 
   @override
@@ -82,23 +84,25 @@ class DetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final imageDetail = '$baseImageURL${seasonDetail.posterPath}';
+    final imageUse =
+        checkIsEmpty(seasonDetail.posterPath) ? imageLoadingURL : imageDetail;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
             CachedNetworkImage(
-              imageUrl: '$baseImageURL${seasonDetail.posterPath}',
+              imageUrl: imageUse,
               fit: BoxFit.cover,
               width: screenWidth,
               height: screenHeight * 0.26,
               placeholder: (context, url) => const Center(
                 child: CircularProgressIndicator(),
               ),
-              errorWidget: (context, url, error) => SizedBox(
-                child: Image.asset(
-                  'assets/no-image.gif',
-                  fit: BoxFit.fitWidth,
+              errorWidget: (context, url, error) => const Center(
+                child: Icon(
+                  Icons.error,
                 ),
               ),
             ),
@@ -186,6 +190,9 @@ class ListTileEpisode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageEpisodeDetail = '$baseImageURL${episode.stillPath!}';
+    final imageUse =
+        checkIsEmpty(episode.stillPath) ? imageLoadingURL : imageEpisodeDetail;
     return ListTile(
       contentPadding: EdgeInsets.zero,
       title: Column(
@@ -201,16 +208,15 @@ class ListTileEpisode extends StatelessWidget {
                   width: 100,
                   height: 70,
                   child: CachedNetworkImage(
-                    imageUrl: '$baseImageURL${episode.stillPath!}',
+                    imageUrl: imageUse,
                     placeholder: (_, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => SizedBox(
+                    errorWidget: (context, url, error) => const SizedBox(
                       height: 100,
                       width: 70,
-                      child: Image.asset(
-                        'assets/no-image.gif',
-                        fit: BoxFit.cover,
+                      child: Icon(
+                        Icons.error,
                       ),
                     ),
                   ),

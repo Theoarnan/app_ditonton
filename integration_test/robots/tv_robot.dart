@@ -72,7 +72,7 @@ class TvRobot {
     await searchTvRobot.goBack();
 
     /// Click one of data on the air tv to open detail tv page
-    await homeTvRobot.clickTvItem(keyList: 'ontheair0tv');
+    await homeTvRobot.clickTvItem(keyList: 'toprated0tv');
     await detailTvRobot.scrollDetailTvPage();
     // Scroll season detail tv series
     await detailTvRobot.scrollSeasonDetailTvPage();

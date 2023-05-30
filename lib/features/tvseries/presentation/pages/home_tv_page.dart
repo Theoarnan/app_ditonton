@@ -206,9 +206,7 @@ class TvList extends StatelessWidget {
                   arguments: tv.id,
                 );
               },
-              child: Widgets.imageCachedNetwork(
-                '$baseImageURL${tv.posterPath}',
-              ),
+              child: Widgets.imageCachedNetworkCard(tv.posterPath),
             ),
           );
         },
