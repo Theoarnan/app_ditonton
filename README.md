@@ -50,7 +50,7 @@ App for show like catalog movie and tv series.
 - [build_runner](https://pub.dev/packages/build_runner)
 - [sqflite_common_ffi](https://pub.dev/packages/sqflite_common_ffi)
 - integration_test (Flutter SDK)
-- 
+
 ## Running Test
 To run integration test or unit test, run the following command
 ```bash
