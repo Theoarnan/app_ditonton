@@ -20,9 +20,9 @@ App for show like catalog movie and tv series.
 - On The Air TV
 - Popular TV
 - Top Rated TV
-  - Detail TV
-    - Detail Season TV
-  - Add/Remove Watchlist TV
+ - Detail TV
+   - Detail Season TV
+ - Add/Remove Watchlist TV
 - Search TV
 - Drawer Navigation
 - Watchlist Movie
