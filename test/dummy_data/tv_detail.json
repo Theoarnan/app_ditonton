@@ -1,0 +1,129 @@
+{
+  "adult": false,
+  "backdrop_path": "/mAJ84W6I8I272Da87qplS2Dp9ST.jpg",
+  "created_by": [
+    {
+      "id": 4028129,
+      "credit_id": "6447f632c51acd0566a945a3",
+      "name": "Onat Diaz",
+      "gender": 0,
+      "profile_path": null
+    }
+  ],
+  "episode_run_time": [30],
+  "first_air_date": "2023-01-23",
+  "genres": [
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    }
+  ],
+  "homepage": "",
+  "id": 202250,
+  "in_production": true,
+  "languages": ["en", "tl"],
+  "last_air_date": "2023-05-17",
+  "last_episode_to_air": {
+    "id": 4398081,
+    "name": "Breather",
+    "overview": "Learning of what Carlos did to her lover, Leona urges Olga to hide for the time being. Unaware of Lemuel's developing pursuit, Alexa and her team take a breather from their mission. Meanwhile, the Madrigaleses brew a sinister plot.",
+    "vote_average": 0.0,
+    "vote_count": 0,
+    "air_date": "2023-05-17",
+    "episode_number": 8,
+    "production_code": "",
+    "runtime": 23,
+    "season_number": 2,
+    "show_id": 202250,
+    "still_path": null
+  },
+  "name": "Dirty Linen",
+  "next_episode_to_air": {
+    "id": 4398084,
+    "name": "Episode 9",
+    "overview": "",
+    "vote_average": 0.0,
+    "vote_count": 0,
+    "air_date": "2023-05-18",
+    "episode_number": 9,
+    "production_code": "",
+    "runtime": 22,
+    "season_number": 2,
+    "show_id": 202250,
+    "still_path": null
+  },
+  "networks": [
+    {
+      "id": 42,
+      "logo_path": "/gVinXXdpdbLHuXTUUfx4R9PyuPB.png",
+      "name": "TV5",
+      "origin_country": "PH"
+    },
+    {
+      "id": 3920,
+      "logo_path": "/eK7hBqDuNwvHqBoWtVgCdNIehsU.png",
+      "name": "Kapamilya Channel",
+      "origin_country": "PH"
+    }
+  ],
+  "number_of_episodes": 93,
+  "number_of_seasons": 2,
+  "origin_country": ["PH"],
+  "original_language": "tl",
+  "original_name": "Dirty Linen",
+  "overview": "To exact vengeance, a young woman infiltrates the household of an influential family as a housemaid to expose their dirty secrets. However, love will get in the way of her revenge plot.",
+  "popularity": 2901.537,
+  "poster_path": "/aoAZgnmMzY9vVy9VWnO3U5PZENh.jpg",
+  "production_companies": [
+    {
+      "id": 80844,
+      "logo_path": "/8IA6wf02ZLZNGZKHVLhn35Vxt1F.png",
+      "name": "Dreamscape Entertainment Television",
+      "origin_country": "PH"
+    },
+    {
+      "id": 162722,
+      "logo_path": null,
+      "name": "ABS-CBN Entertainment",
+      "origin_country": "PH"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "PH",
+      "name": "Philippines"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "2023-01-23",
+      "episode_count": 73,
+      "id": 294181,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/pVBxYfshGajQ600OKv8K4y8TI0K.jpg",
+      "season_number": 1
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    },
+    {
+      "english_name": "Tagalog",
+      "iso_639_1": "tl",
+      "name": ""
+    }
+  ],
+  "status": "Returning Series",
+  "tagline": "",
+  "type": "Scripted",
+  "vote_average": 4.941,
+  "vote_count": 17
+}

@@ -32,7 +32,7 @@ class Movie extends Equatable {
     required this.voteCount,
   });
 
-  Movie.watchlist({
+  Movie.watchlistMovie({
     required this.id,
     required this.overview,
     required this.posterPath,

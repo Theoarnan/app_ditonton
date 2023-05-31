@@ -6,9 +6,7 @@ import 'package:provider/provider.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const routeName = '/popular-movie';
-
   const PopularMoviesPage({super.key});
-
   @override
   State<PopularMoviesPage> createState() => _PopularMoviesPageState();
 }
@@ -17,9 +15,12 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularMoviesNotifier>(context, listen: false)
-            .fetchPopularMovies());
+    Future.microtask(
+      () => Provider.of<PopularMoviesNotifier>(
+        context,
+        listen: false,
+      ).fetchPopularMovies(),
+    );
   }
 
   @override
@@ -38,9 +39,13 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               );
             } else if (data.state == RequestState.loaded) {
               return ListView.builder(
+                key: const Key('listPopularMovies'),
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
-                  return MovieCard(movie);
+                  return MovieCard(
+                    key: Key('listPopularMovies$index'),
+                    movie,
+                  );
                 },
                 itemCount: data.movies.length,
               );
