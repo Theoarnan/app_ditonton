@@ -1,10 +1,7 @@
-import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/movie_detail_page.dart';
-import 'package:app_ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:app_ditonton/presentation/pages/search_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movies/movies.dart';
+import 'package:search/search.dart';
 
 class HomeMovieRobot {
   final WidgetTester tester;
