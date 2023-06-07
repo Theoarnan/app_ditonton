@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/on_the_air_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tvseries/tvseries.dart';
 
 class OnTheAirTvRobot {
   final WidgetTester tester;

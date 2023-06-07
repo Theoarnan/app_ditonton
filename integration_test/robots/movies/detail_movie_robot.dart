@@ -1,8 +1,7 @@
-import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
-import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movies/movies.dart';
+import 'package:watchlist/watchlist.dart';
 
 class DetailMovieRobot {
   final WidgetTester tester;

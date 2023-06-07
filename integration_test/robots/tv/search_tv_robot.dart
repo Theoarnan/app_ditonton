@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:search/search.dart';
+import 'package:tvseries/tvseries.dart';
 
 class SearchTvRobot {
   final WidgetTester tester;

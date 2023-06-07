@@ -1,38 +1,12 @@
-import 'package:app_ditonton/common/constants.dart';
-import 'package:app_ditonton/common/custom_drawer.dart';
-import 'package:app_ditonton/common/utils.dart';
-import 'package:app_ditonton/features/tvseries/domain/entities/season_detail_argument.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/home_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/on_the_air_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/popular_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/search_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/season_detail_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/top_rated_tv_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/tv_detail_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/on_the_air_tv_notifier.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/populer_tv_notifier.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/season_detail_notifier.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/top_rated_tv_notifier.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/tv_detail_notifier.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/tv_list_notifier.dart';
-import 'package:app_ditonton/features/tvseries/presentation/provider/tv_search_notifier.dart';
-import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_movies_page.dart';
-import 'package:app_ditonton/features/watchlist/presentation/pages/watchlist_tv_page.dart';
-import 'package:app_ditonton/features/watchlist/presentation/provider/watchlist_notifier.dart';
-import 'package:app_ditonton/presentation/pages/about_page.dart';
-import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/movie_detail_page.dart';
-import 'package:app_ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:app_ditonton/presentation/pages/search_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:app_ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:app_ditonton/presentation/provider/movie_list_notifier.dart';
-import 'package:app_ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:app_ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:app_ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:about/about.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:app_ditonton/injection.dart' as di;
+import 'package:movies/movies.dart';
 import 'package:provider/provider.dart';
+import 'package:search/search.dart';
+import 'package:tvseries/tvseries.dart';
+import 'package:watchlist/watchlist.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -103,61 +77,61 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case '/home-movie':
+            case homeMovieRoute:
               return MaterialPageRoute(
                   builder: (_) => const Material(
                       child: CustomDrawer(content: HomeMoviePage())));
-            case '/home-tv':
+            case homeTvRoute:
               return MaterialPageRoute(
                   builder: (_) => const Material(
                       child: CustomDrawer(content: HomeTvPage())));
-            case PopularMoviesPage.routeName:
+            case popularMovieRoute:
               return MaterialPageRoute(
                 builder: (_) => const PopularMoviesPage(),
               );
-            case PopularTvPage.routeName:
+            case popularTvRoute:
               return MaterialPageRoute(
                 builder: (_) => const PopularTvPage(),
               );
-            case TopRatedMoviesPage.routeName:
+            case topRatedMovieRoute:
               return MaterialPageRoute(
                 builder: (_) => const TopRatedMoviesPage(),
               );
-            case TopRatedTvPage.routeName:
+            case topRatedTvRoute:
               return MaterialPageRoute(
                 builder: (_) => const TopRatedTvPage(),
               );
-            case MovieDetailPage.routeName:
+            case detailMovieRoute:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
-            case TvDetailPage.routeName:
+            case detailTvRoute:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: id),
                 settings: settings,
               );
-            case SearchMoviePage.routeName:
+            case searchMovieRoute:
               return MaterialPageRoute(builder: (_) => const SearchMoviePage());
-            case SearchTvPage.routeName:
+            case searchTvRoute:
               return MaterialPageRoute(builder: (_) => const SearchTvPage());
-            case AboutPage.routeName:
+            case aboutRoute:
               return MaterialPageRoute(builder: (_) => const AboutPage());
-            case WatchlistMoviesPage.routeName:
+            case watchlistMovieRoute:
               return MaterialPageRoute(
                 builder: (_) => const WatchlistMoviesPage(),
               );
-            case WatchlistTvPage.routeName:
+            case watchlistTvRoute:
               return MaterialPageRoute(
                 builder: (_) => const WatchlistTvPage(),
               );
-            case SeasonDetailPage.routeName:
+            case detailTvSeasonRoute:
               final argument = settings.arguments as SeasonDetailArgument;
               return MaterialPageRoute(
                   builder: (_) => SeasonDetailPage(argument: argument));
-            case OnTheAirTvPage.routeName:
+            case onTheAirTvRoute:
               return MaterialPageRoute(
                 builder: (_) => const OnTheAirTvPage(),
               );
