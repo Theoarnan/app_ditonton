@@ -1,50 +1,34 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
-import 'package:search/presentation/pages/search_tv_page.dart';
-import 'package:search/presentation/provider/tv_search_notifier.dart';
-import 'package:tvseries/tvseries.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:search/search.dart';
 
-import '../../test_helper/test_helper_search.mocks.dart';
+import '../../test_helper/dummy_data.dart';
+import '../../test_helper/test_helper_search.dart';
 
 void main() {
-  late MockTvSearchNotifier mockNotifier;
+  late SearchBloc searchBloc;
 
-  setUp(() {
-    mockNotifier = MockTvSearchNotifier();
+  setUpAll(() {
+    searchBloc = MockSearchBloc();
+    registerFallbackValue(FakeSearchEvent());
+    registerFallbackValue(FakeSearchState());
   });
 
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TvSearchNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
+    return MaterialApp(
+      home: BlocProvider<SearchBloc>.value(
+        value: searchBloc,
+        child: body,
       ),
     );
   }
 
-  final tTv = Tv(
-    id: 202250,
-    name: 'Dirty Linen',
-    backdropPath: '/mAJ84W6I8I272Da87qplS2Dp9ST.jpg',
-    firstAirDate: '2023-01-23',
-    genreIds: const [9648, 18],
-    originalName: 'Dirty Linen',
-    overview:
-        'To exact vengeance, a young woman infiltrates the household of an influential family as a housemaid to expose their dirty secrets. However, love will get in the way of her revenge plot.',
-    popularity: 2901.537,
-    posterPath: '/aoAZgnmMzY9vVy9VWnO3U5PZENh.jpg',
-    voteAverage: 4.9,
-    voteCount: 17,
-  );
-  final listTv = <Tv>[tTv];
-
   group('Page search tv', () {
     testWidgets('should display center progress bar when loading',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loading);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
 
       final centerFinder = find.byKey(const Key('loading_search_tv'));
       final progressBarFinder = find.byKey(const Key('circular_search_tv'));
@@ -57,8 +41,8 @@ void main() {
 
     testWidgets('should display list search content when data is loaded',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.searchResult).thenReturn(listTv);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(SearchTvHasData(tTvList));
 
       final listViewFinder = find.byKey(const Key('list_search_tv'));
 
@@ -68,10 +52,10 @@ void main() {
     });
 
     testWidgets(
-        'should display empty content in list search when data is loaded',
+        'should display empty content in list search when data is loaded but empty',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.searchResult).thenReturn(<Tv>[]);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(SearchEmpty());
 
       final emptyContent = find.byKey(const Key('emptyDataSearchTv'));
       final emptyContentText = find.text('Search tv not found');
@@ -85,8 +69,8 @@ void main() {
     testWidgets(
         'should display empty content in list search when data is empty',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.empty);
-      when(mockNotifier.searchResult).thenReturn(<Tv>[]);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(InitSearch());
 
       final emptyContent = find.byKey(const Key('emptyDataSearchTv'));
       final emptyContentText = find.text('Search tv');
@@ -97,10 +81,12 @@ void main() {
       expect(emptyContentText, findsOneWidget);
     });
 
-    testWidgets('should display text with message when Error',
+    testWidgets('should display text with message when error',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.error);
-      when(mockNotifier.message).thenReturn('Error message');
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(
+        const SearchError('Error message'),
+      );
 
       final textFinder = find.byKey(const Key('error_message_search_tv'));
 
@@ -110,16 +96,20 @@ void main() {
     });
 
     testWidgets('should text field is submit', (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.searchResult).thenReturn(listTv);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(SearchTvHasData(tTvList));
 
       final textFieldFinder = find.byKey(const Key('enterSearchQueryTv'));
 
       await tester.pumpWidget(makeTestableWidget(const SearchTvPage()));
       await tester.ensureVisible(textFieldFinder);
       await tester.enterText(textFieldFinder, 'Dirty');
-      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.testTextInput.receiveAction(TextInputAction.search);
       await tester.pump();
+
+      expect(find.byKey(const Key('list_search_tv')), findsOneWidget);
+      expect(find.byKey(const Key('tvSearchScrollView')), findsOneWidget);
+      expect(find.byKey(const Key('listTvSearch0')), findsOneWidget);
     });
   });
 }
