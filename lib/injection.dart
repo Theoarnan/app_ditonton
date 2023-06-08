@@ -16,6 +16,12 @@ void init() {
       locator(),
     ),
   );
+  locator.registerFactory(
+    () => WatchlistBloc(
+      locator(),
+      locator(),
+    ),
+  );
 
   // provider
   locator.registerFactory(
@@ -73,12 +79,6 @@ void init() {
   locator.registerFactory(
     () => SeasonDetailNotifier(
       getSeasonDetail: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistNotifier(
-      getWatchlistMovies: locator(),
-      getWatchlistTv: locator(),
     ),
   );
   locator.registerFactory(

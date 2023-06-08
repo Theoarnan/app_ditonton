@@ -11,6 +11,6 @@ export 'domain/usecases/remove_watchlist_movie.dart';
 export 'domain/usecases/remove_watchlist_tv.dart';
 export 'domain/usecases/save_watchlist_movie.dart';
 export 'domain/usecases/save_watchlist_tv.dart';
-export 'presentation/provider/watchlist_notifier.dart';
+export 'presentation/bloc/watchlist_bloc.dart';
 export 'presentation/pages/watchlist_movies_page.dart';
 export 'presentation/pages/watchlist_tv_page.dart';

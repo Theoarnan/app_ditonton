@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<SeasonDetailNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistBloc>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<OnTheAirTvNotifier>(),
