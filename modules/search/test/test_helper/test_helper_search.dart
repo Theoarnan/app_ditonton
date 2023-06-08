@@ -11,8 +11,6 @@ import 'package:tvseries/tvseries.dart';
   TvRepository,
   SearchMovies,
   SearchTv,
-  MovieSearchNotifier,
-  TvSearchNotifier,
 ], customMocks: [
   MockSpec<http.Client>(as: #MockHttpClient)
 ])
