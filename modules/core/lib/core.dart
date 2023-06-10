@@ -14,3 +14,4 @@ export 'utils/routes.dart';
 /// CORE
 export 'data/models/genre_model.dart';
 export 'domain/entities/genre.dart';
+export 'presentation/widgets/image_error_empty_state_widget.dart';

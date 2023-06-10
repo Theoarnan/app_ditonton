@@ -1,33 +1,34 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:movies/movies.dart';
-import 'package:provider/provider.dart';
 
 import '../../test_helper/dummy_data.dart';
-import '../../test_helper/test_helper_movies.mocks.dart';
+import '../../test_helper/test_helper_movies.dart';
 
 void main() {
-  late MockPopularMoviesNotifier mockNotifier;
+  late MoviePopularBloc moviePopularBloc;
 
-  setUp(() {
-    mockNotifier = MockPopularMoviesNotifier();
+  setUpAll(() {
+    // movie popular
+    moviePopularBloc = MockMoviePopularBloc();
+    registerFallbackValue(MockMoviePopularState());
   });
 
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularMoviesNotifier>.value(
-      value: mockNotifier,
+    return BlocProvider<MoviePopularBloc>.value(
+      value: moviePopularBloc,
       child: MaterialApp(
         home: body,
       ),
     );
   }
 
-  group('Page Popular Movie', () {
-    testWidgets('Page should display center progress bar when loading',
+  group('Page popular movie', () {
+    testWidgets('page should display center progress bar when loading',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loading);
+      when(() => moviePopularBloc.state).thenReturn(MoviesPopularLoading());
 
       final progressBarFinder = find.byType(CircularProgressIndicator);
       final centerFinder = find.byType(Center);
@@ -38,22 +39,41 @@ void main() {
       expect(progressBarFinder, findsOneWidget);
     });
 
-    testWidgets('Page should display ListView when data is loaded',
+    testWidgets('page should display ListView when data is loaded',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.movies).thenReturn(tMovieList);
+      when(() => moviePopularBloc.state).thenReturn(
+        MoviePopularHasData(tMovieList),
+      );
 
       final listViewFinder = find.byType(ListView);
+      final listViewKeyFinder = find.byKey(const Key('listPopularMovies'));
+      final listViewContentFinder = find.byKey(const Key('listPopularMovies0'));
 
       await tester.pumpWidget(makeTestableWidget(const PopularMoviesPage()));
 
       expect(listViewFinder, findsOneWidget);
+      expect(listViewKeyFinder, findsOneWidget);
+      expect(listViewContentFinder, findsOneWidget);
+    });
+
+    testWidgets('page should display ilustration empty when state is empty',
+        (WidgetTester tester) async {
+      when(() => moviePopularBloc.state).thenReturn(
+        MoviesPopularEmpty(),
+      );
+
+      final ilustrationFinder = find.byKey(const Key('emptyDataPopularMovie'));
+
+      await tester.pumpWidget(makeTestableWidget(const PopularMoviesPage()));
+
+      expect(ilustrationFinder, findsOneWidget);
     });
 
     testWidgets('Page should display text with message when Error',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.error);
-      when(mockNotifier.message).thenReturn('Error message');
+      when(() => moviePopularBloc.state).thenReturn(
+        const MoviesPopularError('Error Message'),
+      );
 
       final textFinder = find.byKey(const Key('error_message'));
 
