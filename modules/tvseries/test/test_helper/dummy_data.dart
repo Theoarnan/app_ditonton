@@ -49,6 +49,15 @@ const seasonsModel = <SeasonModel>[
     overview: "",
     posterPath: '/pVBxYfshGajQ600OKv8K4y8TI0K.jpg',
     seasonNumber: 1,
+  ),
+  SeasonModel(
+    airDate: "2023-01-23",
+    episodeCount: 73,
+    id: 294181,
+    name: "Season 1",
+    overview: "",
+    posterPath: '/pVBxYfshGajQ600OKv8K4y8TI0K.jpg',
+    seasonNumber: 1,
   )
 ];
 
@@ -82,7 +91,16 @@ const seasons = <Season>[
     overview: "",
     posterPath: '/pVBxYfshGajQ600OKv8K4y8TI0K.jpg',
     seasonNumber: 1,
-  )
+  ),
+  Season(
+    airDate: "2023-01-23",
+    episodeCount: 73,
+    id: 294181,
+    name: "Season 1",
+    overview: "",
+    posterPath: '/pVBxYfshGajQ600OKv8K4y8TI0K.jpg',
+    seasonNumber: 1,
+  ),
 ];
 
 const testTvDetail = TvDetail(
@@ -129,6 +147,16 @@ const testSeasonDetail = SeasonDetail(
   episodes: episodes,
 );
 
+const testSeasonDetailEmptyEpisode = SeasonDetail(
+  id: 294181,
+  airDate: "2023-01-23",
+  name: "Season 1",
+  overview: "",
+  posterPath: "/pVBxYfshGajQ600OKv8K4y8TI0K.jpg",
+  seasonNumber: 1,
+  episodes: [],
+);
+
 const tId = 1;
 const arguments = SeasonDetailArgument(
   id: tId,
@@ -141,4 +169,14 @@ const arguments = SeasonDetailArgument(
     posterPath: "posterPath",
     seasonNumber: 1,
   ),
+);
+
+final tTvDetailHasDataState = TvDetailHasData(
+  tvDetail: testTvDetail,
+  isActiveWatchlist: false,
+);
+
+final tTvDetailHasDataStateTrue = TvDetailHasData(
+  tvDetail: testTvDetail,
+  isActiveWatchlist: true,
 );

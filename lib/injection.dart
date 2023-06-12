@@ -14,8 +14,6 @@ void init() {
   locator.registerFactory(() => MoviePopularBloc(locator()));
   locator.registerFactory(() => MovieTopRatedBloc(locator()));
   locator.registerFactory(() => MovieRecomendationBloc(locator()));
-  locator.registerFactory(() => SearchBloc(locator(), locator()));
-  locator.registerFactory(() => WatchlistBloc(locator(), locator()));
   locator.registerFactory(
     () => MovieDetailBloc(
       locator(),
@@ -24,44 +22,21 @@ void init() {
       locator(),
     ),
   );
-
-  // provider
+  locator.registerFactory(() => TvOnTheAirBloc(locator()));
+  locator.registerFactory(() => TvPopularBloc(locator()));
+  locator.registerFactory(() => TvTopRatedBloc(locator()));
+  locator.registerFactory(() => TvRecomendationBloc(locator()));
+  locator.registerFactory(() => TvSeasonDetailBloc(locator()));
   locator.registerFactory(
-    () => TvListNotifier(
-      getOnTheAirTv: locator(),
-      getPopularTv: locator(),
-      getTopRatedTv: locator(),
+    () => TvDetailBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
     ),
   );
-  locator.registerFactory(
-    () => TvDetailNotifier(
-      getTvDetail: locator(),
-      getTvRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlistTv: locator(),
-      removeWatchlistTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => PopularTvNotifier(
-      getPopularTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedTvNotifier(
-      getTopRatedTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => SeasonDetailNotifier(
-      getSeasonDetail: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => OnTheAirTvNotifier(
-      getOnTheAirTv: locator(),
-    ),
-  );
+  locator.registerFactory(() => SearchBloc(locator(), locator()));
+  locator.registerFactory(() => WatchlistBloc(locator(), locator()));
 
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));

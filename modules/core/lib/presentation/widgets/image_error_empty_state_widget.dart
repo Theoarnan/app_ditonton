@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 
 class ImageErrorEmptyStateWidget extends StatelessWidget {
   final bool isEmptyState;
-  final bool isMovieState;
   const ImageErrorEmptyStateWidget({
     super.key,
     this.isEmptyState = false,
-    this.isMovieState = false,
   });
 
   @override
@@ -34,11 +32,7 @@ class ImageErrorEmptyStateWidget extends StatelessWidget {
   }
 
   String textHandle() {
-    if (isMovieState) {
-      if (isEmptyState) return 'Oops, data movies is empty.';
-      return 'Sorry, failed load data movies.';
-    }
-    if (isEmptyState) return 'Oops, data tvseries is empty.';
-    return 'Sorry, failed load data tvseries.';
+    if (isEmptyState) return 'Oops, data is empty.';
+    return 'Sorry, failed load data.';
   }
 }

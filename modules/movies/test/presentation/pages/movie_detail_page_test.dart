@@ -13,11 +13,9 @@ void main() {
   late MovieRecomendationBloc movieRecomendationBloc;
 
   setUpAll(() {
-    // movie now playing
     movieDetailBloc = MockMovieDetailBloc();
     registerFallbackValue(FakeMovieDetailEvent());
     registerFallbackValue(FakeMovieDetailState());
-    // movie popular
     movieRecomendationBloc = MockMovieRecomendationBloc();
     registerFallbackValue(MockMovieRecomendationState());
   });

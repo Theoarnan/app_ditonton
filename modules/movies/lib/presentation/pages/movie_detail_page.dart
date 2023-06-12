@@ -72,7 +72,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             );
           } else if (state is MovieDetailError) {
             return const ImageErrorEmptyStateWidget(
-              isMovieState: true,
               key: Key('error_message_detail_movie'),
             );
           }

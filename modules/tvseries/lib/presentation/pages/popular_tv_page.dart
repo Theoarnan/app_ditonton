@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tvseries/tvseries.dart';
 
 class PopularTvPage extends StatefulWidget {
@@ -14,12 +14,7 @@ class _PopularTvPageState extends State<PopularTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<PopularTvNotifier>(
-        context,
-        listen: false,
-      ).fetchPopularTv(),
-    );
+    Future.microtask(() => context.read<TvPopularBloc>().fetchTvPopular());
   }
 
   @override
@@ -30,30 +25,34 @@ class _PopularTvPageState extends State<PopularTvPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<TvPopularBloc, TvPopularState>(
+          builder: (context, state) {
+            if (state is TvPopularLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is TvPopularHasData) {
+              final result = state.resultTv;
               return ListView.builder(
                 key: const Key('listPopularTv'),
+                itemCount: result.length,
                 itemBuilder: (context, index) {
-                  final tv = data.tv[index];
+                  final tv = result[index];
                   return TvCard(
                     key: Key('listPopularTv$index'),
                     tv,
                   );
                 },
-                itemCount: data.tv.length,
               );
-            } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
+            } else if (state is TvPopularError) {
+              return const ImageErrorEmptyStateWidget(
+                key: Key('error_message'),
               );
             }
+            return const ImageErrorEmptyStateWidget(
+              isEmptyState: true,
+              key: Key('emptyDataPopularTv'),
+            );
           },
         ),
       ),

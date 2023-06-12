@@ -52,12 +52,10 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               );
             } else if (state is MoviesPopularError) {
               return const ImageErrorEmptyStateWidget(
-                isMovieState: true,
                 key: Key('error_message'),
               );
             }
             return const ImageErrorEmptyStateWidget(
-              isMovieState: true,
               isEmptyState: true,
               key: Key('emptyDataPopularMovie'),
             );

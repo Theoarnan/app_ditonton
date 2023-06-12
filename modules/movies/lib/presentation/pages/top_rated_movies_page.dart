@@ -52,12 +52,10 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
               );
             } else if (state is MoviesTopRatedError) {
               return const ImageErrorEmptyStateWidget(
-                isMovieState: true,
                 key: Key('error_message'),
               );
             }
             return const ImageErrorEmptyStateWidget(
-              isMovieState: true,
               isEmptyState: true,
               key: Key('emptyDataTopRatedMovie'),
             );

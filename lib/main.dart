@@ -37,29 +37,29 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<MovieDetailBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvListNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<TvOnTheAirBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvDetailNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<TvPopularBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvTopRatedBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvRecomendationBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvSeasonDetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvDetailBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<SeasonDetailNotifier>(),
-        ),
         BlocProvider(
           create: (_) => di.locator<WatchlistBloc>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<OnTheAirTvNotifier>(),
         ),
       ],
       child: MaterialApp(

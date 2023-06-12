@@ -26,7 +26,7 @@ void main() {
   }
 
   group('Page popular movie', () {
-    testWidgets('page should display center progress bar when loading',
+    testWidgets('should display center progress bar when loading',
         (WidgetTester tester) async {
       when(() => moviePopularBloc.state).thenReturn(MoviesPopularLoading());
 
@@ -39,7 +39,7 @@ void main() {
       expect(progressBarFinder, findsOneWidget);
     });
 
-    testWidgets('page should display ListView when data is loaded',
+    testWidgets('should display ListView when data is loaded',
         (WidgetTester tester) async {
       when(() => moviePopularBloc.state).thenReturn(
         MoviePopularHasData(tMovieList),
@@ -56,7 +56,7 @@ void main() {
       expect(listViewContentFinder, findsOneWidget);
     });
 
-    testWidgets('page should display ilustration empty when state is empty',
+    testWidgets('should display ilustration empty when state is empty',
         (WidgetTester tester) async {
       when(() => moviePopularBloc.state).thenReturn(
         MoviesPopularEmpty(),
@@ -69,7 +69,7 @@ void main() {
       expect(ilustrationFinder, findsOneWidget);
     });
 
-    testWidgets('Page should display text with message when Error',
+    testWidgets('should display text with message when Error',
         (WidgetTester tester) async {
       when(() => moviePopularBloc.state).thenReturn(
         const MoviesPopularError('Error Message'),
