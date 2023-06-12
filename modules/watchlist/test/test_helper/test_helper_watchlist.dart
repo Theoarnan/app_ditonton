@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:core/data/datasources/local/database_helper.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:watchlist/data/datasources/db/database_helper.dart';
 import 'package:watchlist/watchlist.dart';
 
 @GenerateMocks([

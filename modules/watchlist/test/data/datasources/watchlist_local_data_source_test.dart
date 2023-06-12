@@ -21,7 +21,7 @@ void main() {
     test('should return success message when insert to database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(watchlistTableModel))
+      when(mockDatabaseHelper.insertWatchlist(watchlistTableModel.toJson()))
           .thenAnswer((_) async => 1);
       // act
       final result = await dataSource.insertWatchlist(watchlistTableModel);
@@ -32,7 +32,7 @@ void main() {
     test('should throw DatabaseException when insert to database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(watchlistTableModel))
+      when(mockDatabaseHelper.insertWatchlist(watchlistTableModel.toJson()))
           .thenThrow(Exception());
       // act
       final call = dataSource.insertWatchlist(watchlistTableModel);
@@ -45,7 +45,7 @@ void main() {
     test('should return success message when remove from database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(watchlistTableModel))
+      when(mockDatabaseHelper.removeWatchlist(watchlistTableModel.id))
           .thenAnswer((_) async => 1);
       // act
       final result = await dataSource.removeWatchlist(watchlistTableModel);
@@ -56,7 +56,7 @@ void main() {
     test('should throw DatabaseException when remove from database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(watchlistTableModel))
+      when(mockDatabaseHelper.removeWatchlist((watchlistTableModel.id)))
           .thenThrow(Exception());
       // act
       final call = dataSource.removeWatchlist(watchlistTableModel);

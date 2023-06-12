@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:watchlist/data/datasources/db/database_helper.dart';
 import 'package:watchlist/data/models/watchlist_table_model.dart';
 
 abstract class WatchlistLocalDataSource {
@@ -40,7 +39,7 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   @override
   Future<String> insertWatchlist(WatchlistTableModel watchlist) async {
     try {
-      await databaseHelper.insertWatchlist(watchlist);
+      await databaseHelper.insertWatchlist(watchlist.toJson());
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -50,7 +49,7 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   @override
   Future<String> removeWatchlist(WatchlistTableModel watchlist) async {
     try {
-      await databaseHelper.removeWatchlist(watchlist);
+      await databaseHelper.removeWatchlist(watchlist.id);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());

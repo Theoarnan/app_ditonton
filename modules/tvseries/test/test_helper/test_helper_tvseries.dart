@@ -1,11 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:http/http.dart' as http;
+import 'package:core/data/datasources/remote/remote_helper.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tvseries/tvseries.dart';
 import 'package:watchlist/watchlist.dart';
 
 @GenerateMocks([
+  RemoteHelper,
   TvRepository,
   TvRemoteDataSource,
   GetOnTheAirTv,
@@ -17,8 +18,6 @@ import 'package:watchlist/watchlist.dart';
   GetWatchListStatus,
   SaveWatchlistTv,
   RemoveWatchlistTv,
-], customMocks: [
-  MockSpec<http.Client>(as: #MockHttpClient)
 ])
 void main() {}
 
