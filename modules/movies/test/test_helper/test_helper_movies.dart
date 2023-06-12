@@ -1,11 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:core/core.dart';
 import 'package:mockito/annotations.dart';
-import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:movies/movies.dart';
 import 'package:watchlist/watchlist.dart';
 
 @GenerateMocks([
+  RemoteHelper,
   MovieRepository,
   MovieRemoteDataSource,
   GetMovieDetail,
@@ -16,8 +17,6 @@ import 'package:watchlist/watchlist.dart';
   GetNowPlayingMovies,
   GetPopularMovies,
   GetTopRatedMovies,
-], customMocks: [
-  MockSpec<http.Client>(as: #MockHttpClient)
 ])
 void main() {}
 

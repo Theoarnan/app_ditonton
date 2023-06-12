@@ -14,11 +14,11 @@ void main() {
   const baseURL = 'https://api.themoviedb.org/3';
 
   late TvRemoteDataSourceImpl dataSource;
-  late MockHttpClient mockHttpClient;
+  late MockRemoteHelper mockRemoteHelper;
 
   setUp(() {
-    mockHttpClient = MockHttpClient();
-    dataSource = TvRemoteDataSourceImpl(client: mockHttpClient);
+    mockRemoteHelper = MockRemoteHelper();
+    dataSource = TvRemoteDataSourceImpl(remoteHelper: mockRemoteHelper);
   });
 
   group('get on the air tv', () {
@@ -29,7 +29,7 @@ void main() {
     test('should return list of Tv Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/on_the_air?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/on_the_air?$apiKey')))
           .thenAnswer(
         (_) async =>
             http.Response(readJson('test_helper/dummy_json/tv_list.json'), 200),
@@ -44,7 +44,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/on_the_air?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/on_the_air?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getOnTheAirTv();
@@ -61,7 +61,7 @@ void main() {
     test('should return list of Tv Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/top_rated?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/top_rated?$apiKey')))
           .thenAnswer(
         (_) async =>
             http.Response(readJson('test_helper/dummy_json/tv_list.json'), 200),
@@ -76,7 +76,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/top_rated?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/top_rated?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getTopRatedTv();
@@ -93,7 +93,7 @@ void main() {
     test('should return list of Tv Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/popular?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/popular?$apiKey')))
           .thenAnswer(
         (_) async =>
             http.Response(readJson('test_helper/dummy_json/tv_list.json'), 200),
@@ -108,7 +108,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/popular?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/popular?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getPopularTv();
@@ -124,7 +124,7 @@ void main() {
 
     test('should return tv detail when the response code is 200', () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/$tId?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/$tId?$apiKey')))
           .thenAnswer((_) async => http.Response(
               readJson('test_helper/dummy_json/tv_detail.json'), 200));
       // act
@@ -136,7 +136,7 @@ void main() {
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$baseURL/tv/$tId?$apiKey')))
+      when(mockRemoteHelper.get(Uri.parse('$baseURL/tv/$tId?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getTvDetail(tId);
@@ -154,7 +154,7 @@ void main() {
     test('should return list of Tv Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockRemoteHelper
               .get(Uri.parse('$baseURL/tv/$tId/recommendations?$apiKey')))
           .thenAnswer((_) async => http.Response(
               readJson('test_helper/dummy_json/tv_recommendations.json'), 200));
@@ -167,7 +167,7 @@ void main() {
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockRemoteHelper
               .get(Uri.parse('$baseURL/tv/$tId/recommendations?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
@@ -185,7 +185,7 @@ void main() {
 
     test('should return list of movies when response code is 200', () async {
       // arrange
-      when(mockHttpClient
+      when(mockRemoteHelper
               .get(Uri.parse('$baseURL/search/tv?$apiKey&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
               readJson('test_helper/dummy_json/tv_list.json'), 200));
@@ -198,7 +198,7 @@ void main() {
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockRemoteHelper
               .get(Uri.parse('$baseURL/search/tv?$apiKey&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
@@ -216,7 +216,7 @@ void main() {
 
     test('should return season detail when the response code is 200', () async {
       // arrange
-      when(mockHttpClient
+      when(mockRemoteHelper
               .get(Uri.parse('$baseURL/tv/$tId/season/$tSeasonNumber?$apiKey')))
           .thenAnswer((_) async => http.Response(
               readJson('test_helper/dummy_json/season_detail.json'), 200));
@@ -229,7 +229,7 @@ void main() {
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockRemoteHelper
               .get(Uri.parse('$baseURL/tv/$tId/season/$tSeasonNumber?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act

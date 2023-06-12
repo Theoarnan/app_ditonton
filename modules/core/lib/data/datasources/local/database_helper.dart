@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
-import 'package:watchlist/data/models/watchlist_table_model.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;
@@ -42,26 +41,26 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<int> insertWatchlist(WatchlistTableModel data) async {
+  Future<int> insertWatchlist(Map<String, dynamic> data) async {
     final db = await database;
-    return await db!.insert(_tblWatchlist, data.toJson());
+    return await db!.insert(_tblWatchlist, data);
   }
 
-  Future<int> removeWatchlist(WatchlistTableModel data) async {
+  Future<int> removeWatchlist(int dataId) async {
     final db = await database;
     return await db!.delete(
       _tblWatchlist,
       where: 'id = ?',
-      whereArgs: [data.id],
+      whereArgs: [dataId],
     );
   }
 
-  Future<Map<String, dynamic>?> getWatchlistById(int id) async {
+  Future<Map<String, dynamic>?> getWatchlistById(int dataId) async {
     final db = await database;
     final results = await db!.query(
       _tblWatchlist,
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [dataId],
     );
     if (results.isNotEmpty) {
       return results.first;
