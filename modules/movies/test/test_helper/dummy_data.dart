@@ -1,9 +1,5 @@
 import 'package:core/core.dart';
-import 'package:movies/data/models/movie_detail_model.dart';
-import 'package:movies/data/models/movie_model.dart';
-import 'package:movies/data/models/movie_response.dart';
-import 'package:movies/domain/entities/movie.dart';
-import 'package:movies/domain/entities/movie_detail.dart';
+import 'package:movies/movies.dart';
 
 const genreModel = GenreModel(
   id: 1,
@@ -88,4 +84,14 @@ final tMovieList = <Movie>[tMovie];
 
 const tMovieResponseModel = MovieResponse(
   movieList: <MovieModel>[tMovieModel],
+);
+
+final tMovieDetailHasDataState = MovieDetailHasData(
+  movieDetail: testMovieDetail,
+  isActiveWatchlist: false,
+);
+
+final tMovieDetailHasDataStateTrue = MovieDetailHasData(
+  movieDetail: testMovieDetail,
+  isActiveWatchlist: true,
 );

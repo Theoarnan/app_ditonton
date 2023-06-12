@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:search/presentation/provider/tv_search_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:search/search.dart';
 import 'package:tvseries/tvseries.dart';
 
 class SearchTvPage extends StatelessWidget {
@@ -21,11 +21,8 @@ class SearchTvPage extends StatelessWidget {
           children: [
             TextField(
               key: const Key('enterSearchQueryTv'),
-              onSubmitted: (query) {
-                Provider.of<TvSearchNotifier>(
-                  context,
-                  listen: false,
-                ).fetchTvSearch(query);
+              onChanged: (query) {
+                context.read<SearchBloc>().add(OnQueryChangedTv(query));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -39,22 +36,17 @@ class SearchTvPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<TvSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.loading) {
+            BlocBuilder<SearchBloc, SearchState>(
+              builder: (context, state) {
+                if (state is SearchLoading) {
                   return const Center(
                     key: Key('loading_search_tv'),
                     child: CircularProgressIndicator(
                       key: Key('circular_search_tv'),
                     ),
                   );
-                } else if (data.state == RequestState.loaded) {
-                  final result = data.searchResult;
-                  if (result.isEmpty) {
-                    return const NoDataSearchTv(
-                      title: 'Search tv not found',
-                    );
-                  }
+                } else if (state is SearchTvHasData) {
+                  final result = state.resultTv;
                   return Expanded(
                     key: const Key('list_search_tv'),
                     child: ListView.builder(
@@ -62,7 +54,7 @@ class SearchTvPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       itemCount: result.length,
                       itemBuilder: (context, index) {
-                        final tv = data.searchResult[index];
+                        final tv = result[index];
                         return TvCard(
                           key: Key('listTvSearch$index'),
                           tv,
@@ -70,12 +62,16 @@ class SearchTvPage extends StatelessWidget {
                       },
                     ),
                   );
-                } else if (data.state == RequestState.error) {
+                } else if (state is SearchError) {
                   return Expanded(
                     child: Center(
                       key: const Key('error_message_search_tv'),
-                      child: Text(data.message),
+                      child: Text(state.message),
                     ),
+                  );
+                } else if (state is SearchEmpty) {
+                  return const NoDataSearchTv(
+                    title: 'Search tv not found',
                   );
                 } else {
                   return const NoDataSearchTv();

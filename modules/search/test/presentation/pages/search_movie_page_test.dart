@@ -1,45 +1,26 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:movies/movies.dart';
-import 'package:provider/provider.dart';
-import 'package:search/presentation/pages/search_movie_page.dart';
-import 'package:search/presentation/provider/movie_search_notifier.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:search/search.dart';
 
-import '../../test_helper/test_helper_search.mocks.dart';
+import '../../test_helper/dummy_data.dart';
+import '../../test_helper/test_helper_search.dart';
 
 void main() {
-  late MockMovieSearchNotifier mockNotifier;
+  late SearchBloc searchBloc;
 
-  setUp(() {
-    mockNotifier = MockMovieSearchNotifier();
+  setUpAll(() {
+    searchBloc = MockSearchBloc();
+    registerFallbackValue(FakeSearchEvent());
+    registerFallbackValue(FakeSearchState());
   });
 
-  final testMovie = Movie(
-    adult: false,
-    backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-    genreIds: const [14, 28],
-    id: 557,
-    originalTitle: 'Spider-Man',
-    overview:
-        'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
-    popularity: 60.441,
-    posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-    releaseDate: '2002-05-01',
-    title: 'Spider-Man',
-    video: false,
-    voteAverage: 7.2,
-    voteCount: 13507,
-  );
-
-  final testMovieList = [testMovie];
-
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<MovieSearchNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
+    return MaterialApp(
+      home: BlocProvider<SearchBloc>.value(
+        value: searchBloc,
+        child: body,
       ),
     );
   }
@@ -47,7 +28,7 @@ void main() {
   group('Page search movie', () {
     testWidgets('should display center progress bar when loading',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loading);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
 
       final centerFinder = find.byKey(const Key('loading_search_movie'));
       final progressBarFinder = find.byKey(const Key('circular_search_movie'));
@@ -60,8 +41,8 @@ void main() {
 
     testWidgets('should display list search content when data is loaded',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.searchResult).thenReturn(testMovieList);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn((SearchMovieHasData(tMovieList)));
 
       final listViewFinder = find.byKey(const Key('list_search_movie'));
 
@@ -71,10 +52,10 @@ void main() {
     });
 
     testWidgets(
-        'should display empty content in list search when data is loaded',
+        'should display empty content in list search when data is loaded but empty',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.searchResult).thenReturn(<Movie>[]);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(SearchEmpty());
 
       final emptyContent = find.byKey(const Key('emptyDataSearchMovie'));
       final emptyContentText = find.text('Search movie not found');
@@ -88,8 +69,8 @@ void main() {
     testWidgets(
         'should display empty content in list search when data is empty',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.empty);
-      when(mockNotifier.searchResult).thenReturn(<Movie>[]);
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(InitSearch());
 
       final emptyContent = find.byKey(const Key('emptyDataSearchMovie'));
       final emptyContentText = find.text('Search movie');
@@ -100,10 +81,12 @@ void main() {
       expect(emptyContentText, findsOneWidget);
     });
 
-    testWidgets('should display text with message when Error',
+    testWidgets('should display text with message when error',
         (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.error);
-      when(mockNotifier.message).thenReturn('Error message');
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(
+        const SearchError('Error message'),
+      );
 
       final textFinder = find.byKey(const Key('error_message_search_movie'));
 
@@ -112,17 +95,21 @@ void main() {
       expect(textFinder, findsOneWidget);
     });
 
-    testWidgets('should text field is submit', (WidgetTester tester) async {
-      when(mockNotifier.state).thenReturn(RequestState.loaded);
-      when(mockNotifier.searchResult).thenReturn(<Movie>[]);
+    testWidgets('should text field is onChanged', (WidgetTester tester) async {
+      when(() => searchBloc.state).thenReturn(SearchLoading());
+      when(() => searchBloc.state).thenReturn(SearchMovieHasData(tMovieList));
 
       final textFieldFinder = find.byKey(const Key('enterSearchQueryMovie'));
 
       await tester.pumpWidget(makeTestableWidget(const SearchMoviePage()));
       await tester.ensureVisible(textFieldFinder);
       await tester.enterText(textFieldFinder, 'Dirty');
-      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.testTextInput.receiveAction(TextInputAction.search);
       await tester.pump();
+
+      expect(find.byKey(const Key('list_search_movie')), findsOneWidget);
+      expect(find.byKey(const Key('movieSearchScrollView')), findsOneWidget);
+      expect(find.byKey(const Key('listMovieSearch0')), findsOneWidget);
     });
   });
 }

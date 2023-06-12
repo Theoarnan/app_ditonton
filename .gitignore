@@ -42,3 +42,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+/coverage/html/
+/modules/movies/coverage/html
+/modules/search/coverage/html
+/modules/tvseries/coverage/html
+/modules/watchlist/coverage/html

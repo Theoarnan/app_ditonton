@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tvseries/tvseries.dart';
 
@@ -21,30 +21,26 @@ class _SeasonDetailPageState extends State<SeasonDetailPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () {
-        Provider.of<SeasonDetailNotifier>(
-          context,
-          listen: false,
-        ).fetchSeasonDetail(
-          id: widget.argument.id,
-          seasonNumber: widget.argument.season.seasonNumber,
-        );
-      },
-    );
+    Future.microtask(() {
+      final blocSeasonDetail = context.read<TvSeasonDetailBloc>();
+      blocSeasonDetail.fetchTvSeasonDetail(
+        id: widget.argument.id,
+        seasonNumber: widget.argument.season.seasonNumber,
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<SeasonDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.seasonState == RequestState.loading) {
+      body: BlocBuilder<TvSeasonDetailBloc, TvSeasonDetailState>(
+        builder: (context, state) {
+          if (state is TvSeasonDetailLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.seasonState == RequestState.loaded) {
-            final season = provider.seasonDetail;
+          } else if (state is TvSeasonDetailHasData) {
+            final season = state.resultSeasonDetail;
             return SafeArea(
               key: const Key('content_detail_season'),
               child: ContentDetailSeason(
@@ -52,12 +48,15 @@ class _SeasonDetailPageState extends State<SeasonDetailPage> {
                 seasonDetail: season,
               ),
             );
-          } else {
-            return Center(
-              key: const Key('error_message'),
-              child: Text(provider.message),
+          } else if (state is TvSeasonDetailError) {
+            return const ImageErrorEmptyStateWidget(
+              key: Key('error_message'),
             );
           }
+          return const ImageErrorEmptyStateWidget(
+            isEmptyState: true,
+            key: Key('emptyDataSeasonDetailTv'),
+          );
         },
       ),
     );
@@ -146,23 +145,29 @@ class ContentDetailSeason extends StatelessWidget {
                   style: kHeading6,
                 ),
                 const SizedBox(height: 8),
-                Expanded(
-                  child: ListView.separated(
-                    key: const Key('listSeasonEpisodeTv'),
-                    separatorBuilder: (context, index) => Divider(
-                      key: Key('divider_content_detail_season$index'),
+                if (seasonDetail.episodes.isNotEmpty)
+                  Expanded(
+                    child: ListView.separated(
+                      key: const Key('listSeasonEpisodeTv'),
+                      separatorBuilder: (context, index) => Divider(
+                        key: Key('divider_content_detail_season$index'),
+                      ),
+                      itemCount: seasonDetail.episodes.length,
+                      itemBuilder: (context, index) {
+                        final episode = seasonDetail.episodes[index];
+                        return ListTileEpisode(
+                          key: Key('listSeasonEpisodeTv$index'),
+                          screenWidth: screenWidth,
+                          episode: episode,
+                        );
+                      },
                     ),
-                    itemCount: seasonDetail.episodes.length,
-                    itemBuilder: (context, index) {
-                      final episode = seasonDetail.episodes[index];
-                      return ListTileEpisode(
-                        key: Key('listSeasonEpisodeTv$index'),
-                        screenWidth: screenWidth,
-                        episode: episode,
-                      );
-                    },
+                  )
+                else
+                  const Text(
+                    key: Key('empty_text_episode'),
+                    '*Oops, data episode for this season is empty.',
                   ),
-                )
               ],
             ),
           ),

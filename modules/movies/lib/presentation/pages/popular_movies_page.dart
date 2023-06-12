@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/presentation/provider/popular_movies_notifier.dart';
-import 'package:movies/presentation/widgets/movie_card_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/movies.dart';
 import 'package:provider/provider.dart';
 
 class PopularMoviesPage extends StatefulWidget {
@@ -16,10 +16,10 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => Provider.of<PopularMoviesNotifier>(
+      () => Provider.of<MoviePopularBloc>(
         context,
         listen: false,
-      ).fetchPopularMovies(),
+      ).fetchMoviesPopular(),
     );
   }
 
@@ -31,30 +31,34 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
+          builder: (context, state) {
+            if (state is MoviesPopularLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is MoviePopularHasData) {
+              final result = state.resultMovies;
               return ListView.builder(
                 key: const Key('listPopularMovies'),
+                itemCount: result.length,
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = result[index];
                   return MovieCard(
                     key: Key('listPopularMovies$index'),
                     movie,
                   );
                 },
-                itemCount: data.movies.length,
               );
-            } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
+            } else if (state is MoviesPopularError) {
+              return const ImageErrorEmptyStateWidget(
+                key: Key('error_message'),
               );
             }
+            return const ImageErrorEmptyStateWidget(
+              isEmptyState: true,
+              key: Key('emptyDataPopularMovie'),
+            );
           },
         ),
       ),

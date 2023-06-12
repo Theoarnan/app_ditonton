@@ -15,6 +15,7 @@ class SearchMovieRobot {
     await tester.ensureVisible(textFieldFinder);
     await tester.enterText(textFieldFinder, query);
     await tester.testTextInput.receiveAction(TextInputAction.done);
+    await Future.delayed(const Duration(milliseconds: 600));
     await tester.pumpAndSettle();
 
     /// expected
