@@ -50,6 +50,8 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           IconButton(
             key: const Key('searchButtonMovie'),
             onPressed: () {
+              // Test Firebase on crash
+              // FirebaseCrashlytics.instance.crash();
               Navigator.pushNamed(context, searchMovieRoute);
             },
             icon: const Icon(Icons.search),
