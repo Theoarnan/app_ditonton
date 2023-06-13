@@ -1,6 +1,5 @@
 # app_ditonton
-
-A new Flutter project.
+[![Codemagic build status](https://api.codemagic.io/apps/64799dd8ed0d544961dd09ba/64799dd8ed0d544961dd09b9/status_badge.svg)](https://codemagic.io/apps/64799dd8ed0d544961dd09ba/64799dd8ed0d544961dd09b9/latest_build)
 
 ## Getting Started
 
