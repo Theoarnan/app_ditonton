@@ -16,7 +16,7 @@ class AboutPage extends StatelessWidget {
                   color: kPrussianBlue,
                   child: Center(
                     child: Image.asset(
-                      'assets/circle-g.png',
+                      circleG,
                       width: 128,
                     ),
                   ),
