@@ -75,7 +75,7 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/no-data.gif'),
+                    Image.asset(emptyDataAsset),
                     Text(
                       'Empty data watchlist tv',
                       style: kHeading6,

@@ -26,8 +26,8 @@ class ImageErrorEmptyStateWidget extends StatelessWidget {
   }
 
   String imageHandle() {
-    const imgEmpty = 'assets/empty-data.gif';
-    const imgError = 'assets/error-data.gif';
+    const imgEmpty = emptyImageAsset;
+    const imgError = errorImageAsset;
     return isEmptyState ? imgEmpty : imgError;
   }
 

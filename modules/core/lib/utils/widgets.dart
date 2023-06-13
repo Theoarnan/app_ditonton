@@ -11,7 +11,7 @@ class Widgets {
     Widget imageHandleEmptyWidget() {
       if (noSizeImageError) {
         return Image.asset(
-          imageLoadingAsset,
+          noImageAsset,
           fit: BoxFit.cover,
           key: const Key('loading_image_empty'),
         );
@@ -21,7 +21,7 @@ class Widgets {
           height: 150,
           width: 98,
           child: Image.asset(
-            imageLoadingAsset,
+            noImageAsset,
             fit: BoxFit.cover,
           ),
         );
