@@ -5,7 +5,7 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: '>=3.0.2 <4.0.0'
+  sdk: '>=3.0.3 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
@@ -35,4 +35,4 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/
+    - packages/core/assets_core/no-data.gif

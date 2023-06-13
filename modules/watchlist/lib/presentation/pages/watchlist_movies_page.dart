@@ -77,7 +77,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/no-data.gif'),
+                    Image.asset(emptyDataAsset),
                     Text(
                       'Empty data watchlist movie',
                       style: kHeading6,

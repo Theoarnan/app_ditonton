@@ -101,7 +101,7 @@ class NoDataSearchTv extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/no-data.gif'),
+              Image.asset(emptyDataAsset),
               Text(
                 title,
                 style: kHeading6,
