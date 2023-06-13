@@ -34,4 +34,7 @@ dev_dependencies:
   mocktail: ^0.3.0
 
 flutter:
-  # assets:
+  assets:
+    - packages/core/assets_core/no-image.gif
+    - packages/core/assets_core/error-data.gif
+    - packages/core/assets_core/empty-data.gif
