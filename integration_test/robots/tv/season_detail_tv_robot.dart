@@ -1,7 +1,6 @@
-import 'package:app_ditonton/features/tvseries/presentation/pages/season_detail_page.dart';
-import 'package:app_ditonton/features/tvseries/presentation/pages/tv_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tvseries/tvseries.dart';
 
 class SeasonDetailTvRobot {
   final WidgetTester tester;

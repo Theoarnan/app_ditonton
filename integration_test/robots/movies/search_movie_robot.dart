@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:app_ditonton/presentation/pages/home_movie_page.dart';
-import 'package:app_ditonton/presentation/pages/search_movie_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movies/movies.dart';
+import 'package:search/search.dart';
 
 class SearchMovieRobot {
   final WidgetTester tester;
@@ -15,6 +15,7 @@ class SearchMovieRobot {
     await tester.ensureVisible(textFieldFinder);
     await tester.enterText(textFieldFinder, query);
     await tester.testTextInput.receiveAction(TextInputAction.done);
+    await Future.delayed(const Duration(milliseconds: 600));
     await tester.pumpAndSettle();
 
     /// expected

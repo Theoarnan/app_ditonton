@@ -45,17 +45,17 @@ runTests () {
   cd - > /dev/null
 }
 
-runReport() {
-    if [ -f "coverage/lcov.info" ] && ! [ "$TRAVIS" ]; then
-        genhtml coverage/lcov.info -o coverage --no-function-coverage -s -p `pwd`/coverage
+# runReport() {
+#     if [ -f "coverage/lcov.info" ] && ! [ "$TRAVIS" ]; then
+#         perl C:/ProgramData/chocolatey/lib/lcov/tools/bin/genhtml coverage/lcov.info -o coverage --no-function-coverage -s -p `pwd`/coverage
         
-		if $IsWindows || $ENV:OS; then
-			start coverage/index.html
-		else
-			open coverage/index.html
-		fi
-    fi
-}
+# 		if $IsWindows || $ENV:OS; then
+# 			start coverage/index.html
+# 		else
+# 			open coverage/index.html
+# 		fi
+#     fi
+# }
 
 if ! [ -d .git ]; then printf "\nError: not in root of repo"; show_help; fi
 
@@ -80,7 +80,7 @@ case $1 in
                 show_help
             fi
         fi
-        runReport
+        # runReport
         ;;
 esac
 
