@@ -1,15 +1,17 @@
-# app_ditonton
+# Flutter Expert
+This is a project for flutter expert submission.
+
 [![Codemagic build status](https://api.codemagic.io/apps/64799dd8ed0d544961dd09ba/64799dd8ed0d544961dd09b9/status_badge.svg)](https://codemagic.io/apps/64799dd8ed0d544961dd09ba/64799dd8ed0d544961dd09b9/latest_build)
 
-## Getting Started
+## Description
+<img src="https://cdn-icons-png.flaticon.com/512/541/541415.png"  width="4%" height="4%"><img src="https://cdn-icons-png.flaticon.com/512/541/541415.png"  width="4%" height="4%"><img src="https://cdn-icons-png.flaticon.com/512/541/541415.png"  width="4%" height="4%"><img src="https://cdn-icons-png.flaticon.com/512/541/541415.png"  width="4%" height="4%"><img src="https://cdn-icons-png.flaticon.com/512/541/541415.png"  width="4%" height="4%">
+### Create Ditonton App
+App for show like catalog movie and tv series.
 
-This project is a starting point for a Flutter application.
+### Clone zip
+https://github.com/Theoarnan/app_ditonton/archive/refs/heads/master.zip
+#### Submission 1 Branch : https://shorturl.at/ikEU8
+#### Submission 2 Branch : https://shorturl.at/uxy69
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Authors
+- [@theoarnan](https://www.github.com/theoarnan)
