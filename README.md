@@ -13,10 +13,12 @@ App for show like catalog movie and tv series.
 ##### *Note New Feature :
 *Keep all previous features on submission 1
 - Implementation modularization
+- Implementation continuous integration (CI)
 - Implementation BLOC state management
 - Implementation SSL Pinning
 - Integration with Firebase Analytics & Crashlytics
 - Test Coverage > 95%
+- Add UI fixing on empty or error state
 
 ## Dependencies
 *Keep some previous dependencies on submission 1
